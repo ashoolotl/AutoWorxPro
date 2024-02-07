@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.get('/', (req,res)=>{
-    res.send("Hello from the server");
+    res.send("Hello from the app");
 })
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`))
