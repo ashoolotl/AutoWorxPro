@@ -122,3 +122,31 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+form select {
+    font-family: Montserrat;
+    width: 65%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ED1C24;
+    border-radius: 5px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(128, 128, 128, 0));
+    color: #888;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+form select::after {
+    content: '\25BC';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #ffffff;
+}
+
+form select option:checked {
+    background-color: #ED1C24;
+    color: #ffffff;
+}
