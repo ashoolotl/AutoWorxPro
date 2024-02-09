@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>User Profile</title>
+  <link rel="stylesheet" href="user-profile.css">
+
+</head>
+
+<body>
+
+  <!--this is the navbar, make this a partial soon-->
+  <div class="navbar">
+    <div class="navbar-left">
+      <div class="logo">
+        <a href="#"><img src="./images/logo-red.png"></a>
+      </div>
+      <a href="#">Home</a>
+      <a href="#">Subscriptions</a>
+      <a href="#">Services</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="navbar-right">
+      <div class="username">
+        <a href="#" class="user-link">
+          <img src="./images/usernamebg.png" alt="User Profile Image">
+          <span>Hello, Pedro</span> <!--turn this to drop down-->
+        </a>
+      </div>
+      <a href="#" class="cart-icon"><img src="./images/cart.png"></a>
+      <a href="#" class="search-icon"><img src="./images/search.png"></a>
+    </div>
+  </div>
+
+  <header>
+    <!--add photo here-->
+  </header>
+
+  <div class="profile-container">
+    <div id="profile-picture">
+      <img src="./images/filler-icon.jpg" alt="Profile Picture">
+    </div>
+
+    <h1>Hi, <span>Pedro</span></h1>
+    <p>What would you like to get started on today?</p>
+  </div>
+
+  <div class="registered-cars">
+    <h2>Registered Cars</h2>
+
+    <!--car details currently static convert to changeable + change names of classes too-->
+    <hr>
+    <div class="car">
+      <img src="./images/sedan.png">
+      <div class="car-status">
+        <div class="car-info">
+              <p class="car-text">Status:</p>
+              <p class="status">On-going</p>
+          </div>
+          <div class="car-info">
+              <p class="car-text">Plate Number:</p>
+              <p class="status">XXX  1234</p>
+          </div>
+          <div class="car-info">
+              <p class="car-text">Contact Person:</p>
+              <p class="status">Grogu - XX</p>
+          </div>
+      </div>    
+    </div>
+
+    <hr>
+    <div class="car">
+      <img src="./images/sedan.png">
+      <div class="car-status">
+        <div class="car-info">
+              <p class="car-text">Status:</p>
+              <p class="status">Not Available</p>
+          </div>
+          <div class="car-info">
+              <p class="car-text">Plate Number:</p>
+              <p class="status">XXX  4567</p>
+          </div>
+          <div class="car-info">
+              <p class="car-text">Contact Person:</p>
+              <p class="status">Not Available</p>
+          </div>
+      </div>    
+    </div>
+
+    <hr>
+    <div id = "add"><img src="./images/add.png"></div> <!--pop up should appear here in order to register new cars-->
+
+  </div>
+
+  <div class="active-subscriptions">
+    <h2>Active Subscriptions</h2>
+
+    <div class = "subscriptions">
+      <img src="./images/service-1.png">
+      <img src="./images/service-2.png">
+    </div>
+  </div>
+
+  <div class = "footer">
+    work in progress lol
+  </div>
+
+
+</body>
+
+</html>
