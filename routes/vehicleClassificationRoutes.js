@@ -7,11 +7,15 @@ const router = express.Router();
 router
     .route('/')
     .get(vehicleClassification.getAllClassification)
-    .post(vehicleClassification.createClassification);
+    .post(
+        vehicleClassification.validateVehicleClassificationData,
+        vehicleClassification.createClassification
+    );
 
 router
     .route('/:classificationId')
     .patch(
+        vehicleClassification.validateVehicleClassificationData,
         vehicleClassification.updateServiceWithVehicleClass,
         vehicleClassification.updateClassification
     )

@@ -13,7 +13,14 @@ router
 
 router
     .route('/:serviceId')
-    .patch(serviceController.validateServiceData, serviceController.editService)
-    .delete(serviceController.deleteService);
+    .patch(
+        serviceController.validateServiceData,
+        serviceController.updateSubscriptionWithService,
+        serviceController.editService
+    )
+    .delete(
+        serviceController.deleteServiceWithSubscription,
+        serviceController.deleteService
+    );
 
 module.exports = router;

@@ -6,11 +6,18 @@ const router = express.Router();
 router
     .route('/')
     .get(subscriptionController.getAllSubscription)
-    .post(subscriptionController.createSubscription);
+    .post(
+        subscriptionController.validateSubscriptionData,
+        subscriptionController.createSubscription
+    );
 //.post(serviceController.createService);
 
-router.route('/:serviceId');
-// .patch(serviceController.editService)
-// .delete(serviceController.deleteService);
+router
+    .route('/:subscriptionId')
+    .patch(
+        subscriptionController.validateSubscriptionData,
+        subscriptionController.editSubscription
+    )
+    .delete(subscriptionController.deleteSubscription);
 
 module.exports = router;
