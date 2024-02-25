@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+@font-face {
+    font-family: 'Crillee';
+    src: url('./fonts/Crillee\ Italic\ BT.ttf') format('truetype');
+}
+body {
+    margin: 0;
+    font-family: Montserrat;
+    background: linear-gradient(to right, #1C1B1E, #3A3A3C);
+}
+
+header{
+    font-family: 'Crillee';
+    position: relative;
+    height: 100px;
+    color: #ED1C24;
+    font-size: 3.0rem;
+
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*navbar settings move to partial soon*/
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #0E0D10;
+    padding: 10px 20px;
+}
+
+.navbar-left {
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    align-items: center;
+}
+
+.navbar-right {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    align-items: center;
+}
+
+.navbar-right a {
+    margin-left: -10px !important;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0 20px;
+}
+
+.logo img {
+    width: 150px;
+    margin-right: 30px;
+}
+
+.username {
+    display: flex;
+    align-items: center;
+}
+
+.user-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #666666 !important;
+    text-decoration: none;
+}
+
+.user-link span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    font-size: 12px;
+}
+
+/*navbar settings move to partial soon*/
+
+/*top part*/
+
+.top-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-item {
+    position: relative;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    margin-bottom: 10px;
+}
+
+.top-item p {
+    color: white;
+    font-size: 300%;
+    font-weight: bolder;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10px; /* Optional: Add padding for better readability */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.top-item img {
+    max-width: 100%;  
+    height: auto;
+    display: block;
+}
+
+.top-item::after {
+    content: '';
+    position: absolute;
+    top:  0;
+    left:  0;
+    width:  100%;
+    height: 86.5%; 
+    background: linear-gradient(to bottom, rgba(255,   0,   0,   0.5), rgba(255,   0,   0,   0)); 
+    pointer-events: none;
+}
+
+/*bottom part*/
+
+.bottom-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.bottom-item {
+    position: relative;
+    height: 40rem;
+    overflow: hidden; /* Ensure that the image does not overflow its container */
+}
+
+.bottom-item img {
+    width: 100%; /* Make the image take up 100% of the width of its container */
+    height: auto; /* Maintain the aspect ratio of the image */
+    display: block;
+    opacity: 0.2; /* Set the opacity to your desired value */
+}
+
+.bottom-item h2,
+.bottom-item h3,
+.bottom-item p {
+    position: absolute;
+    z-index: 1; /* Ensure the text is in front of the image */
+    color: white; /* Add a color to make the text visible on the image */
+    padding: 30px; /* Increase the padding to add space around the text */
+    width: 90%; /* Reduce the width to avoid text being too close to the edges */
+}
+
+.bottom-item h2 {
+    font-family: 'Crillee';
+    color: #ED1C24;
+    text-decoration: underline;
+    font-size: 3rem;
+    top: 5%; /* Adjust the top position for h2 */
+}
+
+.bottom-item h3 {
+    top: 25%; /* Adjust the top position for h3 */
+    font-size: 1.5rem;
+}
+
+.bottom-item p {
+    top: 38%; /* Adjust the top position for the paragraph */
+    line-height: 2.0;
+    font-size: 1.2rem;
+}
+
+
+.buttons-container {
+    display: flex;
+    margin-top: -22rem;
+    margin-left: 2rem;
+}
+  
+.add-to-cart-btn,
+.book-appointment-btn {
+    font-family: Montserrat;
+    font-size: 1.2rem;
+    padding: 10px;
+    margin-right: 10px;
+    background-color: #ED1C24;
+    color: white;
+    background-color: transparent;
+    border: 2px solid white; /* Set the border for the outline */
+    cursor: pointer;
+    border-radius: 2px;
+}
+  
+.add-to-cart-btn:hover,
+.book-appointment-btn:hover {
+    background-color: #FF5555;
+}
+
+
+
+
