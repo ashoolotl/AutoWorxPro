@@ -1,8 +1,9 @@
 const express = require('express');
 const serviceController = require('../controllers/serviceController');
-
+const authController = require('../controllers/authController');
 const router = express.Router();
-
+router.use(authController.protect);
+router.use(authController.restrictTo('admin'));
 router
     .route('/')
     .get(serviceController.getAllServices)

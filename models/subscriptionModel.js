@@ -85,6 +85,7 @@ subscriptionSchema.pre('findOneAndUpdate', async function (next) {
         (price) => `${price.tokensAmount} ${price.service}`
     );
     this._update.description = descriptions.join(', ');
+    next();
 });
 // custom plugin to avoid duplicate on services lets say 'Express Wash' and another 'Express Wash'
 subscriptionSchema.plugin(handleDuplicatesPlugin);

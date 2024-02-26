@@ -1,6 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
-
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const hpp = require('hpp');
 /*--------------DECLARE THE ROUTERS HERE--------------*/
 const AppError = require('./utils/appError');
 const GlobalErrorHandler = require('./controllers/errorController');
@@ -9,18 +12,36 @@ const userRouter = require('./routes/userRoutes');
 const vehicleClassificationRouter = require('./routes/vehicleClassificationRoutes');
 const serviceRouter = require('./routes/serviceRoutes');
 const subscriptionRouter = require('./routes/subscriptionRoutes');
+
 const app = express();
-// just to check if we are in development or production you can comment code below
-console.log(process.env.NODE_ENV);
-// if in development show the logs of the api calls
+
+// global middle ware
+// set security HTTP headers
+app.use(helmet());
+
+//development logging
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-app.get('/', (req, res) => {
-    res.send('Hello from the server');
+// LIMIT REQUEST FROM API
+const limiter = rateLimit({
+    max: 200,
+    windowMs: 60 * 60 * 1000,
+    message: 'Too many request from this IP, please try again in an hour',
 });
-app.use(express.json());
+app.use('/api', limiter);
+
+// Body Parser, reading data from body into req.body
+app.use(express.json({ limit: '10kb' }));
+// data sanitization here against nosql query injection
+app.use(mongoSanitize());
+// data sanitization against XSS
+
+// prevent parameter pollution
+app.use(hpp());
+
+// serving static files
 app.use(express.static(`${__dirname}/public`));
 
 /*--------------DECLARE THE ROUTES HERE--------------*/
