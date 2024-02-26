@@ -2,6 +2,7 @@ const VehicleClassification = require('../models/vehicleClassificationModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Service = require('../models/servicesModel');
+const Subscription = require('../models/subscriptionModel');
 
 exports.createClassification = catchAsync(async (req, res, next) => {
     const newClassification = await VehicleClassification.create(req.body);
@@ -128,6 +129,10 @@ exports.deleteServiceWithVehicleClass = async (req, res, next) => {
             service.prices.length === 1 &&
             service.prices[0].vehicleClassification === classification.name
         ) {
+            // since we are deleting service, we also need to update pull or delete all data with that service
+
+            // delete here the subscription which contains this service and check in THE SUBSCRIPTION IF ITS PRICES IS 1 AND ONLY CONTAINS THE SERVICE TO BE DELETE
+
             await Service.findByIdAndDelete(service._id);
         } else {
             await Service.updateMany(
