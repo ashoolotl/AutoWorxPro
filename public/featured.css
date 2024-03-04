@@ -10,6 +10,17 @@ body {
     background: linear-gradient(to right, #1C1B1E, #3A3A3C);
 }
 
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Adjust the alpha (fourth value) for darkness */
+    z-index: 1;
+  }
+
 header{
     font-family: 'Crillee';
     position: relative;
@@ -94,15 +105,19 @@ header{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
 }
 
 .top-item {
     position: relative;
     width: 40%;
+    max-height: 21rem;
     justify-content: center;
     align-items: center;
     margin: 50px;
     margin-bottom: 10px;
+    background-color: transparent;
+    overflow: hidden;
 }
 
 .top-item p {
@@ -118,10 +133,23 @@ header{
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
+#add {
+    background-color: transparent;
+    border: 0;
+     /* Add a smooth transition for the hover effect */
+}
+
+
 .top-item img {
-    max-width: 100%;  
+    width: 100%;
+    height:100%;
     height: auto;
     display: block;
+    transition: box-shadow 0.3s ease;
+}
+
+.top-item img:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .top-item::after {
@@ -149,9 +177,14 @@ header{
     max-width: 100%;  
     height: auto;
     display: block;
+    background-color: rgba(0, 0, 0, 0); /* Ensure transparency */
+    transition: box-shadow 0.3s ease;
+    border-radius: 30px; 
 }
 
-
+.top-item-add img:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
 
 
 /*pop up*/
@@ -165,7 +198,7 @@ header{
     background: linear-gradient(to right, #1C1B1E, #3A3A3C);
     padding: 20px;
     border-radius: 10px;
-    color: whitesmoke;
+    color: red;
     z-index: 9999;
     width: 75%;
     font-size: 18px;
@@ -175,6 +208,8 @@ header{
     text-align: center;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    max-height: 40rem;
 }
 
 .closePopup {
@@ -184,18 +219,11 @@ header{
     cursor: pointer;
 }
 
-#successPopup {
-    background-color: #B6DA9F;
-}
-
-#successPopup p {
-    color: whitesmoke;
-}
-
 /* popup form */
 
 .popupContent form {
-    max-width: 80%;
+    max-width: 100%;
+    width: 70%;
     margin: 0 auto;
 }
 
@@ -203,54 +231,57 @@ header{
     display: block;
     margin-bottom: 5px;
     color: whitesmoke;
+    width: 100%; /* Set a fixed width for labels */
 }
+
 
 .popupContent form input[type="text"],
 .popupContent form input[type="number"],
 .popupContent form input[type="password"],
-.popupContent form select {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.popupContent form select {
-    width: 100%;
+.popupContent form select,
+.popupContent form textarea {
+    width: calc(100% - 20px); /* Adjust the width as needed */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .popupContent form button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
+    margin-top: 25px;
+    background-color: #ED1C24;
     color: white;
+    padding: 12px 20px;
+    font-size: 1.2rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-  
+
 .popupContent form button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #FF5555;
 }
 
-.popupContent #closeBtn {
-    width: 100%;
+.popupContent form label[for="uploadImage"] {
+    display: block;
+    margin-bottom: 5px;
+    color: whitesmoke;
+}
+
+.popupContent form input[type="file"] {
+    width: calc(100% - 80px);
     padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
 }
 
-.popupContent #closeBtn:hover {
-    background-color: #45a049;
+.popupContent form input[type="file"]:hover {
+    border-color: #ED1C24; /* Change border color on hover if needed */
 }
-  
+
+
 
 /*bottom part*/
 

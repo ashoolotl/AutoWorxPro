@@ -13,6 +13,8 @@
 
 <body>
 
+  <div id="overlay"></div>
+
   <!--this is the navbar, make this a partial soon-->
   <div class="navbar">
     <div class="navbar-left">
@@ -63,58 +65,75 @@
     <!--items should appear on top of this button and update the container below as well-->
     <div class="top-item-add">
       <button id="add"><img id="image5" src="./images/add-new-sub.png" alt="Image 4"></button>
-    </div>    
+    </div>
 
-     <!-- popup here -->
-     <div id="addCarPopup" class="popupContainer">
+  </div>
+
+    <!-- popup here -->
+    <div id="addSubPopup" class="popupContainer">
       <div class="popupContent">
         <span id="closePopup" class="closePopup">&times;</span>
         <h1>Add a Subscription</h1>
         <form id="form">
+          <label for="subscriptionName">Subscription Name</label>
+          <input type="text" id="subscriptionName" name="subscriptionName" required>
 
-          <label for="classType">Classification</label><br>
-          <select id="classType" name="classType" required>
-            <option value="">Select Class Type</option>
-            <option value="motorcycle">Motorcycle</option>
-            <option value="sedan">Sedan</option>
-            <option value="hatchback">Hatchback</option>
-            <option value="suv">SUV</option>
-            <option value="pickup">Pickup</option>
-            <option value="van">Van</option>
-          </select><br>
+          <label for="subscriptionDetails">Subscription Details</label>
+          <textarea id="subscriptionDetails" name="subscriptionDetails" rows="4" required></textarea>
 
-          <label for="carBrand">Brand</label>
-          <input type="text" id="carBrand" name="carBrand" required><br>
+          <label for="subscriptionDescription">Subscription Description</label>
+          <textarea id="subscriptionDescription" name="subscriptionDescription" rows="6" required></textarea>
 
-          <label for="carMake">Make</label>
-          <input type="text" id="carMake" name="carMake" required><br>
+          <label for="uploadImage">Upload Image</label>
+        <input type="file" id="uploadImage" name="uploadImage" accept="image/*">
 
-          <label for="carModel">Model</label>
-          <input type="text" id="carModel" name="carModel" required><br>
 
-          <label for="carYear">Year</label>
-          <input type="number" id="carYear" name="carYear" required><br>
+          <fieldset>
+            <legend>Select Services and Input Tokens</legend>
+            <label>
+              <input type="checkbox" name="selectedItems" value="item1">
+              Item 1
+              <input type="number" name="item1Quantity" min="1" value="1">
+            </label>
 
-          <label for="plateNumber">Plate Number (3 Digits, 2 Letters, 5 Digits)</label>
-          <input type="text" id="plateNumber" name="plateNumber" pattern="\d{3}[A-Za-z]{2}\d{5}" required><br>
-        
+            <label>
+              <input type="checkbox" name="selectedItems" value="item2">
+              Item 2
+              <input type="number" name="item2Quantity" min="1" value="1">
+            </label>
+
+            <label>
+              <input type="checkbox" name="selectedItems" value="item3">
+              Item 3
+              <input type="number" name="item3Quantity" min="1" value="1">
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Select Vehicle Class and Input Prices</legend>
+            <label>
+              <input type="checkbox" name="selectedItems" value="item1">
+              Item 1
+              <input type="number" name="item1Quantity" min="1" value="1">
+            </label>
+
+            <label>
+              <input type="checkbox" name="selectedItems" value="item2">
+              Item 2
+              <input type="number" name="item2Quantity" min="1" value="1">
+            </label>
+
+            <label>
+              <input type="checkbox" name="selectedItems" value="item3">
+              Item 3
+              <input type="number" name="item3Quantity" min="1" value="1">
+            </label>
+          </fieldset>
+
           <button type="submit">Submit</button>
         </form>
       </div>
     </div>
-
-    </div>
-
-    <div id="successPopup" class="popupContainer">
-      <div class="popupContent">
-        <span id="closeSuccessPopup" class="closePopup">&times;</span>
-        <h1>Completed</h1>
-        <p>Your car has been added successfully.</p>
-        <button type="submit" id="closeBtn">Done</button>
-      </div>
-    </div>
-
-  </div>
 
   <div class="bottom-container">
 
@@ -122,9 +141,12 @@
       <img src="./images/featured/1.jpg" alt="Image 1">
       <h2>Subscription 01</h2>
       <h3>4 Express Wash, 1 Master Wash</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor
+        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui
         officia deserunt mollit anim id est laborum.</p>
       <div class="buttons-container">
         <button class="add-to-cart-btn">Add to Cart</button>
@@ -136,9 +158,12 @@
       <img src="./images/featured/2.jpg" alt="Image 1">
       <h2>Subscription 02</h2>
       <h3>8 Express Wash, 2 Master Wash</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor
+        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui
         officia deserunt mollit anim id est laborum.</p>
       <div class="buttons-container">
         <button class="add-to-cart-btn">Add to Cart</button>
@@ -150,9 +175,12 @@
       <img src="./images/featured/3.jpg" alt="Image 1">
       <h2>Subscription 03</h2>
       <h3>8 Express Wash, 2 Master Wash, 1 Hyper Wash</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor
+        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui
         officia deserunt mollit anim id est laborum.</p>
       <div class="buttons-container">
         <button class="add-to-cart-btn">Add to Cart</button>
@@ -164,9 +192,12 @@
       <img src="./images/featured/4.jpg" alt="Image 1">
       <h2>Subscription 04</h2>
       <h3>8 Express Wash, 2 Master Wash, 1 Hyper Wash, 1 Ultimate Wash</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor
+        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui
         officia deserunt mollit anim id est laborum.</p>
       <div class="buttons-container">
         <button class="add-to-cart-btn">Add to Cart</button>
@@ -177,6 +208,7 @@
   </div>
 
   <script src="add-subscription.js"></script>
-  
+
 </body>
+
 </html>

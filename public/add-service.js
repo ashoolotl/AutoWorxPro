@@ -1,17 +1,17 @@
 document.getElementById("image5").addEventListener("click", function() {
   showOverlay();
-  document.getElementById("addSubPopup").style.display = "block";
+  document.getElementById("addServicePopup").style.display = "block";
 });
 
 document.getElementById("closePopup").addEventListener("click", function() {
   hideOverlay();
-  document.getElementById("addSubPopup").style.display = "none";
+  document.getElementById("addServicePopup").style.display = "none";
 });
 
 document.getElementById("form").addEventListener("submit", function(event) {
   event.preventDefault();
   hideOverlay();
-  document.getElementById("addSubPopup").style.display = "none";
+  document.getElementById("addServicePopup").style.display = "none";
 });
 
 
@@ -30,16 +30,16 @@ document.addEventListener('DOMContentLoaded', function () {
   const bottomContainer = document.querySelector('.bottom-container');
 
   addBtn.addEventListener('click', function () {
-    document.getElementById('addSubPopup').style.display = 'block';
+    document.getElementById('addServicePopup').style.display = 'block';
   });
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
 
     // Get form values
-    const subscriptionName = document.getElementById('subscriptionName').value;
-    const subscriptionDetails = document.getElementById('subscriptionDetails').value;
-    const subscriptionDescription = document.getElementById('subscriptionDescription').value;
+    const serviceName = document.getElementById('serviceName').value;
+    const serviceDetails = document.getElementById('serviceDetails').value;
+    const serviceSubscription = document.getElementById('serviceSubscription').value;
 
     const uploadedImage = document.getElementById('uploadImage').files[0];
     const imageUrl = URL.createObjectURL(uploadedImage);
@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const newTopItem = document.createElement('div');
     newTopItem.classList.add('top-item');
     newTopItem.innerHTML = `
-       <img src="${imageUrl}"  alt="${subscriptionName}">
-      <p>${subscriptionName}</p>
+      <img src="${imageUrl}" alt="${serviceName}">
+      <p>${serviceName}</p>
     `;
     
     // Append top item to the container
@@ -59,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const newBottomItem = document.createElement('div');
     newBottomItem.classList.add('bottom-item');
     newBottomItem.innerHTML = `
-    <img src="${imageUrl}"  alt="${subscriptionName}">
-      <h2>${subscriptionName}</h2>
-      <h3>${subscriptionDetails}</h3>
-      <p>${subscriptionDescription}</p>
+      <img src="${imageUrl}" alt="${serviceName}">
+      <h2>${serviceName}</h2>
+      <h3>${serviceDetails}</h3>
+      <p>${serviceSubscription}</p>
       <div class="buttons-container">
         <button class="add-to-cart-btn">Add to Cart</button>
         <button class="book-appointment-btn">Book an Appointment</button>
