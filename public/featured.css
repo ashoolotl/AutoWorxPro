@@ -135,6 +135,123 @@ header{
     pointer-events: none;
 }
 
+
+.top-item-add{
+    position: relative;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    margin-bottom: 10px;
+}
+
+.top-item-add img {
+    max-width: 100%;  
+    height: auto;
+    display: block;
+}
+
+
+
+
+/*pop up*/
+
+.popupContainer {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(to right, #1C1B1E, #3A3A3C);
+    padding: 20px;
+    border-radius: 10px;
+    color: whitesmoke;
+    z-index: 9999;
+    width: 75%;
+    font-size: 18px;
+}
+
+.popupContent {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.closePopup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#successPopup {
+    background-color: #B6DA9F;
+}
+
+#successPopup p {
+    color: whitesmoke;
+}
+
+/* popup form */
+
+.popupContent form {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.popupContent form label {
+    display: block;
+    margin-bottom: 5px;
+    color: whitesmoke;
+}
+
+.popupContent form input[type="text"],
+.popupContent form input[type="number"],
+.popupContent form input[type="password"],
+.popupContent form select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.popupContent form select {
+    width: 100%;
+}
+
+.popupContent form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.popupContent form button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.popupContent #closeBtn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.popupContent #closeBtn:hover {
+    background-color: #45a049;
+}
+  
+
 /*bottom part*/
 
 .bottom-container {
