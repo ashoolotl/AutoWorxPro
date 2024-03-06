@@ -139,15 +139,15 @@ h1 {
 }
 
 #contact-form {
-    margin: 0 auto; /* Center horizontally */
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Creates two equal-width columns */
-    grid-template-rows: auto auto auto; /* Creates three rows for the first three fields */
-    gap: 20px; /* Adjust the gap between grid items */
-    width: 80%; /* Adjust the width as needed */
-    max-width: 600px; /* Ensures the form does not become too wide on larger screens */
-    padding: 20px; /* Adds some padding inside the form */
-    overflow: auto; /* Ensures that if the content is too large, it becomes scrollable */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 20px; 
+    width: 80%; 
+    max-width: 600px;
+    padding: 20px;
+    overflow: auto;
 }
 
 .input-group {
@@ -185,4 +185,22 @@ h1 {
 .input-group textarea::placeholder {
     font-family: Montserrat;
     font-size: 20px;
+}
+
+button[type="submit"] {
+    background-color: #ED1C24;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: calc(50% - 10px);
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    height: 3rem;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+button[type="submit"]:hover {
+    background-color: #A20912;
 }

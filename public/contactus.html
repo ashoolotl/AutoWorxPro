@@ -79,8 +79,49 @@
                 <label for="message"> </label>
                 <textarea id="message" name="message" placeholder="Message"></textarea>
             </div>
-        </div>        
+            
+        </div>
+        <button type="submit" id="submitBtn" disabled>Send a Message</button>      
 
     </div>
+
+    <script>
+        const inputs = document.querySelectorAll('#contact-form input, #contact-form textarea');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function clearInputs() {
+            inputs.forEach(input => {
+                input.value = '';
+            });
+        }
+
+        function checkInputs() {
+            let allFilled = true;
+            inputs.forEach(input => {
+                if (input.value.trim() === '') {
+                    allFilled = false;
+                }
+            });
+            return allFilled;
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                if (checkInputs()) {
+                    submitBtn.disabled = false;
+                } else {
+                    submitBtn.disabled = true;
+                }
+            });
+        });
+
+        submitBtn.addEventListener('click', () => {
+            if (checkInputs()) {
+                clearInputs();
+                submitBtn.disabled = true;
+            }
+        });
+
+    </script>
 </body>
 </html>
