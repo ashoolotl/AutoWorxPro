@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="contactus.css">
+
+</head>
+<body>
+
+    <!--this is the navbar, make this a partial soon-->
+    <div class="navbar">
+        <div class="navbar-left">
+        <div class="logo">
+            <a href="#"><img src="./images/logo-red.png"></a>
+        </div>
+        <a href="#">Home</a>
+        <a href="#">Subscriptions</a>
+        <a href="#">Services</a>
+        <a href="#">Contact Us</a>
+        </div>
+        <div class="navbar-right">
+        <div class="username">
+            <a href="user-profile.html" class="user-link">
+            <img src="./images/usernamebg.png" alt="User Profile Image">
+            <span>Hello, Pedro</span> <!--turn this to drop down-->
+            </a>
+        </div>
+        <a href="#" class="cart-icon"><img src="./images/cart.png"></a>
+        <a href="#" class="search-icon"><img src="./images/search.png"></a>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="overlay"></div>
+
+        <h1>Contact Us</h1>
+
+        <span class="icon">
+            &#128222;
+            <span class="icon-text">
+                (01) 437 0969
+            </span>
+        </span>
+
+        <br>
+        <br>
+
+        <span class="icon">
+            &#9993;
+            <span class="icon-text">
+                autoworxpro@gmail.com
+            </span>
+        </span>
+
+        <br>
+        <br>
+
+        <span class="icon">
+            &#9872;
+            <span class="icon-text">
+                Dublin, Ireland
+            </span>
+        </span>
+
+        <div id="contact-form">
+            <div class="input-group">
+                <label for="name"> </label>
+                <input type="text" id="name" name="name" placeholder="Name">
+                <label for="email"> </label>
+                <input type="text" id="email" name="email" placeholder="Email">
+                <label for="phone"> </label>
+                <input type="text" id="phone" name="phone" placeholder="Phone Number">
+            </div>
+            <div class="input-group message-group">
+                <label for="message"> </label>
+                <textarea id="message" name="message" placeholder="Message"></textarea>
+            </div>
+        </div>        
+
+    </div>
+</body>
+</html>
