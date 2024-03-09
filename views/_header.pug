@@ -1,0 +1,31 @@
+.navbar
+    .navbar-left
+        .logo
+            a(href="#")
+                img(src="./images/logo-red.png")
+        a(href="#") Home
+        a(href="#") Subscriptions
+        a(href="#") Services
+        a(href="#") Contact Us
+    .navbar-right
+
+        if user
+            .username
+                a(href="#" class="user-link")
+                    img(src="./images/usernamebg.png", alt="User Profile Image")
+                    span Hello, Pedro
+            a(href="#" class="cart-icon")
+                img(src="./images/cart.png")
+            a(href="#" class="search-icon")
+                img(src="./images/search.png")
+        else
+            .username
+                a(href="#" class="user-link")
+                    img(src="./images/usernamebg.png", alt="User Profile Image")
+                    span Register
+                a(href="#" class="cart-icon")
+                    img(src="./images/cart.png")
+                a(href="#" class="search-icon")
+                    img(src="./images/search.png")
+
+
