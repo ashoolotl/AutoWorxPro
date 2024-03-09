@@ -1,10 +1,10 @@
 // Set the initial color of the current status on page load
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     const currentStatuses = document.querySelectorAll('.status.current');
     currentStatuses.forEach(status => {
         const statusText = status.textContent.toLowerCase();
         status.style.color = getStatusColor(statusText);
-        status.addEventListener('click', function(event) {
+        status.addEventListener('click', function (event) {
             showForm(event.target);
         });
     });
@@ -118,7 +118,7 @@ function sortBookings() {
 
     cars.sort(function (a, b) {
         var dateA, dateB;
-    
+
         if (sortBy === "status") {
             var statusA = a.querySelector(".status").textContent.toLowerCase();
             var statusB = b.querySelector(".status").textContent.toLowerCase();
@@ -131,16 +131,16 @@ function sortBookings() {
             console.log("Date A:", dateA);
             console.log("Date B:", dateB);
         }
-    
+
         return new Date(dateA) - new Date(dateB);
     });
-    
+
 
     cars.forEach(function (car, index) {
         var hr = document.createElement("hr");
         hr.classList.add("car-hr");
         carsContainer.appendChild(hr);
-        
+
         carsContainer.appendChild(car);
 
         if (index === cars.length - 1) {

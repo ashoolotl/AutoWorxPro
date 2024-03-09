@@ -4,13 +4,14 @@
     font-family: 'Crillee';
     src: url('./fonts/Crillee\ Italic\ BT.ttf') format('truetype');
 }
+
 body {
     margin: 0;
     font-family: Montserrat;
     background: linear-gradient(to right, #1C1B1E, #3A3A3C);
 }
 
-header{
+header {
     font-family: 'Crillee';
     position: relative;
     height: 100px;
@@ -23,68 +24,6 @@ header{
     justify-content: center;
     align-items: center;
 }
-
-/*navbar settings move to partial soon*/
-.navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: #0E0D10;
-    padding: 10px 20px;
-}
-
-.navbar-left {
-    display: flex;
-    flex-direction: row;
-    margin-right: auto;
-    align-items: center;
-}
-
-.navbar-right {
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    align-items: center;
-}
-
-.navbar-right a {
-    margin-left: -10px !important;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    margin: 0 20px;
-}
-
-.logo img {
-    width: 150px;
-    margin-right: 30px;
-}
-
-.username {
-    display: flex;
-    align-items: center;
-}
-
-.user-link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #666666 !important;
-    text-decoration: none;
-}
-
-.user-link span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 600;
-    font-size: 12px;
-}
-/*navbar settings move to partial soon*/
 
 /* ITEM CONTAINER */
 #top-container {
@@ -146,68 +85,68 @@ header{
 
 /* CHECKBOX */
 .checkmark-container {
-  display: block;
-  position: relative;
-  padding-left:  35px;
-  margin-bottom:  12px;
-  cursor: pointer;
-  font-size:  22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .checkmark-container input {
-  position: absolute;
-  opacity:  0;
-  cursor: pointer;
-  height:  0;
-  width:  0;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 
 
 .checkmark {
-  position: absolute;
-  top:  0;
-  left:  0;
-  height:  25px;
-  width:  25px;
-  background-color: transparent;
-  border:  2px solid #ED1C24;
-  border-radius:  2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: transparent;
+    border: 2px solid #ED1C24;
+    border-radius: 2px;
 }
 
 
-.checkmark-container:hover input ~ .checkmark {
-  background-color: rgba(237, 28, 36, 0.5);
+.checkmark-container:hover input~.checkmark {
+    background-color: rgba(237, 28, 36, 0.5);
 }
 
 
-.checkmark-container input:checked ~ .checkmark {
-  background-color: red;
+.checkmark-container input:checked~.checkmark {
+    background-color: red;
 }
 
 .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+    content: "";
+    position: absolute;
+    display: none;
 }
 
-.checkmark-container input:checked ~ .checkmark:after {
-  display: block;
+.checkmark-container input:checked~.checkmark:after {
+    display: block;
 }
 
 .checkmark-container .checkmark:after {
-  left:  9px;
-  top:  5px;
-  width:  5px;
-  height:  10px;
-  border: solid white;
-  border-width:  0  3px  3px  0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 
 /* END OF CHECKBOX */
@@ -256,7 +195,7 @@ header{
     margin-top: auto;
     width: 100%;
 }
-  
+
 /* Dropdown toggle button */
 .dropdown-toggle {
     background-color: white;
@@ -267,56 +206,62 @@ header{
     width: inherit;
     text-align: left;
 }
-  
+
 /* Dropdown menu */
 .dropdown-menu {
-  display: none;
-  position: absolute; /* Change back to absolute positioning */
-  background-color: white;
-  border: 1px solid #ccc;
-  border-top: none;
-  border-radius: 0 0 5px 5px;
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  width: inherit; /* Set width to auto */
-  max-width: 100%; /* Limit width to 100% */
-  border-radius: 5px;
-  z-index: 9999; /* Increase z-index to ensure it's above other elements */
+    display: none;
+    position: absolute;
+    /* Change back to absolute positioning */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    width: inherit;
+    /* Set width to auto */
+    max-width: 100%;
+    /* Limit width to 100% */
+    border-radius: 5px;
+    z-index: 9999;
+    /* Increase z-index to ensure it's above other elements */
 }
 
 /* Dropdown menu items */
 .dropdown-menu li {
-  padding: 10px 20px;
+    padding: 10px 20px;
 }
 
 /* Dropdown menu item links */
 .dropdown-menu li a {
-  text-decoration: none;
-  color: #333;
-  display: block; /* Display as block element */
-  width: 100%; /* Set width to 100% */
+    text-decoration: none;
+    color: #333;
+    display: block;
+    /* Display as block element */
+    width: 100%;
+    /* Set width to 100% */
 }
 
 /* Show dropdown menu when clicked */
 .dropdown.active .dropdown-menu {
-  display: block;
+    display: block;
 }
 
 /* Arrow indicator */
 .dropdown-toggle::after {
-  content: '▼';
-  font-size: 12px;
-  margin-left: 5px; 
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
+    content: '▼';
+    font-size: 12px;
+    margin-left: 5px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
 }
 
 /* Rotate arrow indicator when dropdown is active */
 .dropdown.active .dropdown-toggle::after {
-  content: '▲';
+    content: '▲';
 }
 
 /* CHECKOUT BUTTON */

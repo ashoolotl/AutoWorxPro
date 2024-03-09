@@ -3,7 +3,7 @@ function showBookingPopup() {
     document.getElementById("bookingPopup").style.display = "block";
 }
 
-function showAddPopup(){
+function showAddPopup() {
     closeAllPopups();
     document.getElementById("addPopup").style.display = "block";
 }
@@ -47,12 +47,12 @@ function addToCart() {
     document.getElementById("cart").style.display = "block";
 }
 
-function addToCartSub(){
+function addToCartSub() {
     closeAddPopup();
     document.getElementById("cart").style.display = "block";
 }
 
-function addMore(){
+function addMore() {
     closeCartPopup();
 }
 
@@ -60,7 +60,7 @@ function closeCartPopup() {
     document.getElementById("cart").style.display = "none";
 }
 
-function submitCart(){
+function submitCart() {
     closeCartPopup();
 }
 

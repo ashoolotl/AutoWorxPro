@@ -1,14 +1,14 @@
-document.getElementById("image5").addEventListener("click", function() {
+document.getElementById("image5").addEventListener("click", function () {
   showOverlay();
   document.getElementById("addServicePopup").style.display = "block";
 });
 
-document.getElementById("closePopup").addEventListener("click", function() {
+document.getElementById("closePopup").addEventListener("click", function () {
   hideOverlay();
   document.getElementById("addServicePopup").style.display = "none";
 });
 
-document.getElementById("form").addEventListener("submit", function(event) {
+document.getElementById("form").addEventListener("submit", function (event) {
   event.preventDefault();
   hideOverlay();
   document.getElementById("addServicePopup").style.display = "none";
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
       <img src="${imageUrl}" alt="${serviceName}">
       <p>${serviceName}</p>
     `;
-    
+
     // Append top item to the container
     document.querySelector('.top-item-add').before(newTopItem);
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <button class="book-appointment-btn">Book an Appointment</button>
       </div>
     `;
-    
+
     // Append bottom item to the bottom container
     bottomContainer.appendChild(newBottomItem);
 

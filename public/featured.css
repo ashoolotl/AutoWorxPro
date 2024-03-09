@@ -4,6 +4,7 @@
     font-family: 'Crillee';
     src: url('./fonts/Crillee\ Italic\ BT.ttf') format('truetype');
 }
+
 body {
     margin: 0;
     font-family: Montserrat;
@@ -17,11 +18,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Adjust the alpha (fourth value) for darkness */
+    background: rgba(0, 0, 0, 0.5);
+    /* Adjust the alpha (fourth value) for darkness */
     z-index: 1;
-  }
+}
 
-header{
+header {
     font-family: 'Crillee';
     position: relative;
     height: 100px;
@@ -34,69 +36,6 @@ header{
     justify-content: center;
     align-items: center;
 }
-
-/*navbar settings move to partial soon*/
-.navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: #0E0D10;
-    padding: 10px 20px;
-}
-
-.navbar-left {
-    display: flex;
-    flex-direction: row;
-    margin-right: auto;
-    align-items: center;
-}
-
-.navbar-right {
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    align-items: center;
-}
-
-.navbar-right a {
-    margin-left: -10px !important;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    margin: 0 20px;
-}
-
-.logo img {
-    width: 150px;
-    margin-right: 30px;
-}
-
-.username {
-    display: flex;
-    align-items: center;
-}
-
-.user-link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #666666 !important;
-    text-decoration: none;
-}
-
-.user-link span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 600;
-    font-size: 12px;
-}
-
-/*navbar settings move to partial soon*/
 
 /*top part*/
 
@@ -129,42 +68,43 @@ header{
     left: 0;
     width: 100%;
     margin: 0;
-    padding: 10px; /* Optional: Add padding for better readability */
+    padding: 10px;
+    /* Optional: Add padding for better readability */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 #add {
     background-color: transparent;
     border: 0;
-     /* Add a smooth transition for the hover effect */
+    /* Add a smooth transition for the hover effect */
 }
 
 
 .top-item img {
     width: 100%;
-    height:100%;
+    height: 100%;
     height: auto;
     display: block;
     transition: box-shadow 0.3s ease;
 }
 
-.top-item img:hover{
+.top-item img:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .top-item::after {
     content: '';
     position: absolute;
-    top:  0;
-    left:  0;
-    width:  100%;
-    height: 86.5%; 
-    background: linear-gradient(to bottom, rgba(255,   0,   0,   0.5), rgba(255,   0,   0,   0)); 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 86.5%;
+    background: linear-gradient(to bottom, rgba(255, 0, 0, 0.5), rgba(255, 0, 0, 0));
     pointer-events: none;
 }
 
 
-.top-item-add{
+.top-item-add {
     position: relative;
     width: 40%;
     justify-content: center;
@@ -174,15 +114,16 @@ header{
 }
 
 .top-item-add img {
-    max-width: 100%;  
+    max-width: 100%;
     height: auto;
     display: block;
-    background-color: rgba(0, 0, 0, 0); /* Ensure transparency */
+    background-color: rgba(0, 0, 0, 0);
+    /* Ensure transparency */
     transition: box-shadow 0.3s ease;
-    border-radius: 30px; 
+    border-radius: 30px;
 }
 
-.top-item-add img:hover{
+.top-item-add img:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
@@ -231,7 +172,8 @@ header{
     display: block;
     margin-bottom: 5px;
     color: whitesmoke;
-    width: 100%; /* Set a fixed width for labels */
+    width: 100%;
+    /* Set a fixed width for labels */
 }
 
 
@@ -240,7 +182,8 @@ header{
 .popupContent form input[type="password"],
 .popupContent form select,
 .popupContent form textarea {
-    width: calc(100% - 20px); /* Adjust the width as needed */
+    width: calc(100% - 20px);
+    /* Adjust the width as needed */
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -278,7 +221,8 @@ header{
 }
 
 .popupContent form input[type="file"]:hover {
-    border-color: #ED1C24; /* Change border color on hover if needed */
+    border-color: #ED1C24;
+    /* Change border color on hover if needed */
 }
 
 
@@ -294,24 +238,32 @@ header{
 .bottom-item {
     position: relative;
     height: 40rem;
-    overflow: hidden; /* Ensure that the image does not overflow its container */
+    overflow: hidden;
+    /* Ensure that the image does not overflow its container */
 }
 
 .bottom-item img {
-    width: 100%; /* Make the image take up 100% of the width of its container */
-    height: auto; /* Maintain the aspect ratio of the image */
+    width: 100%;
+    /* Make the image take up 100% of the width of its container */
+    height: auto;
+    /* Maintain the aspect ratio of the image */
     display: block;
-    opacity: 0.2; /* Set the opacity to your desired value */
+    opacity: 0.2;
+    /* Set the opacity to your desired value */
 }
 
 .bottom-item h2,
 .bottom-item h3,
 .bottom-item p {
     position: absolute;
-    z-index: 1; /* Ensure the text is in front of the image */
-    color: white; /* Add a color to make the text visible on the image */
-    padding: 30px; /* Increase the padding to add space around the text */
-    width: 90%; /* Reduce the width to avoid text being too close to the edges */
+    z-index: 1;
+    /* Ensure the text is in front of the image */
+    color: white;
+    /* Add a color to make the text visible on the image */
+    padding: 30px;
+    /* Increase the padding to add space around the text */
+    width: 90%;
+    /* Reduce the width to avoid text being too close to the edges */
 }
 
 .bottom-item h2 {
@@ -319,16 +271,19 @@ header{
     color: #ED1C24;
     text-decoration: underline;
     font-size: 3rem;
-    top: 5%; /* Adjust the top position for h2 */
+    top: 5%;
+    /* Adjust the top position for h2 */
 }
 
 .bottom-item h3 {
-    top: 25%; /* Adjust the top position for h3 */
+    top: 25%;
+    /* Adjust the top position for h3 */
     font-size: 1.5rem;
 }
 
 .bottom-item p {
-    top: 38%; /* Adjust the top position for the paragraph */
+    top: 38%;
+    /* Adjust the top position for the paragraph */
     line-height: 2.0;
     font-size: 1.2rem;
 }
@@ -339,7 +294,7 @@ header{
     margin-top: -22rem;
     margin-left: 2rem;
 }
-  
+
 .add-to-cart-btn,
 .book-appointment-btn {
     font-family: Montserrat;
@@ -349,17 +304,14 @@ header{
     background-color: #ED1C24;
     color: white;
     background-color: transparent;
-    border: 2px solid white; /* Set the border for the outline */
+    border: 2px solid white;
+    /* Set the border for the outline */
     cursor: pointer;
     border-radius: 2px;
     z-index: 1;
 }
-  
+
 .add-to-cart-btn:hover,
 .book-appointment-btn:hover {
     background-color: #FF5555;
 }
-
-
-
-

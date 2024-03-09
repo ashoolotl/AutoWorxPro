@@ -4,13 +4,14 @@
     font-family: 'Crillee';
     src: url('./fonts/Crillee\ Italic\ BT.ttf') format('truetype');
 }
+
 body {
     margin: 0;
     font-family: Montserrat;
     background: linear-gradient(to right, #1C1B1E, #3A3A3C);
 }
 
-header{
+header {
     font-family: 'Crillee';
     position: relative;
     height: 100px;
@@ -23,68 +24,6 @@ header{
     justify-content: center;
     align-items: center;
 }
-
-/*navbar settings move to partial soon*/
-.navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: #0E0D10;
-    padding: 10px 20px;
-}
-
-.navbar-left {
-    display: flex;
-    flex-direction: row;
-    margin-right: auto;
-    align-items: center;
-}
-
-.navbar-right {
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    align-items: center;
-}
-
-.navbar-right a {
-    margin-left: -10px !important;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    margin: 0 20px;
-}
-
-.logo img {
-    width: 150px;
-    margin-right: 30px;
-}
-
-.username {
-    display: flex;
-    align-items: center;
-}
-
-.user-link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #666666 !important;
-    text-decoration: none;
-}
-
-.user-link span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 600;
-    font-size: 12px;
-}
-/*navbar settings move to partial soon*/
 
 #article-container {
     display: flex;

@@ -73,9 +73,11 @@ header {
 
 .more-info-btn {
     font-size: 18px;
-    background-color: transparent; /* Make background transparent */
+    background-color: transparent;
+    /* Make background transparent */
     color: white;
-    border: 1px solid white; /* Add a border for visibility */
+    border: 1px solid white;
+    /* Add a border for visibility */
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -83,7 +85,8 @@ header {
 }
 
 .more-info-btn:hover {
-    background-color: rgba(237, 28, 36, 1); /* Add hover effect */
+    background-color: rgba(237, 28, 36, 1);
+    /* Add hover effect */
 }
 
 .car-info {
@@ -96,15 +99,16 @@ header {
     margin-left: 70px;
 }
 
-.car img{
+.car img {
     width: 180px;
 }
+
 .status {
     margin-right: 20px;
     cursor: pointer;
 }
 
-.current{
+.current {
     border: solid 1px white;
     border-radius: 5px;
     padding: 5px 10px;
@@ -113,14 +117,18 @@ header {
 }
 
 .current:hover {
-    background-color: black; /* Add hover effect */
+    background-color: black;
+    /* Add hover effect */
 }
+
 .more-info-btn {
     margin-left: 30px;
     font-size: 18px;
-    background-color: transparent; /* Make background transparent */
+    background-color: transparent;
+    /* Make background transparent */
     color: white;
-    border: 1px solid white; /* Add a border for visibility */
+    border: 1px solid white;
+    /* Add a border for visibility */
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -128,7 +136,8 @@ header {
 }
 
 .more-info-btn:hover {
-    background-color: rgba(237, 28, 36, 1); /* Add hover effect */
+    background-color: rgba(237, 28, 36, 1);
+    /* Add hover effect */
 }
 
 /* Popup */
@@ -149,7 +158,7 @@ header {
 
 .popupContent {
     text-align: center;
-    
+
 }
 
 .closePopup {
@@ -157,82 +166,24 @@ header {
     top: 10px;
     right: 10px;
     cursor: pointer;
-    color: whitesmoke; /* Added to match the popup content */
-    font-size: 20px; /* Added for better visibility */
+    color: whitesmoke;
+    /* Added to match the popup content */
+    font-size: 20px;
+    /* Added for better visibility */
 }
 
-.info-item{
+.info-item {
     margin: 30px;
 }
 
-.info-item label{
-    color:rgba(237, 28, 36)
-}
-/* Navbar */
-.navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: #0E0D10;
-    padding: 10px 20px;
+.info-item label {
+    color: rgba(237, 28, 36)
 }
 
-.navbar-left {
-    display: flex;
-    flex-direction: row;
-    margin-right: auto;
-    align-items: center;
-}
-
-.navbar-right {
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    align-items: center;
-}
-
-.navbar-right a {
-    margin-left: -10px !important;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    margin: 0 20px;
-}
-
-.logo img {
-    width: 150px;
-    margin-right: 30px;
-}
-
-.username {
-    display: flex;
-    align-items: center;
-}
-
-.user-link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #666666 !important;
-    text-decoration: none;
-}
-
-.user-link span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 600;
-    font-size: 12px;
-}
-
-#order-date-select{
+#order-date-select {
     border: solid 1px white;
     border-radius: 5px;
     padding: 5px 10px;
     transition: background-color 0.3s ease;
-    
+
 }

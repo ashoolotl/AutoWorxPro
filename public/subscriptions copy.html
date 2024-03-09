@@ -15,29 +15,6 @@
 
   <div id="overlay"></div>
 
-  <!--this is the navbar, make this a partial soon-->
-  <div class="navbar">
-    <div class="navbar-left">
-      <div class="logo">
-        <a href="#"><img src="./images/logo-red.png"></a>
-      </div>
-      <a href="#">Home</a>
-      <a href="#">Subscriptions</a>
-      <a href="#">Services</a>
-      <a href="#">Contact Us</a>
-    </div>
-    <div class="navbar-right">
-      <div class="username">
-        <a href="user-profile.html" class="user-link">
-          <img src="./images/usernamebg.png" alt="User Profile Image">
-          <span>Hello, Pedro</span> <!--turn this to drop down-->
-        </a>
-      </div>
-      <a href="#" class="cart-icon"><img src="./images/cart.png"></a>
-      <a href="#" class="search-icon"><img src="./images/search.png"></a>
-    </div>
-  </div>
-
   <header>
     Subscriptions
   </header>
@@ -69,71 +46,71 @@
 
   </div>
 
-    <!-- popup here -->
-    <div id="addSubPopup" class="popupContainer">
-      <div class="popupContent">
-        <span id="closePopup" class="closePopup">&times;</span>
-        <h1>Add a Subscription</h1>
-        <form id="form">
-          <label for="subscriptionName">Subscription Name</label>
-          <input type="text" id="subscriptionName" name="subscriptionName" required>
+  <!-- popup here -->
+  <div id="addSubPopup" class="popupContainer">
+    <div class="popupContent">
+      <span id="closePopup" class="closePopup">&times;</span>
+      <h1>Add a Subscription</h1>
+      <form id="form">
+        <label for="subscriptionName">Subscription Name</label>
+        <input type="text" id="subscriptionName" name="subscriptionName" required>
 
-          <label for="subscriptionDetails">Subscription Details</label>
-          <textarea id="subscriptionDetails" name="subscriptionDetails" rows="4" required></textarea>
+        <label for="subscriptionDetails">Subscription Details</label>
+        <textarea id="subscriptionDetails" name="subscriptionDetails" rows="4" required></textarea>
 
-          <label for="subscriptionDescription">Subscription Description</label>
-          <textarea id="subscriptionDescription" name="subscriptionDescription" rows="6" required></textarea>
+        <label for="subscriptionDescription">Subscription Description</label>
+        <textarea id="subscriptionDescription" name="subscriptionDescription" rows="6" required></textarea>
 
-          <label for="uploadImage">Upload Image</label>
+        <label for="uploadImage">Upload Image</label>
         <input type="file" id="uploadImage" name="uploadImage" accept="image/*">
 
 
-          <fieldset>
-            <legend>Select Services and Input Tokens</legend>
-            <label>
-              <input type="checkbox" name="selectedItems" value="item1">
-              Item 1
-              <input type="number" name="item1Quantity" min="1" value="1">
-            </label>
+        <fieldset>
+          <legend>Select Services and Input Tokens</legend>
+          <label>
+            <input type="checkbox" name="selectedItems" value="item1">
+            Item 1
+            <input type="number" name="item1Quantity" min="1" value="1">
+          </label>
 
-            <label>
-              <input type="checkbox" name="selectedItems" value="item2">
-              Item 2
-              <input type="number" name="item2Quantity" min="1" value="1">
-            </label>
+          <label>
+            <input type="checkbox" name="selectedItems" value="item2">
+            Item 2
+            <input type="number" name="item2Quantity" min="1" value="1">
+          </label>
 
-            <label>
-              <input type="checkbox" name="selectedItems" value="item3">
-              Item 3
-              <input type="number" name="item3Quantity" min="1" value="1">
-            </label>
-          </fieldset>
+          <label>
+            <input type="checkbox" name="selectedItems" value="item3">
+            Item 3
+            <input type="number" name="item3Quantity" min="1" value="1">
+          </label>
+        </fieldset>
 
-          <fieldset>
-            <legend>Select Vehicle Class and Input Prices</legend>
-            <label>
-              <input type="checkbox" name="selectedItems" value="item1">
-              Item 1
-              <input type="number" name="item1Quantity" min="1" value="1">
-            </label>
+        <fieldset>
+          <legend>Select Vehicle Class and Input Prices</legend>
+          <label>
+            <input type="checkbox" name="selectedItems" value="item1">
+            Item 1
+            <input type="number" name="item1Quantity" min="1" value="1">
+          </label>
 
-            <label>
-              <input type="checkbox" name="selectedItems" value="item2">
-              Item 2
-              <input type="number" name="item2Quantity" min="1" value="1">
-            </label>
+          <label>
+            <input type="checkbox" name="selectedItems" value="item2">
+            Item 2
+            <input type="number" name="item2Quantity" min="1" value="1">
+          </label>
 
-            <label>
-              <input type="checkbox" name="selectedItems" value="item3">
-              Item 3
-              <input type="number" name="item3Quantity" min="1" value="1">
-            </label>
-          </fieldset>
+          <label>
+            <input type="checkbox" name="selectedItems" value="item3">
+            Item 3
+            <input type="number" name="item3Quantity" min="1" value="1">
+          </label>
+        </fieldset>
 
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
+  </div>
 
   <div class="bottom-container">
 

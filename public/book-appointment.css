@@ -6,25 +6,29 @@
 
 .popupContent .contentWrapper {
     display: flex;
-    align-items: center; /* Align items vertically */
+    align-items: center;
+    /* Align items vertically */
 }
 
 .popupContent img {
     width: 180px;
-    margin-right: 10px; /* Adjust margin between image and info */
+    margin-right: 10px;
+    /* Adjust margin between image and info */
 }
 
 .info-item {
     color: whitesmoke;
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* Align items vertically */
+    justify-content: space-between;
+    /* Align items vertically */
 }
 
 
-.info-item span{
-    margin-left:250px;
+.info-item span {
+    margin-left: 250px;
 }
+
 #cart button,
 #addPopup button,
 #bookingPopup button,
@@ -37,7 +41,8 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 20px; /* Add some top margin */
+    margin-top: 20px;
+    /* Add some top margin */
 }
 
 #cart button:hover,
@@ -47,18 +52,19 @@
 }
 
 #addDateTimePopup,
-#dateTimePopup{
-    width:fit-content;
+#dateTimePopup {
+    width: fit-content;
 }
 
-.content{
+.content {
     display: flex;
     justify-content: space-around;
 }
 
 /* Cart Popup */
 #cart {
-    display: none; /* Initially hide the cart */
+    display: none;
+    /* Initially hide the cart */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -66,13 +72,17 @@
     background: linear-gradient(to right, #1C1B1E, #3A3A3C);
     padding: 20px;
     border-radius: 10px;
-    color: red; /* Change the text color as needed */
+    color: red;
+    /* Change the text color as needed */
     z-index: 9999;
     width: 75%;
     font-size: 18px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add box shadow */
-    overflow-y: auto; /* Add vertical scrollbar */
-    max-height: 80%; /* Limit the maximum height of the cart popup */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Add box shadow */
+    overflow-y: auto;
+    /* Add vertical scrollbar */
+    max-height: 80%;
+    /* Limit the maximum height of the cart popup */
 }
 
 
@@ -81,18 +91,16 @@
 }
 
 .addMore,
-.cartSubmit{
+.cartSubmit {
     margin-left: 150px;
 }
+
 .buttons {
-    
+
     display: flex;
     flex-direction: row;
-    width: 500px; /* Adjust the width as needed */
-    
+    width: 500px;
+    /* Adjust the width as needed */
+
     padding-left: 225px;
 }
-
-
-
-

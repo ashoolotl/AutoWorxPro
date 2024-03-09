@@ -131,76 +131,6 @@ header {
     /*max of two subscriptions per row*/
 }
 
-/*navbar settings move to partial soon*/
-.navbar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: #0E0D10;
-    padding: 10px 20px;
-}
-
-.navbar-left {
-    display: flex;
-    flex-direction: row;
-    margin-right: auto;
-    align-items: center;
-}
-
-.navbar-right {
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    align-items: center;
-}
-
-.navbar-right a {
-    margin-left: -10px !important;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    margin: 0 20px;
-}
-
-.logo img {
-    width: 150px;
-    margin-right: 30px;
-}
-
-.username {
-    display: flex;
-    align-items: center;
-}
-
-.user-link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #666666 !important;
-    text-decoration: none;
-}
-
-.user-link span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 600;
-    font-size: 12px;
-}
-
-/*navbar settings move to partial soon*/
-
-.footer {
-    color:white;
-    height: 300px;
-    display: flex;
-    background-color: #0E0D10;
-}
-
 /* popup container */
 
 .popupContainer {
@@ -256,11 +186,11 @@ header {
 .popupContent form input[type="number"],
 .popupContent form input[type="password"],
 .popupContent form select {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .popupContent form select {
@@ -277,7 +207,7 @@ header {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-  
+
 .popupContent form button[type="submit"]:hover {
     background-color: #45a049;
 }
@@ -308,4 +238,4 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+}

@@ -2,16 +2,20 @@
 #status-form {
     display: none;
     position: fixed;
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Center the form precisely */
+    top: 50%;
+    /* Center vertically */
+    left: 50%;
+    /* Center horizontally */
+    transform: translate(-50%, -50%);
+    /* Center the form precisely */
     background: linear-gradient(to right, #1C1B1E, #3A3A3C);
     padding: 20px;
     border-radius: 10px;
     color: whitesmoke;
     z-index: 9999;
     width: 75%;
-    max-width: 400px; /* Limit maximum width */
+    max-width: 400px;
+    /* Limit maximum width */
     font-size: 18px;
 }
 

@@ -93,12 +93,12 @@ form input {
 
 form button {
     font-family: Montserrat;
-    width:  65%;
-    padding:  10px;
+    width: 65%;
+    padding: 10px;
     background-color: #ED1C24;
     color: #fff;
     border: none;
-    border-radius:  5px;
+    border-radius: 5px;
     cursor: pointer;
     margin: auto;
 }
@@ -108,7 +108,7 @@ form button:hover {
 }
 
 .login-container p {
-    color:#ffffff;
+    color: #ffffff;
     margin-top: 10px;
 }
 
