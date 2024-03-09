@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>User Profile</title>
+  <link rel="stylesheet" href="user-profile.css">
+
+</head>
+
+<body>
+
+  <!--this is the navbar, make this a partial soon-->
+  <div class="navbar">
+    <div class="navbar-left">
+      <div class="logo">
+        <a href="#"><img src="./images/logo-red.png"></a>
+      </div>
+      <a href="#">Home</a>
+      <a href="#">Subscriptions</a>
+      <a href="#">Services</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="navbar-right">
+      <div class="username">
+        <a href="#" class="user-link">
+          <img src="./images/usernamebg.png" alt="User Profile Image">
+          <span>Hello, Pedro</span> <!--turn this to drop down-->
+        </a>
+      </div>
+      <a href="#" class="cart-icon"><img src="./images/cart.png"></a>
+      <a href="#" class="search-icon"><img src="./images/search.png"></a>
+    </div>
+  </div>
+
+  <header>
+   <h1>Registered Vehicles</h1>
+  </header>
+
+
+  <div class="registered-cars">
+
+    <!--car details currently static convert to changeable + change names of classes too-->
+    <hr>
+    <div class="car">
+      <img src="./images/sedan.png">
+      <div class="car-status">
+        <div class="car-info">
+              <p class="car-text">Sedan</p>
+          </div>
+      </div>    
+    </div>
+    <hr>
+
+    <button id="add">
+        <img id="addPhoto" src="./images/add.png">
+    </button> <!--pop up should appear here in order to register new cars-->
+
+    <!-- popup here -->
+    <div id="addCarPopup" class="popupContainer">
+      <div class="popupContent">
+        <span id="closePopup" class="closePopup">&times;</span>
+        <h1>Add a Car</h1>
+        <form id="addCarForm">
+
+          <label for="vehicleName">Name</label>
+          <input type="text" id="vehicleName" name="vehicleName" required><br>
+          <label for="uploadImage">Upload Image</label>
+        <input type="file" id="uploadImage" name="uploadImage" accept="image/*">
+       
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="successPopup" class="popupContainer">
+      <div class="popupContent">
+        <span id="closeSuccessPopup" class="closePopup">&times;</span>
+        <h1>Completed</h1>
+        <p>The vehicle classification has been added successfully.</p>
+        <button type="submit" id="closeBtn">Done</button>
+      </div>
+    </div>
+
+    <hr>
+    
+
+  </div>
+
+  <script src="add-vehicle.js"></script>
+</body>
+
+</html>

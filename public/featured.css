@@ -352,6 +352,7 @@ header{
     border: 2px solid white; /* Set the border for the outline */
     cursor: pointer;
     border-radius: 2px;
+    z-index: 1;
 }
   
 .add-to-cart-btn:hover,

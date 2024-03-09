@@ -297,3 +297,15 @@ header {
 .popupContent #closeBtn:hover {
     background-color: #45a049;
 }
+
+.popupContent form label[for="uploadImage"] {
+    display: block;
+    margin-bottom: 5px;
+    color: whitesmoke;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
