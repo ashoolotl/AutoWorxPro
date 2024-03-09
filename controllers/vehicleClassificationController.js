@@ -30,13 +30,16 @@ exports.validateVehicleClassificationData = catchAsync(
         console.log('INSIDE VEHICLE CLASS VALIDATION');
         const { name } = req.body;
         const method = req.method;
+
+        // if it is a post request, validate it inside the model
         if (method === 'POST') {
             return next();
         }
-
-        const vehicleClassification = VehicleClassification.findById(
+        // fetch the existing vehicle classification
+        const vehicleClassification = await VehicleClassification.findById(
             req.params.classificationId
         );
+        // if there is no vehicle classification return an error
         if (!vehicleClassification) {
             return next(
                 new AppError(
@@ -44,20 +47,30 @@ exports.validateVehicleClassificationData = catchAsync(
                 )
             );
         }
-        const allVehicleClassification =
-            await VehicleClassification.find().distinct('name');
-        console.log(allVehicleClassification);
-        const vehicleClassificationSet = new Set(allVehicleClassification);
-        console.log(vehicleClassificationSet);
+        // if there is a vehicle classification,
+        // fetch all vehicle classification
+        const allVehicleClassifications = await VehicleClassification.find();
+
         let nameUpperCase = name.toUpperCase();
-        if (vehicleClassificationSet.has(nameUpperCase)) {
+
+        // Loop through all of the vehicle classification, if this returned true it means that the name is duplicate, if false it is the only one
+        const nameAlreadyExists = allVehicleClassifications.some(
+            (classification) => {
+                return (
+                    classification.name.toUpperCase() === nameUpperCase &&
+                    classification._id.toString() !==
+                        req.params.classificationId
+                );
+            }
+        );
+        if (nameAlreadyExists) {
             return next(
                 new AppError(
-                    `The ${nameUpperCase} vehicle classification is already registered. Please create another one.`
+                    `The ${nameUpperCase} vehicle classification is already registered. Please choose another name.`,
+                    400
                 )
             );
         }
-
         next();
     }
 );
@@ -68,6 +81,7 @@ exports.updateServiceWithVehicleClass = catchAsync(async (req, res, next) => {
         req.params.classificationId
     ).distinct('name');
     if (!vehicleClassification) {
+        console.log('ERROR HERE');
         return next(new AppError('No classification found with that id', 404));
     }
 
@@ -89,6 +103,7 @@ exports.updateServiceWithVehicleClass = catchAsync(async (req, res, next) => {
     return next();
 });
 exports.updateClassification = catchAsync(async (req, res, next) => {
+    console.log('ERROR MAYBE HERE?');
     const classification = await VehicleClassification.findByIdAndUpdate(
         req.params.classificationId,
         req.body,
@@ -107,7 +122,6 @@ exports.updateClassification = catchAsync(async (req, res, next) => {
             vehicleClassification: classification,
         },
     });
-    next();
 });
 
 exports.deleteServiceWithVehicleClass = async (req, res, next) => {

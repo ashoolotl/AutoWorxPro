@@ -1,0 +1,33 @@
+extends base
+
+block stylesheets
+    link(rel='stylesheet', href='/user-profile.css')
+
+block content 
+    header
+    .profile-container
+        #profile-picture
+            img(src="./images/filler-icon.jpg", alt="Profile Picture")
+        h1 Hi, 
+            span Pedro
+        p What would you like to get started on today?
+
+    .registered-cars
+        h2 Registered Cars
+        hr
+        .car
+            img(src="./images/sedan.png")
+            .car-status
+                .car-info
+                    p.car-text Status:
+                    p.status On-going
+                .car-info
+                    p.car-text Plate Number:
+                    p.status XXX 1234
+                .car-info
+                    p.car-text Contact Person:
+                    p.status Grogu - XX
+
+        button#add
+            img#addPhoto(src="/images/add.png")
+

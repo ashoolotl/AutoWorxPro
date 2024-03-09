@@ -16,14 +16,20 @@ exports.validateServiceData = catchAsync(async (req, res, next) => {
     }
     if (name) {
         // next step is to check if the client wants to change the service name but it is already registered send an error
-        const services = await Service.find().distinct('name');
-        const servicesSet = new Set(services);
-        // check if the name is duplicate
+        const services = await Service.find();
+
         let serviceNameUpperCase = name.toUpperCase();
-        if (servicesSet.has(serviceNameUpperCase)) {
+        const serviceNameAlreadyExist = services.some((service) => {
+            return (
+                service.name.toUpperCase() === serviceNameUpperCase &&
+                service._id.toString() !== req.params.serviceId
+            );
+        });
+        if (serviceNameAlreadyExist) {
             return next(
                 new AppError(
-                    `The ${serviceNameUpperCase} is already a registered service. Please choose another service name.`
+                    `The ${serviceNameUpperCase} service is already registered. Please choose another service name`,
+                    400
                 )
             );
         }
