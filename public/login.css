@@ -8,22 +8,14 @@ body {
     font-size: 16px;
 }
 
-body::before {
-    content: "";
-    background-color: rgba(240, 240, 240, 0.2);
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-}
 
-body {
+.login {
     display: flex;
-    height: 100vh;
-    margin: 0;
+    height: 100%;
+    flex-direction: row;
     position: relative;
+    margin-top: -1.27rem;
+    z-index: -1;
 }
 
 .pictures {
@@ -33,7 +25,7 @@ body {
     align-items: center;
     width: 60%;
     height: 100vh;
-    position: absolute;
+    position: relative;
     right: 0;
     padding-right: 30px;
 }
@@ -60,8 +52,7 @@ body {
     background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(128, 128, 128, 0.9));
     width: 35%;
     height: 100vh;
-    position: absolute;
-    left: 0;
+    position: relative;
 }
 
 .login-container h2 {
