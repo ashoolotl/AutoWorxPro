@@ -25,6 +25,10 @@ const serviceSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'A service must have a duration.'],
     },
+    photo: {
+        type: String,
+        default: 'default.jpeg',
+    },
     prices: {
         type: [
             {

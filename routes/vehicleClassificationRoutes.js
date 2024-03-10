@@ -1,6 +1,7 @@
 const express = require('express');
 const vehicleClassification = require('../controllers/vehicleClassificationController');
 const authController = require('../controllers/authController');
+
 const router = express.Router();
 
 // we need to protect this route
@@ -11,6 +12,8 @@ router
     .get(vehicleClassification.getAllClassification)
     .post(
         vehicleClassification.validateVehicleClassificationData,
+        vehicleClassification.uploadVehicleClassificationPhoto,
+        vehicleClassification.resizeVehicleClassificationPhoto,
         vehicleClassification.createClassification
     );
 

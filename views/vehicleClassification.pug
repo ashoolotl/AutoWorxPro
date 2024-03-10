@@ -1,0 +1,44 @@
+extends base
+
+block stylesheets 
+    link(rel='stylesheet', href='/partials/navbar.css')
+    link(rel='stylesheet', href='/user-profile.css')
+
+block content
+    header Registered Vehicles
+
+
+    .registered-cars
+        each vehicleClass in vehicleClassification 
+           
+            hr
+            .car 
+                img(src=`/images/vehicleClassification/${vehicleClass.photo}`)
+                .car-status 
+                    .car-info 
+                        p.car-text= vehicleClass.name  
+            
+        hr
+        button#add 
+            img#id(src='/images/add.png')
+
+        #addCarPopup.popupContainer 
+            .popupContent 
+                span#closePopup.closePopup &times;
+                h1 Add a Vehicle Classification 
+
+                form#addCarForm
+                    label(for='vehicleClassification') Vehicle Classification
+                    input(type='text', id='vehicleClassification' name='vehicleClassification')
+                    label(for='photo') Upload Image 
+                    input(type='file', id='photo', name='photo', accept='image/*')
+                    button(type='submit') Submit
+
+        #successPopup.popupContainer 
+            .popupContent 
+                span#closeSuccessPopup.closePopup &times;   
+                h1 Completed 
+                p The Vehicle Classification has been added successfully.
+                button(type='submit' id='closeBtn') Done
+
+

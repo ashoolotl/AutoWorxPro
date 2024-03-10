@@ -1,0 +1,51 @@
+extends base
+
+block stylesheets 
+    link(rel='stylesheet', href='/partials/navbar.css')
+    link(rel='stylesheet', href='/featured.css')
+
+block content
+
+    #overlay
+
+    header Featured Services
+
+    .top-container
+        each service, i  in services
+            .top-item
+                img(src=`/images/services/${service.photo}` alt=`Image of ${service.name}`)
+                p= `0${i+1} ${service.name}`
+
+        .top-item-add
+            button#add
+                img(src='/images/add-new-service.png')
+
+    //- popuphere
+    #addServicePopup.popupContainer 
+        .popupContent 
+            span#closePopup.closePopup &times;
+            h1 Add a Service 
+            
+            form#form
+                
+                label(for='name') Service Name 
+                input(type='text', id='name' name='name' required)
+
+                label(for='description') Service Description 
+                input(type='text', id='description' name='description' required)
+                
+                label(for='duration') Service Duration in Minutes  
+                input(type='number', id='duration' name='duration' required)
+
+                label(for='photo')
+                input(type='file', id='photo', name='photo', accept='image/*')
+
+                fieldset
+                    legend Select Vehicle Classification and Input Price
+                    each vehicleClass in vehicleClassification 
+                        label
+                            input(type='checkbox', name='selectedItems', value=`${vehicleClass.name}`)
+                            =vehicleClass.name 
+                            input(type='number', name=`price`, min='1', value='1')
+
+                button(type='submit') Submit 

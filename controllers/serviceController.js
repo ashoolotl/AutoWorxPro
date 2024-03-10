@@ -1,8 +1,42 @@
+const multer = require('multer');
+const sharp = require('sharp');
 const Service = require('../models/servicesModel');
 const Subscription = require('../models/subscriptionModel');
 const VehicleClassification = require('../models/vehicleClassificationModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+
+const multerStorage = multer.memoryStorage();
+const multerFile = (req, file, cb) => {
+    if (file.mimetype.startsWith('image')) {
+        cb(null, true);
+    } else {
+        cb(
+            new AppError('Not an image! Please upload only images.', 400),
+            false
+        );
+    }
+};
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFile,
+});
+
+exports.uploadServicePhoto = upload.single('photo');
+
+exports.resizeServicePhoto = (req, res, next) => {
+    if (!req.file) {
+        return next();
+    }
+    req.file.filename = `${req.body.name}.jpeg`;
+    sharp(req.file.buffer)
+        .resize(3200, 1800)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(`public/images/services/${req.file.filename}`);
+
+    next();
+};
 
 exports.validateServiceData = catchAsync(async (req, res, next) => {
     const { prices, name } = req.body;
@@ -68,8 +102,22 @@ exports.getAllServices = catchAsync(async (req, res, next) => {
 
 exports.createService = catchAsync(async (req, res, next) => {
     // validate that the vehicle classification is only
+    let fileName = 'default.png';
+    if (req.file) {
+        fileName = req.file.filename;
+    }
 
-    const newService = await Service.create(req.body);
+    // if (req.body.photo) {
+    //     fileName = req.body.photo;
+    // }
+
+    const newService = await Service.create({
+        name: req.body.name,
+        description: req.body.description,
+        duration: req.body.duration,
+        photo: fileName,
+        prices: req.body.prices,
+    });
     res.status(201).json({
         status: 'success',
         data: {

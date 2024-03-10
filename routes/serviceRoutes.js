@@ -9,6 +9,8 @@ router
     .get(serviceController.getAllServices)
     .post(
         serviceController.validateServiceData,
+        serviceController.uploadServicePhoto,
+        serviceController.resizeServicePhoto,
         serviceController.createService
     );
 

@@ -6,6 +6,11 @@ const vehicleClassificationSchema = new mongoose.Schema({
         uppercase: true,
         unique: true,
     },
+
+    photo: {
+        type: String,
+        default: 'default.png',
+    },
 });
 
 const VehicleClassification = mongoose.model(

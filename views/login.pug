@@ -1,8 +1,10 @@
 extends base
 
 block stylesheets 
-    link(rel="stylesheet" href="/css/login.css")
+    link(rel="stylesheet" href="/login.css")
+    link(rel='stylesheet' href='/partials/navbar.css')
 block content
+
     .login-container 
         h2 Login to your Account 
         p3 Welcome back! Fill in the following details 
@@ -13,7 +15,4 @@ block content
             button(type='submit') Log In 
         p Don't have an Account?
             a(href="register.html") Register Here
-    .pictures 
-        #title 
-            img(src='/images/logo-red.png')
 
