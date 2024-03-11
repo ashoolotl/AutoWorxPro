@@ -2,7 +2,7 @@ extends base
 
 block stylesheets
     link(rel='stylesheet', href='/partials/navbar.css')
-    link(rel='stylesheet', href='/user-profile.css')
+    link(rel='stylesheet', href='/user-profile-copy.css')
     
 block content 
     header
@@ -10,7 +10,7 @@ block content
         #profile-picture
             img(src="./images/filler-icon.jpg", alt="Profile Picture")
         h1 Hi, 
-            span Pedro
+            span=user.firstName 
         p What would you like to get started on today?
 
     .registered-cars
@@ -31,4 +31,36 @@ block content
 
         button#add
             img#addPhoto(src="/images/add.png")
+
+        #addCarPopup.popupContainer 
+            .popupContent 
+                span#closePopup.closePopup &times;
+                h1 Add a Car 
+                form#addCarForm
+                    label(for='classType') Classification
+                    br
+                    select#classType(name="classType", required)
+                        option(value="", disabled, selected) Select Class Type
+                        each vehicleClassification in vehicleClassifications
+                            option(value=`${vehicleClassification.name}`)=vehicleClassification.name 
+                    br
+
+                    label(for='carBrand') Brand 
+                    input(type='text' id='carBrand', name='carBrand' required)
+                    
+                    label(for='plateNumber') Plate Number (3 Digits, 2 Letters, 5 Digits)
+                    input(type='text' id='plateNumber', name='plateNumber' pattern='\d{3}[A-Za-z]{2}\d{5}' required)
+
+                    button(type='submit') Submit
+                    
+            #successPopup.popupContainer 
+                .popupContent 
+                    span#closeSuccessPopup.closePopup &times;
+                    h1 Completed 
+                    p Your car has been added successfully 
+                    button(type='submit' id='closeBtn') Done 
+
+
+
+
 

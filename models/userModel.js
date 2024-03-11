@@ -3,9 +3,13 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const userSchema = new mongoose.Schema({
-    name: {
+    firstName: {
         type: String,
         required: [true, 'Please input your first name.'],
+    },
+    lastName: {
+        type: String,
+        required: [true, 'Please input your last name.'],
     },
     email: {
         type: String,
@@ -46,6 +50,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
         select: false,
+    },
+    numberOfCarsOwned: {
+        type: String,
+        required: [true, 'Please input number of cars you own'],
     },
 });
 userSchema.pre(/^find/, function (next) {

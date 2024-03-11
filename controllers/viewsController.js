@@ -11,9 +11,14 @@ exports.getHomepage = (req, res, next) => {
     res.status(200).render('homepage');
 };
 
-exports.getDashboard = (req, res, next) => {
+exports.getDashboard = async (req, res, next) => {
+    const user = req.user;
+    const vehicleClassifications = await VehicleClassification.find();
+    console.log(user);
     res.status(200).render('dashboard', {
         title: 'Dashboard',
+        user,
+        vehicleClassifications,
     });
 };
 
