@@ -286,7 +286,9 @@ header {
 }
 
 .add-to-cart-btn,
-.book-appointment-btn {
+.book-appointment-btn,
+.edit-btn,
+.delete-btn {
     font-family: Montserrat;
     font-size: 1.2rem;
     padding: 10px;
@@ -302,6 +304,8 @@ header {
 }
 
 .add-to-cart-btn:hover,
-.book-appointment-btn:hover {
+.book-appointment-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover {
     background-color: #FF5555;
 }
