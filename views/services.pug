@@ -3,6 +3,8 @@ extends base
 block stylesheets 
     link(rel='stylesheet', href='/partials/navbar.css')
     link(rel='stylesheet', href='/featured.css')
+    link(rel='stylesheet', href='/booking-appointment.css')
+    link(rel='stylesheet', href='/cart.css')
 
 block content
 
@@ -48,4 +50,16 @@ block content
                             =vehicleClass.name 
                             input(type='number', name=`price`, min='1', value='1')
 
-                button(type='submit') Submit 
+                button(type='submit') Submit
+
+    .bottom-container 
+        each service in services
+            .bottom-item
+                img(src=`/images/services/${service.photo}` alt=`Image of ${service.name}`)
+                .bottom-item-content 
+                    h2=service.name
+                    p=service.description
+                    .buttons-container 
+                        button#serviceEdit.edit-btn(type='button') Edit 
+                        button#serviceDelete.delete-btn(type='button') Delete
+                

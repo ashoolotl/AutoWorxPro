@@ -1,0 +1,64 @@
+extends base
+
+block stylesheets 
+    link(rel='stylesheet', href='/partials/navbar.css')
+    link(rel='stylesheet', href='/featured.css')
+    link(rel='stylesheet', href='/booking-appointment.css')
+    link(rel='stylesheet', href='/cart.css')
+
+block content
+    #overlay
+
+    header Subscriptions
+
+    .top-container
+        each subscription in subscriptions
+            .top-item 
+                img(src=`/images/subscriptions/${subscription.photo}` alt=`Image of ${subscription.name}`)
+                p=`${subscription.name}`
+
+
+        .top-item-add
+            button#add
+                img(src='/images/add-new-sub.png')
+
+        //- popuphere
+    #addSubPopup.popupContainer 
+        .popupContent 
+            span#closePopup.closePopup &times;
+            h1 Add a Subscription 
+
+
+            form#form
+
+                label(for='name') Subscription Name 
+                input(type='text', id='name' name='name' required)
+
+                label(for='photo')
+                input(type='file', id='photo', name='photo', accept='image/*')
+
+                fieldset
+                    legend Select Services, Input  the Price and the Tokens
+                    each service in services 
+                        label
+                            input(type='checkbox', name='selectedItems', value=`${service.name}`)
+                            =service.name
+
+                            input(type='number', name=`price`, min='1', value='1', id='price')
+
+                            input(type='number', name=`token`, min='1', value='1' id='token')
+
+                button(type='submit') Submit
+
+    .bottom-container 
+        each subscription in subscriptions 
+            .bottom-item
+                img(src=`/images/subscriptions/${subscription.photo}` alt=`Image for ${subscription.name}`)
+                .bottom-item-content 
+                    h2=subscription.name
+                    h3=subscription.description
+
+                    .buttons-container 
+                        button#subscriptionEdit.edit-btn(type='button') Edit 
+                        button#subscriptionDelete.delete-btn(type='button') Delete
+

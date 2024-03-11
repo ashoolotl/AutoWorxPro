@@ -11,12 +11,9 @@ router.get(
     '/vehicle-classifications',
     authController.protect,
     authController.restrictTo('admin'),
-    viewsController.getVehicleClassification
+    viewsController.getVehicleClassifications
 );
-router.get(
-    '/services',
-    authController.protect,
-    authController.restrictTo('admin'),
-    viewsController.getServices
-);
+router.get('/services', viewsController.getServices);
+router.get('/subscriptions', viewsController.getSubscriptions);
+router.get('/register', viewsController.getRegister);
 module.exports = router;

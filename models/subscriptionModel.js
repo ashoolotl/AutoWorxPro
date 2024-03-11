@@ -41,6 +41,10 @@ const subscriptionSchema = new mongoose.Schema({
             'At least one price for this subscription must be provided.',
         ],
     },
+    photo: {
+        type: String,
+        default: 'default.jpg',
+    },
     description: {
         type: String,
     },

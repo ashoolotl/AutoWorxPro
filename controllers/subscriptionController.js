@@ -1,8 +1,41 @@
+const multer = require('multer');
+const sharp = require('sharp');
 const Subscription = require('../models/subscriptionModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const Service = require('../models/servicesModel');
 
+const multerStorage = multer.memoryStorage();
+const multerFile = (req, file, cb) => {
+    if (file.mimetype.startsWith('image')) {
+        cb(null, true);
+    } else {
+        cb(
+            new AppError('Not an image! Please upload only images.', 400),
+            false
+        );
+    }
+};
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFile,
+});
+
+exports.uploadSubscriptionPhoto = upload.single('photo');
+
+exports.resizeSubscriptionPhoto = (req, res, next) => {
+    if (!req.file) {
+        return next();
+    }
+    req.file.filename = `${req.body.name}.jpeg`;
+    sharp(req.file.buffer)
+        .resize(3200, 1800)
+        .toFormat('jpeg')
+        .jpeg({ quality: 90 })
+        .toFile(`public/images/subscriptions/${req.file.filename}`);
+
+    next();
+};
 exports.validateSubscriptionData = catchAsync(async (req, res, next) => {
     const { prices, name } = req.body;
     // check here if name is duplicate
@@ -67,7 +100,15 @@ exports.getAllSubscription = catchAsync(async (req, res, next) => {
     });
 });
 exports.createSubscription = catchAsync(async (req, res, next) => {
-    const subscription = await Subscription.create(req.body);
+    let fileName = 'default.png';
+    if (req.file) {
+        fileName = req.file.filename;
+    }
+    const subscription = await Subscription.create({
+        name: req.body.name,
+        photo: fileName,
+        prices: req.body.prices,
+    });
 
     res.status(200).json({
         status: 'success',

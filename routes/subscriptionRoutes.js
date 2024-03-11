@@ -10,6 +10,8 @@ router
     .get(subscriptionController.getAllSubscription)
     .post(
         subscriptionController.validateSubscriptionData,
+        subscriptionController.uploadSubscriptionPhoto,
+        subscriptionController.resizeSubscriptionPhoto,
         subscriptionController.createSubscription
     );
 //.post(serviceController.createService);

@@ -1,8 +1,8 @@
-const addService = async (data) => {
+const addSubscription = async (data) => {
     try {
         const res = await axios({
             method: 'POST',
-            url: '/api/v1/services',
+            url: '/api/v1/subscriptions',
             data,
         });
         console.log(res.data.status);
@@ -13,13 +13,11 @@ const addService = async (data) => {
         alert(err.response.data.message);
     }
 };
-
-// EDIT AND DELETE BUTTON
 document.addEventListener('DOMContentLoaded', function () {
     const bottomContainer = document.querySelector('.bottom-container');
 
     bottomContainer.addEventListener('click', function (event) {
-        if (event.target.matches('#serviceEdit')) {
+        if (event.target.matches('#subscriptionEdit')) {
             const editButton = event.target;
             const bottomItem = editButton.closest('.bottom-item');
             const serviceName = bottomItem.querySelector('h2').textContent;
@@ -28,52 +26,59 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 document.getElementById('add').addEventListener('click', function () {
     showOverlay();
-    document.getElementById('addServicePopup').style.display = 'block';
+    document.getElementById('addSubPopup').style.display = 'block';
 });
 
 document.getElementById('closePopup').addEventListener('click', function () {
     hideOverlay();
-    document.getElementById('addServicePopup').style.display = 'none';
+    document.getElementById('addSubPopup').style.display = 'none';
 });
 
 document.getElementById('form').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const formData = new FormData();
-
     formData.append('name', document.getElementById('name').value);
-    formData.append(
-        'description',
-        document.getElementById('description').value
-    );
-    formData.append('duration', document.getElementById('duration').value);
     formData.append('photo', document.getElementById('photo').files[0]);
-
     const prices = [];
-    const checkboxes = form.querySelectorAll(
-        'input[name="selectedItems"]:checked'
-    );
+
+    // Get all selected checkboxes
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
 
     checkboxes.forEach((checkbox) => {
-        const priceInput = checkbox.nextElementSibling;
-        const tokenInput = priceInput.nextElementSibling;
-        const price = Number(priceInput.value);
-        const token = Number(tokenInput.value);
-        prices.push({ service: checkbox.value, price: price, token: token });
-    });
+        const serviceName = checkbox.value;
+        const priceInput = checkbox.parentElement.querySelector(
+            'input[name="price"]'
+        );
+        const tokenInput = checkbox.parentElement.querySelector(
+            'input[name="token"]'
+        );
 
+        // Convert price and tokensAmount to numbers
+        const price = parseInt(priceInput.value);
+        const tokensAmount = parseInt(tokenInput.value);
+        prices.push({
+            service: serviceName,
+            price: price,
+            tokensAmount: tokensAmount,
+        });
+    });
     prices.forEach((price, index) => {
         formData.append(`prices[${index}][service]`, price.service);
         formData.append(`prices[${index}][price]`, price.price);
-        formData.append(`prices[${index}][token]`, price.tokensAmount);
+        formData.append(`prices[${index}][tokensAmount]`, price.tokensAmount);
     });
-    console.log(prices);
-    addService(formData);
 
+    // Append the prices array to formData under prices field
+    addSubscription(formData);
+    console.log(prices);
     hideOverlay();
-    document.getElementById('addServicePopup').style.display = 'none';
+    document.getElementById('addSubPopup').style.display = 'none';
+
+    // write the code here
 });
 
 // Functions to show and hide the overlay
