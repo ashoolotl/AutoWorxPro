@@ -3,29 +3,46 @@
         .logo
             a(href="#")
                 img(src="./images/logo-red.png")
-        a(href="#") Home
-        a(href="#") Subscriptions
-        a(href="#") Services
+        a(href="/") Home
+        a(href="/subscriptions") Subscriptions
+        a(href="/services") Services
         a(href="#") Contact Us
     .navbar-right
 
         if user
-            .username
-                a(href="#" class="user-link")
-                    img(src="./images/usernamebg.png", alt="User Profile Image")
-                    span Hello, Pedro
-            a(href="#" class="cart-icon")
-                img(src="./images/cart.png")
-            a(href="#" class="search-icon")
-                img(src="./images/search.png")
-        else
-            .username
-                a(href="/login" class="user-link")
-                    img(src="./images/usernamebg.png", alt="User Profile Image")
-                    span Register
+            if user.role === 'user'
+                .dropdown
+                    button.dropbtn.user-link 
+                        img(src="/images/usernamebg.png", alt="User Profile Image")
+                        span=`Hello, ${user.firstName}`
+                        
+                    .dropdown-content 
+                        a(href='/dashboard') User Profile
+                        a(href='#') Log Out 
+
                 a(href="#" class="cart-icon")
                     img(src="./images/cart.png")
                 a(href="#" class="search-icon")
                     img(src="./images/search.png")
+            if user.role === 'admin'
+                .dropdown
+                    button.dropbtn.user-link 
+                        img(src="/images/usernamebg.png", alt="User Profile Image")
+                        span=`Hello, ${user.firstName}`
+                        
+                    .dropdown-content 
+                        a(href='/vehicle-classifications') Add Vehicle Classifications
+                        a(href='/services') Add Services 
+                        a(href='/subscriptions') Add Subscriptions 
+                        a(href='#') Log Out 
+            if user==='nouser'
+                .username
+                    a(href="/login" class="user-link")
+                        img(src="./images/usernamebg.png", alt="User Profile Image")
+                        span Register
+                    a(href="#" class="cart-icon")
+                        img(src="./images/cart.png")
+                    a(href="#" class="search-icon")
+                        img(src="./images/search.png")
 
 

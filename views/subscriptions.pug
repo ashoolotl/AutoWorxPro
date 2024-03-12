@@ -11,16 +11,17 @@ block content
 
     header Subscriptions
 
+
     .top-container
         each subscription in subscriptions
             .top-item 
                 img(src=`/images/subscriptions/${subscription.photo}` alt=`Image of ${subscription.name}`)
                 p=`${subscription.name}`
 
-
-        .top-item-add
-            button#add
-                img(src='/images/add-new-sub.png')
+        if user && user.role=== 'admin'
+            .top-item-add
+                button#add
+                    img(src='/images/add-new-sub.png')
 
         //- popuphere
     #addSubPopup.popupContainer 
@@ -58,7 +59,16 @@ block content
                     h2=subscription.name
                     h3=subscription.description
 
-                    .buttons-container 
-                        button#subscriptionEdit.edit-btn(type='button') Edit 
-                        button#subscriptionDelete.delete-btn(type='button') Delete
+                    if user.role=== 'admin'
+                        .buttons-container 
+                            button#subscriptionEdit.edit-btn(type='button') Edit 
+                            button#subscriptionDelete.delete-btn(type='button') Delete
+                    else if user && user.role === 'user' 
+                        .buttons-container 
+                            button#subscriptionAddToCart.edit-btn(type='button') Add to Cart 
+                    else if user && user === 'nouser'
+                        .buttons-container 
+                            button#subscriptionAddToCartNoUser.edit-btn(type='button') Add to Cart 
 
+block scripts 
+    script(src='/js/addSubscription.js')

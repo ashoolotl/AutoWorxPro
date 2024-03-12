@@ -17,10 +17,12 @@ block content
             .top-item
                 img(src=`/images/services/${service.photo}` alt=`Image of ${service.name}`)
                 p= `0${i+1} ${service.name}`
+        if user && user.role === 'admin'
+            .top-item-add
+                button#add
+                    img(src='/images/add-new-service.png')
+         
 
-        .top-item-add
-            button#add
-                img(src='/images/add-new-service.png')
 
     //- popuphere
     #addServicePopup.popupContainer 
@@ -59,7 +61,18 @@ block content
                 .bottom-item-content 
                     h2=service.name
                     p=service.description
-                    .buttons-container 
-                        button#serviceEdit.edit-btn(type='button') Edit 
-                        button#serviceDelete.delete-btn(type='button') Delete
-                
+
+
+                    if user && user.role === 'admin'
+                        .buttons-container 
+                            button#serviceEdit.edit-btn(type='button') Edit 
+                            button#serviceDelete.delete-btn(type='button') Delete
+                    else if user && user.role ==='user'
+                        .buttons-container 
+                            button#serviceAddToCart.edit-btn(type='button') Add To Cart 
+                    else if user && user === 'nouser'
+                        .buttons-container 
+                            button#serviceAddToCartNoUser.edit-btn(type='button') Add to Cart
+                        
+block scripts 
+    script(src='/js/addService.js')

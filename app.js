@@ -15,6 +15,7 @@ const vehicleClassificationRouter = require('./routes/vehicleClassificationRoute
 const serviceRouter = require('./routes/serviceRoutes');
 const subscriptionRouter = require('./routes/subscriptionRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const vehicleRouter = require('./routes/vehicleRoutes');
 const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -60,6 +61,8 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/vehicle-classifications', vehicleClassificationRouter);
 app.use('/api/v1/services', serviceRouter);
 app.use('/api/v1/subscriptions', subscriptionRouter);
+app.use('/api/v1/vehicle', vehicleRouter);
+
 // Handle error if tried to access invalid path
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server`), 404);

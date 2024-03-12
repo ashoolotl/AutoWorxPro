@@ -1,3 +1,4 @@
+const Vehicle = require('../models/vehicleModel');
 const VehicleClassification = require('../models/vehicleClassificationModel');
 const Service = require('../models/servicesModel');
 const Subscription = require('../models/subscriptionModel');
@@ -14,11 +15,14 @@ exports.getHomepage = (req, res, next) => {
 exports.getDashboard = async (req, res, next) => {
     const user = req.user;
     const vehicleClassifications = await VehicleClassification.find();
+    const vehicles = await Vehicle.find({ owner: user._id });
+
     console.log(user);
     res.status(200).render('dashboard', {
         title: 'Dashboard',
         user,
         vehicleClassifications,
+        vehicles,
     });
 };
 
@@ -34,11 +38,15 @@ exports.getVehicleClassifications = async (req, res, next) => {
 exports.getServices = async (req, res, next) => {
     const services = await Service.find();
     const vehicleClassification = await VehicleClassification.find();
-
+    if (res.locals.user === 'nouser') {
+        console.log('no user');
+    }
+    let user = res.locals.user;
     res.status(200).render('services', {
         title: 'Services',
         services,
         vehicleClassification,
+        user,
     });
 };
 
@@ -46,15 +54,26 @@ exports.getSubscriptions = async (req, res, next) => {
     const services = await Service.find();
     const subscriptions = await Subscription.find();
 
+    if (res.locals.user === 'nouser') {
+        console.log('no user');
+    }
+    let user = res.locals.user;
     res.status(200).render('subscriptions', {
         title: 'Subscriptions',
         subscriptions,
         services,
+        user,
     });
 };
 
 exports.getRegister = async (req, res, next) => {
     res.status(200).render('register', {
         title: 'Create new Account',
+    });
+};
+
+exports.getCart = async (req, res, next) => {
+    res.status(200).render('cart', {
+        title: 'Cart',
     });
 };

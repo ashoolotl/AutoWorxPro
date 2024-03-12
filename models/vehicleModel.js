@@ -4,18 +4,25 @@ const vehicleSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please input the classification.'],
         uppercase: true,
-        unique: true,
     },
     brand: {
         type: String,
         required: [true, 'Please input the brand name.'],
         uppercase: true,
+    },
+    plateNumber: {
+        type: String,
+        required: [true, 'Please input the plate number'],
         unique: true,
     },
-
-    photo: {
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+    status: {
         type: String,
-        default: 'default.png',
+        default: 'Not Available',
     },
 });
 

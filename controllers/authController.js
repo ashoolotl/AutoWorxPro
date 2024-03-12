@@ -136,7 +136,8 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
         res.locals.user = currentUser;
         return next();
     }
-    next();
+    res.locals.user = 'nouser';
+    return next();
 });
 
 // roles = ['admin', 'user']

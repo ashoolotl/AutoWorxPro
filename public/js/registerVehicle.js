@@ -1,3 +1,26 @@
+const addVehicle = async (data) => {
+    try {
+        const res = await axios({
+            method: 'POST',
+            url: '/api/v1/vehicle',
+            headers: {
+                'Content-Type': 'application/json', // Set content type to JSON
+            },
+            data,
+        });
+
+        if (res.data.status == 'success') {
+            alert('Vehicle added');
+            window.setTimeout(() => {
+                location.assign('/dashboard');
+            }, 1500);
+        }
+    } catch (err) {
+        alert(err.response.data.message);
+        console.log(data);
+    }
+};
+
 document.getElementById('add').addEventListener('click', function () {
     document.getElementById('addCarPopup').style.display = 'block';
 }); // opening of add car popup
@@ -10,8 +33,15 @@ document
     .getElementById('addCarForm')
     .addEventListener('submit', function (event) {
         event.preventDefault();
-        document.getElementById('addCarPopup').style.display = 'none';
-        document.getElementById('successPopup').style.display = 'block';
+        const vehicleData = {
+            classification: document.getElementById('classType').value,
+            brand: document.getElementById('carBrand').value,
+            plateNumber: document.getElementById('plateNumber').value,
+            owner: document.getElementById('userId').value,
+        };
+
+        addVehicle(vehicleData);
+        // document.getElementById('successPopup').style.display = 'block';
     }); // when submitted, hide form popup then show success popup
 
 document

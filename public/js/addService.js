@@ -27,6 +27,27 @@ document.addEventListener('DOMContentLoaded', function () {
             // Add your logic for editing here
         }
     });
+    const serviceAddToCartNoUserButton = document.getElementById(
+        'serviceAddToCartNoUser'
+    );
+
+    // Check if the button element exists
+    if (serviceAddToCartNoUserButton) {
+        // Add click event listener to the button
+        serviceAddToCartNoUserButton.addEventListener(
+            'click',
+            function (event) {
+                // Perform the desired action when the button is clicked
+                // For example, you can display a message or perform a redirect
+                alert(
+                    'You must be logged in to be able to add a service to the cart.'
+                );
+                window.location.href = '/login';
+
+                // Add your logic here for what should happen when the button is clicked
+            }
+        );
+    }
 });
 document.getElementById('add').addEventListener('click', function () {
     showOverlay();
@@ -43,6 +64,7 @@ document.getElementById('form').addEventListener('submit', function (event) {
 
     const formData = new FormData();
 
+    // Append form fields to FormData
     formData.append('name', document.getElementById('name').value);
     formData.append(
         'description',
@@ -51,25 +73,27 @@ document.getElementById('form').addEventListener('submit', function (event) {
     formData.append('duration', document.getElementById('duration').value);
     formData.append('photo', document.getElementById('photo').files[0]);
 
+    // Get selected checkboxes and prepare prices data
     const prices = [];
-    const checkboxes = form.querySelectorAll(
+    const checkboxes = document.querySelectorAll(
         'input[name="selectedItems"]:checked'
     );
-
-    checkboxes.forEach((checkbox) => {
+    checkboxes.forEach(function (checkbox) {
         const priceInput = checkbox.nextElementSibling;
-        const tokenInput = priceInput.nextElementSibling;
         const price = Number(priceInput.value);
-        const token = Number(tokenInput.value);
-        prices.push({ service: checkbox.value, price: price, token: token });
+        prices.push({ vehicleClassification: checkbox.value, price: price });
     });
 
+    // Append prices data to FormData as individual fields
     prices.forEach((price, index) => {
-        formData.append(`prices[${index}][service]`, price.service);
+        formData.append(
+            `prices[${index}][vehicleClassification]`,
+            price.vehicleClassification
+        );
         formData.append(`prices[${index}][price]`, price.price);
-        formData.append(`prices[${index}][token]`, price.tokensAmount);
     });
-    console.log(prices);
+
+    // Call addService with the FormData object
     addService(formData);
 
     hideOverlay();

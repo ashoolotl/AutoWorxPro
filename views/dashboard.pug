@@ -16,18 +16,17 @@ block content
     .registered-cars
         h2 Registered Cars
         hr
-        .car
-            img(src="./images/sedan.png")
-            .car-status
-                .car-info
-                    p.car-text Status:
-                    p.status On-going
-                .car-info
-                    p.car-text Plate Number:
-                    p.status XXX 1234
-                .car-info
-                    p.car-text Contact Person:
-                    p.status Grogu - XX
+        each vehicle in vehicles 
+            .car
+                -const capitalizedClassification = vehicle.classification.charAt(0).toUpperCase() + vehicle.classification.slice(1).toLowerCase()
+                img(src=`/images/vehicleClassification/${capitalizedClassification}.jpeg`)
+                .car-status
+                    .car-info
+                        p.car-text Status:
+                        p.status= vehicle.status
+                    .car-info
+                        p.car-text Plate Number:
+                        p.status=vehicle.plateNumber
 
         button#add
             img#addPhoto(src="/images/add.png")
@@ -48,9 +47,10 @@ block content
                     label(for='carBrand') Brand 
                     input(type='text' id='carBrand', name='carBrand' required)
                     
-                    label(for='plateNumber') Plate Number (3 Digits, 2 Letters, 5 Digits)
-                    input(type='text' id='plateNumber', name='plateNumber' pattern='\d{3}[A-Za-z]{2}\d{5}' required)
+                    label(for='plateNumber') Plate Number (3 Digits, 3 Letters, 4 Digits)
+                    input(type='text' id='plateNumber' name='plateNumber' required)
 
+                    input(type='hidden' name='userId' value=user._id, id='userId')
                     button(type='submit') Submit
                     
             #successPopup.popupContainer 
@@ -60,7 +60,8 @@ block content
                     p Your car has been added successfully 
                     button(type='submit' id='closeBtn') Done 
 
-
+block scripts 
+    script(src='/js/registerVehicle.js')
 
 
 

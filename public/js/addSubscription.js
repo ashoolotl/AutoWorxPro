@@ -25,6 +25,21 @@ document.addEventListener('DOMContentLoaded', function () {
             // Add your logic for editing here
         }
     });
+    const subscriptionAddToCartButton = document.getElementById(
+        'subscriptionAddToCartNoUser'
+    );
+
+    // Check if the button element exists
+    if (subscriptionAddToCartButton) {
+        // Add click event listener to the button
+        subscriptionAddToCartButton.addEventListener('click', function (event) {
+            // Check if the user is not logged in (user is undefined or null)
+            alert(
+                'You must be logged in to be able to add to cart. Redirecting you to login'
+            );
+            window.location.href = '/login';
+        });
+    }
 });
 
 document.getElementById('add').addEventListener('click', function () {

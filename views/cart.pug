@@ -1,0 +1,38 @@
+extends base
+
+
+block stylesheets 
+    link(rel='stylesheet' href='cart.css')
+    link(rel='stylesheet' href='/partials/navbar.css')
+
+
+
+block content
+
+    #top-container 
+        .top-container-labels 
+            p Order 
+        .top-container-labels 
+            p Subtotal 
+
+    #item-container 
+        .item 
+            .left-item 
+                label.checkmark-container
+                    input(type='checkbox' checked='checked')
+                    span.checkmark 
+                .image-container 
+                    img(src='images/cart/1.jpg' alt='Image for product name') 
+                    .overlay 
+                
+                .item-details 
+                    h1 Express Wash 
+                    p Carwash, Blow Dry, Gloss Finish 
+                    input(type='text' value='Plate Number' disabled)
+            .right-item 
+                h1 €20
+                p Remove 
+
+                
+
+block scripts 
