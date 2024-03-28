@@ -18,9 +18,17 @@ mongoose
     });
 
 const app = require('./app');
-
+const uri = process.env.DATABASE;
+const client = new MongoClient(uri);
 // start the server on port 3000
 const port = process.env.port;
-app.listen(port, (req, res) => {
-    console.log(`Server running on port ${port}`);
+
+client.connect((err) => {
+    if (err) {
+        console.error(err);
+        return false;
+    }
+    app.listen(port, (req, res) => {
+        console.log(`Server running on port ${port}`);
+    });
 });
