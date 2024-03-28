@@ -1,4 +1,3 @@
-const { MongoClient } = require('mongodb');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 // configure the dotenv path
@@ -19,20 +18,15 @@ dotenv.config({ path: './config.env' });
 //     });
 
 const app = require('./app');
-const uri = process.env.DATABASE.replace(
-    '<PASSWORD>',
-    process.env.DATABASE_PASSWORD
-);
-const client = new MongoClient(uri);
-// start the server on port 3000
-const port = process.env.port;
 
-client.connect((err) => {
-    if (err) {
-        console.error(err);
-        return false;
+// start the server on port 3000
+const PORT = process.env.port || 3000;
+
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONG_URI);
+        console.log(`Mongo Db Connected ${conn.connection.host}`);
+    } catch (error) {
+        console.log(error);
     }
-    app.listen(port, (req, res) => {
-        console.log(`Server running on port ${port}`);
-    });
-});
+};
