@@ -33,6 +33,6 @@ const connectDB = async () => {
 
 connectDB().then(() => {
     app.listen(PORT, () => {
-        console.log('listening for requests');
+        console.log(`listening for requests ${PORT}`);
     });
 });
