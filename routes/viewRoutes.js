@@ -16,5 +16,5 @@ router.get(
 router.get('/services', viewsController.getServices);
 router.get('/subscriptions', viewsController.getSubscriptions);
 router.get('/register', viewsController.getRegister);
-router.get('/cart-items', authController.protect, viewsController.getCart);
+router.get('/carts', authController.protect, viewsController.getCart);
 module.exports = router;

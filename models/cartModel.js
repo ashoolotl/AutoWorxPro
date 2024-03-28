@@ -7,7 +7,23 @@ const cartSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
+        required: [true, 'The item must have a owner'],
+    },
+    product: {
+        type: String,
+        required: [true, 'The cart must have a product'],
+    },
+    plateNumber: {
+        type: String,
+        required: [true, 'There must be a plate number'],
+    },
+    classification: {
+        type: String,
+        required: [true, 'There must be a vehicle classification'],
+    },
+    description: {
+        type: String,
+        required: [true, 'There must be a description'],
     },
 });
 

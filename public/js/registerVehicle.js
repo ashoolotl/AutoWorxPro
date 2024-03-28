@@ -2,7 +2,7 @@ const addVehicle = async (data) => {
     try {
         const res = await axios({
             method: 'POST',
-            url: '/api/v1/vehicle',
+            url: '/api/v1/vehicles',
             headers: {
                 'Content-Type': 'application/json', // Set content type to JSON
             },

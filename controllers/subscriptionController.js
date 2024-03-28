@@ -99,8 +99,13 @@ exports.getAllSubscription = catchAsync(async (req, res, next) => {
         },
     });
 });
+
 exports.createSubscription = catchAsync(async (req, res, next) => {
-    let fileName = 'default.png';
+    console.log('DEBUG DEBUG CREATIOn');
+    console.log(req.body);
+    console.log('SERVICE');
+    console.log(req.body.prices.services);
+    let fileName = 'default.jpeg';
     if (req.file) {
         fileName = req.file.filename;
     }
@@ -109,6 +114,8 @@ exports.createSubscription = catchAsync(async (req, res, next) => {
         photo: fileName,
         prices: req.body.prices,
     });
+    console.log('CREATED IS');
+    console.log(subscription);
 
     res.status(200).json({
         status: 'success',
@@ -121,26 +128,55 @@ exports.createSubscription = catchAsync(async (req, res, next) => {
 
 exports.editSubscription = catchAsync(async (req, res, next) => {
     // update here the description
+    console.log(req.file);
+    if (req.file) {
+        const subscription = await Subscription.findByIdAndUpdate(
+            req.params.subscriptionId,
+            {
+                name: req.body.name,
+                photo: req.file.filename,
+                prices: req.body.prices,
+            },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
 
-    const subscription = await Subscription.findByIdAndUpdate(
-        req.params.subscriptionId,
-        req.body,
-        {
-            new: true,
-            runValidators: true,
+        if (!subscription) {
+            return next(
+                new AppError('No subscription found with that id', 400)
+            );
         }
-    );
-
-    if (!subscription) {
-        return next(new AppError('No subscription found with that id', 400));
+        res.status(200).json({
+            status: 'success',
+            data: {
+                subscription,
+            },
+        });
     }
-    console.log('SAVING THIS SUBSCRIPTION');
-    res.status(200).json({
-        status: 'success',
-        data: {
-            subscription,
-        },
-    });
+    if (!req.file) {
+        const subscription = await Subscription.findByIdAndUpdate(
+            req.params.subscriptionId,
+            req.body,
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+        if (!subscription) {
+            return next(
+                new AppError('No subscription found with that id', 400)
+            );
+        }
+        res.status(200).json({
+            status: 'success',
+            data: {
+                subscription,
+            },
+        });
+    }
 });
 
 exports.deleteSubscription = catchAsync(async (req, res, next) => {

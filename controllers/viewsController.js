@@ -2,6 +2,7 @@ const Vehicle = require('../models/vehicleModel');
 const VehicleClassification = require('../models/vehicleClassificationModel');
 const Service = require('../models/servicesModel');
 const Subscription = require('../models/subscriptionModel');
+const Cart = require('../models/cartModel');
 exports.getLoginForm = (req, res, next) => {
     res.status(200).render('login', {
         title: 'Log into your account',
@@ -42,18 +43,25 @@ exports.getServices = async (req, res, next) => {
         console.log('no user');
     }
     let user = res.locals.user;
+    console.log(user);
+    let vehicles = undefined;
+    if (user.role === 'user') {
+        vehicles = await Vehicle.find({ owner: user._id });
+    }
+
     res.status(200).render('services', {
         title: 'Services',
         services,
         vehicleClassification,
         user,
+        vehicles,
     });
 };
 
 exports.getSubscriptions = async (req, res, next) => {
     const services = await Service.find();
     const subscriptions = await Subscription.find();
-
+    const vehicleClassifications = await VehicleClassification.find();
     if (res.locals.user === 'nouser') {
         console.log('no user');
     }
@@ -62,6 +70,7 @@ exports.getSubscriptions = async (req, res, next) => {
         title: 'Subscriptions',
         subscriptions,
         services,
+        vehicleClassifications,
         user,
     });
 };
@@ -73,7 +82,16 @@ exports.getRegister = async (req, res, next) => {
 };
 
 exports.getCart = async (req, res, next) => {
+    let user = res.locals.user;
+    let cartItems = undefined;
+
+    if (user.role === 'user') {
+        cartItems = await Cart.find({ owner: res.locals.user });
+        console.log(cartItems);
+    }
     res.status(200).render('cart', {
         title: 'Cart',
+        cartItems,
+        user,
     });
 };

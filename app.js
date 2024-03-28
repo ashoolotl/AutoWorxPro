@@ -16,6 +16,9 @@ const serviceRouter = require('./routes/serviceRoutes');
 const subscriptionRouter = require('./routes/subscriptionRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const vehicleRouter = require('./routes/vehicleRoutes');
+const cartRouter = require('./routes/cartRoutes');
+const bookingRouter = require('./routes/bookingRoutes');
+
 const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -48,7 +51,7 @@ app.use(mongoSanitize());
 // data sanitization against XSS
 
 // prevent parameter pollution
-app.use(hpp());
+//app.use(hpp());
 
 app.use((req, res, next) => {
     //console.log(req.cookies);
@@ -61,7 +64,9 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/vehicle-classifications', vehicleClassificationRouter);
 app.use('/api/v1/services', serviceRouter);
 app.use('/api/v1/subscriptions', subscriptionRouter);
-app.use('/api/v1/vehicle', vehicleRouter);
+app.use('/api/v1/vehicles', vehicleRouter);
+app.use('/api/v1/carts', cartRouter);
+app.use('/api/v1/bookings', bookingRouter);
 
 // Handle error if tried to access invalid path
 app.all('*', (req, res, next) => {

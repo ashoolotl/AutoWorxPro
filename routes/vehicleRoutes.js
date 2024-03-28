@@ -10,4 +10,6 @@ router
     .get(vehicleController.getAllVehicle)
     .post(vehicleController.createVehicle);
 
+router.route('/:ownerId').get(vehicleController.getVehicleByOwner);
+
 module.exports = router;

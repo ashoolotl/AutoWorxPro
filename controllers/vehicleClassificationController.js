@@ -68,12 +68,14 @@ exports.getAllClassification = catchAsync(async (req, res, next) => {
 
 exports.validateVehicleClassificationData = catchAsync(
     async (req, res, next) => {
-        console.log('INSIDE VEHICLE CLASS VALIDATION');
         const { name } = req.body;
         const method = req.method;
 
         // if it is a post request, validate it inside the model
         if (method === 'POST') {
+            return next();
+        }
+        if (method === 'PATCH') {
             return next();
         }
         // fetch the existing vehicle classification
@@ -144,25 +146,52 @@ exports.updateServiceWithVehicleClass = catchAsync(async (req, res, next) => {
     return next();
 });
 exports.updateClassification = catchAsync(async (req, res, next) => {
-    console.log('ERROR MAYBE HERE?');
-    const classification = await VehicleClassification.findByIdAndUpdate(
-        req.params.classificationId,
-        req.body,
-        {
-            new: true,
-            runValidators: true,
+    let fileName = 'default.png';
+    if (req.file) {
+        fileName = req.file.filename;
+        const classification = await VehicleClassification.findByIdAndUpdate(
+            req.params.classificationId,
+            {
+                name: req.body.name,
+                photo: fileName,
+            },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+        await classification.save();
+        res.status(200).json({
+            status: 'success',
+            data: {
+                vehicleClassification: classification,
+            },
+        });
+        if (!classification) {
+            return next(
+                new AppError('No classification found with that id', 404)
+            );
         }
-    );
-    if (!classification) {
-        return next(new AppError('No classification found with that id', 404));
     }
-    await classification.save();
-    res.status(200).json({
-        status: 'Success',
-        data: {
-            vehicleClassification: classification,
-        },
-    });
+    if (!req.file) {
+        const classification = await VehicleClassification.findByIdAndUpdate(
+            req.params.classificationId,
+            req.body,
+            { new: true, runValidators: true }
+        );
+        await classification.save();
+        res.status(200).json({
+            status: 'success',
+            data: {
+                vehicleClassification: classification,
+            },
+        });
+        if (!classification) {
+            return next(
+                new AppError('No classification found with that id', 404)
+            );
+        }
+    }
 });
 
 exports.deleteServiceWithVehicleClass = async (req, res, next) => {
@@ -188,7 +217,60 @@ exports.deleteServiceWithVehicleClass = async (req, res, next) => {
 
             // delete here the subscription which contains this service and check in THE SUBSCRIPTION IF ITS PRICES IS 1 AND ONLY CONTAINS THE SERVICE TO BE DELETE
 
+            // check all the subscriptions that contains the service name and check if it is 1 only delete the subscription other wise update
+            console.log('DEBUG DEBUG');
+            const subscriptions = await Subscription.find({
+                'prices.services.service': service.name,
+            });
+            console.log(subscriptions);
+            for (subscription of subscriptions) {
+                for (s of subscription.prices) {
+                    if (s.services.length == 1) {
+                        await Subscription.findByIdAndDelete(subscription._id);
+                    } else {
+                        // update the description and use pull
+                        await Subscription.updateMany(
+                            {
+                                'prices.services.service': service.name,
+                            },
+                            {
+                                $pull: {
+                                    'prices.$[price].services': {
+                                        service: service.name,
+                                    },
+                                },
+                            },
+                            {
+                                arrayFilters: [
+                                    { 'price.services.service': service.name },
+                                ], // Filter the array to only apply to documents where the service is found
+                                new: true,
+                                runValidators: false,
+                            }
+                        );
+                    }
+                }
+            }
+            // Update the description for each subscription
+            const subscriptionsUpdate = await Subscription.find(); // Get all subscriptions
+            for (const subscription of subscriptionsUpdate) {
+                // Construct updated description based on the remaining services in the prices array
+                const serviceDescriptions = subscription.prices[0].services
+                    .map(
+                        (service) =>
+                            `${service.tokensAmount} ${service.service}`
+                    )
+                    .join(', ');
+
+                // Update the description field
+                await Subscription.findByIdAndUpdate(subscription._id, {
+                    description: serviceDescriptions,
+                });
+            }
+
             await Service.findByIdAndDelete(service._id);
+
+            // if it contains the service to be deleted,  and is only 1 delete the subscription, else just remove it from the array
         } else {
             await Service.updateMany(
                 {
@@ -223,7 +305,7 @@ exports.deleteClassification = catchAsync(async (req, res, next) => {
     // delete from the services
 
     res.status(204).json({
-        status: 'Success',
+        status: 'success',
         data: null,
     });
 });

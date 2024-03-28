@@ -18,9 +18,9 @@
                         
                     .dropdown-content 
                         a(href='/dashboard') User Profile
-                        a(href='#') Log Out 
+                        a(onclick='logout()') Log Out 
 
-                a(href="#" class="cart-icon")
+                a(href="/carts" class="cart-icon")
                     img(src="./images/cart.png")
                 a(href="#" class="search-icon")
                     img(src="./images/search.png")
@@ -34,7 +34,7 @@
                         a(href='/vehicle-classifications') Add Vehicle Classifications
                         a(href='/services') Add Services 
                         a(href='/subscriptions') Add Subscriptions 
-                        a(href='#') Log Out 
+                        a(onclick='logout()') Log Out 
             if user==='nouser'
                 .username
                     a(href="/login" class="user-link")
@@ -44,5 +44,15 @@
                         img(src="./images/cart.png")
                     a(href="#" class="search-icon")
                         img(src="./images/search.png")
+        else
+            .username
+                    a(href="/login" class="user-link")
+                        img(src="./images/usernamebg.png", alt="User Profile Image")
+                        span Register
+                    a(href="#" class="cart-icon")
+                        img(src="./images/cart.png")
+                    a(href="#" class="search-icon")
+                        img(src="./images/search.png")
+
 
 

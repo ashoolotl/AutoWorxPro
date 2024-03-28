@@ -3,7 +3,7 @@ extends base
 block stylesheets 
     link(rel='stylesheet', href='/partials/navbar.css')
     link(rel='stylesheet', href='/featured.css')
-    link(rel='stylesheet', href='/booking-appointment.css')
+    link(rel='stylesheet', href='/book-appointment.css')
     link(rel='stylesheet', href='/cart.css')
 
 block content
@@ -21,9 +21,6 @@ block content
             .top-item-add
                 button#add
                     img(src='/images/add-new-service.png')
-         
-
-
     //- popuphere
     #addServicePopup.popupContainer 
         .popupContent 
@@ -50,9 +47,42 @@ block content
                         label
                             input(type='checkbox', name='selectedItems', value=`${vehicleClass.name}`)
                             =vehicleClass.name 
-                            input(type='number', name=`price`, min='1', value='1')
+                            input(type='number', name=`price`, min='1', value='1', step='0.01')
 
                 button(type='submit') Submit
+
+    //- Popup for edit
+    #editServicePopup.popupContainer 
+        .popupContent 
+            span#closePopupEdit.closePopup &times;
+            h1 Edit a Service 
+            
+            form#formEdit
+                
+                label(for='nameEdit') Service Name 
+                input(type='text', id='nameEdit' name='nameEdit' required)
+
+                label(for='descriptionEdit') Service Description 
+                input(type='text', id='descriptionEdit' name='descriptionEdit' required)
+                
+                label(for='durationEdit') Service Duration in Minutes  
+                input(type='number', id='durationEdit' name='durationEdit' required)
+
+                label(for='photoEdit')
+                input(type='file', id='photoEdit', name='photoEdit', accept='image/*')
+
+                fieldset
+                    legend Select Vehicle Classification and Input Price
+                    each vehicleClass in vehicleClassification 
+                        label
+                            input(type='checkbox', name='selectedItemsEdit', value=`${vehicleClass.name}`, id=vehicleClass.name)
+                            =vehicleClass.name 
+                            input(type='number', name=`priceEdit`, min='1', value='1', id=vehicleClass.name, step='0.01')
+
+                button(type='submit') Submit
+                input(type='serviceId', name='serviceId', id='serviceId', hidden='true')
+
+
 
     .bottom-container 
         each service in services
@@ -65,14 +95,40 @@ block content
 
                     if user && user.role === 'admin'
                         .buttons-container 
-                            button#serviceEdit.edit-btn(type='button') Edit 
-                            button#serviceDelete.delete-btn(type='button') Delete
+                            button#serviceEditBtn.edit-btn(type='button', data-id=service._id) Edit 
+                            button#serviceDeleteBtn.delete-btn(type='button', data-id=service._id) Delete
                     else if user && user.role ==='user'
                         .buttons-container 
-                            button#serviceAddToCart.edit-btn(type='button') Add To Cart 
+                            button#serviceAddToCart.edit-btn(type='button', data-id=service._id, data-owner=user._id) Add To Cart 
                     else if user && user === 'nouser'
                         .buttons-container 
                             button#serviceAddToCartNoUser.edit-btn(type='button') Add to Cart
+
+
+    //- booking popup
+    if (user && user.role === 'user')
+        #bookingPopup.popupContainer
+
+            form#addToCart
+                span#closePopupBooking.closePopup &times;
+                h2 Registered Vehicles
+                hr#generatePopup
+
+                
+               
+                   
+            
+                button(type='submit') Add to Cart
+                
+
+        
+
+        
+
+
                         
 block scripts 
-    script(src='/js/addService.js')
+    if user && user.role === 'admin'
+        script(src='/js/addService.js')
+    else if user && user.role ==='user'
+        script(src='/js/addToCart.js')

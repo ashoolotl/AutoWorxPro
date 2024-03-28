@@ -102,7 +102,7 @@ exports.getAllServices = catchAsync(async (req, res, next) => {
 
 exports.createService = catchAsync(async (req, res, next) => {
     // validate that the vehicle classification is only
-    let fileName = 'default.png';
+    let fileName = 'default.jpeg';
     if (req.file) {
         fileName = req.file.filename;
     }
@@ -128,64 +128,100 @@ exports.createService = catchAsync(async (req, res, next) => {
 
 exports.updateSubscriptionWithService = catchAsync(async (req, res, next) => {
     console.log('INSIDE UPDATE SERVICE WITH SUBSCRIPTION');
-    const service = await Service.findById(req.params.serviceId).distinct(
-        'name'
-    );
+    console.log(req.body);
+    const service = await Service.findById(req.params.serviceId);
     if (!service) {
         return next(new AppError('No classification found with that id', 400));
     }
 
-    const subscriptions = await Subscription.find({
-        'prices.service': service[0],
-    });
+    console.log(service.name);
 
     // Iterate over each subscription document and update
-    for (const subscription of subscriptions) {
-        // Get the token amount from the current subscription
-        const tokenAmount = subscription.prices[0].tokensAmount;
 
-        // Update operation for the current subscription
-        await Subscription.updateOne(
-            { 'prices.service': service[0] }, // Match by subscription ID
-            {
-                $set: {
-                    'prices.$[elem].service': req.body.name,
-                    description: tokenAmount + ' ' + req.body.name,
-                },
+    await Subscription.updateMany(
+        { 'prices.services.service': service.name },
+        {
+            $set: {
+                'prices.$[price].services.$[elem].service': req.body.name,
             },
-            {
-                arrayFilters: [{ 'elem.service': service[0] }],
-                new: true,
-                runValidators: true,
-            }
-        );
-    }
+        },
+        {
+            arrayFilters: [
+                { 'price.services.service': service.name },
+                { 'elem.service': service.name },
+            ],
+            new: true, // Return the modified document
+            runValidators: true, // Run validators on the update operation
+        } // Array filter to specify the condition inside the array
+    );
+    const subscriptionsUpdate = await Subscription.find(); // Get all subscriptions
+    for (const subscription of subscriptionsUpdate) {
+        // Construct updated description based on the remaining services in the prices array
+        const serviceDescriptions = subscription.prices[0].services
+            .map((service) => `${service.tokensAmount} ${service.service}`)
+            .join(', ');
 
+        // Update the description field
+        await Subscription.findByIdAndUpdate(subscription._id, {
+            description: serviceDescriptions,
+        });
+    }
     return next();
 });
 
 exports.editService = catchAsync(async (req, res, next) => {
-    const service = await Service.findByIdAndUpdate(
-        req.params.serviceId,
-        req.body,
-        {
-            new: true,
-            runValidators: true,
-        }
-    );
+    console.log(req.file);
+    console.log('DEBUG DEBUG');
+    if (req.file) {
+        const service = await Service.findByIdAndUpdate(
+            req.params.serviceId,
+            {
+                name: req.body.name,
+                description: req.body.description,
+                duration: req.body.duration,
+                photo: req.file.filename,
+                prices: req.body.prices,
+            },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
 
-    if (!service) {
-        return next(new AppError('No service found with that id', 400));
+        if (!service) {
+            return next(new AppError('No service found with that id', 400));
+        }
+        // await service.save();
+        // to run the middleware that checks if valid vehicle classification is placed
+        res.status(200).json({
+            status: 'success',
+            data: {
+                service,
+            },
+        });
     }
-    console.log('SAVING THIS SERVICE');
-    // await service.save();
-    // to run the middleware that checks if valid vehicle classification is placed
-    res.status(200).json({
-        status: 'success',
-        data: {
-            service,
-        },
-    });
+    if (!req.file) {
+        const service = await Service.findByIdAndUpdate(
+            req.params.serviceId,
+            req.body,
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+        if (!service) {
+            return next(new AppError('No service found with that id', 400));
+        }
+        // await service.save();
+        // to run the middleware that checks if valid vehicle classification is placed
+        res.status(200).json({
+            status: 'success',
+            data: {
+                service,
+            },
+        });
+    }
 });
 exports.deleteServiceWithSubscription = catchAsync(async (req, res, next) => {
     const service = await Service.findById(req.params.serviceId);
@@ -193,36 +229,63 @@ exports.deleteServiceWithSubscription = catchAsync(async (req, res, next) => {
         return next(new AppError('No classification found with that id', 404));
     }
 
-    const subscriptionsToUpdate = await Subscription.find({
-        'prices.service': service.name,
+    const subscriptions = await Subscription.find({
+        'prices.services.service': service.name,
     });
-
-    for (const subscription of subscriptionsToUpdate) {
-        // If the service has only one price remaining and it matches the classification to delete, delete the service
-        if (
-            subscription.prices.length === 1 &&
-            subscription.prices[0].service === service.name
-        ) {
-            await Subscription.findByIdAndDelete(subscription._id);
-        } else {
-            await Subscription.updateMany(
-                {
-                    'prices.service': service.name,
-                },
-                {
-                    $pull: {
-                        prices: { service: service.name },
+    console.log(subscriptions);
+    for (subscription of subscriptions) {
+        for (s of subscription.prices) {
+            if (s.services.length == 1) {
+                await Subscription.findByIdAndDelete(subscription._id);
+            } else {
+                // update the description and use pull
+                await Subscription.updateMany(
+                    {
+                        'prices.services.service': service.name,
                     },
-                },
-                {
-                    new: true,
-                    runValidators: false,
-                }
-            );
+                    {
+                        $pull: {
+                            'prices.$[price].services': {
+                                service: service.name,
+                            },
+                        },
+                    },
+                    {
+                        arrayFilters: [
+                            { 'price.services.service': service.name },
+                        ], // Filter the array to only apply to documents where the service is found
+                        new: true,
+                        runValidators: false,
+                    }
+                );
+            }
         }
     }
+    // Update the description for each subscription
+    const subscriptionsUpdate = await Subscription.find(); // Get all subscriptions
+    for (const subscription of subscriptionsUpdate) {
+        // Construct updated description based on the remaining services in the prices array
+        const serviceDescriptions = subscription.prices[0].services
+            .map((service) => `${service.tokensAmount} ${service.service}`)
+            .join(', ');
+
+        // Update the description field
+        await Subscription.findByIdAndUpdate(subscription._id, {
+            description: serviceDescriptions,
+        });
+    }
+
     next();
 });
+async function getDescriptionWithoutService(serviceName) {
+    // Find all subscriptions that still have the specified service
+    const subscriptionsWithService = await Subscription.find({
+        'prices.service': { $ne: serviceName }, // Exclude subscriptions with the specified service
+    });
+    console.log('INSIDE CONSTRUCTING NEW DESCRIPTION');
+    // Construct updated description for each subscription
+    console.log(subscriptionsWithService);
+}
 exports.deleteService = catchAsync(async (req, res, next) => {
     const service = await Service.findByIdAndDelete(req.params.serviceId);
     if (!service) {

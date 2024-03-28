@@ -20,7 +20,9 @@ router
 router
     .route('/:classificationId')
     .patch(
-        vehicleClassification.validateVehicleClassificationData,
+        // vehicleClassification.updateServiceWithVehicleClass,
+        vehicleClassification.uploadVehicleClassificationPhoto,
+        vehicleClassification.resizeVehicleClassificationPhoto,
         vehicleClassification.updateServiceWithVehicleClass,
         vehicleClassification.updateClassification
     )

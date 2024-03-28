@@ -9,30 +9,41 @@ block stylesheets
 
 block content
 
+  
     #top-container 
         .top-container-labels 
             p Order 
         .top-container-labels 
             p Subtotal 
+    if user 
+        input(type='hidden', id='ownerCartId', value=user._id)
+    #item-container
+        each item in cartItems
+            .item 
+                .left-item 
+                    label.checkmark-container
+                        input(type='checkbox' checked='checked')
+                        span.checkmark 
+                    .image-container 
+                        img(src=`images/services/${item.product}.jpeg` alt=`Image for ${item.product}`) 
+                        .overlay 
+                    
+                    .item-details 
+                        h1=item.product 
+                        p=item.description 
+                        input(type='text' value=`${item.plateNumber}` disabled)
+                .right-item 
+                    h1=`€${item.price}`
+                    p.removeItem(data-id=item._id) Remove
+    
+    #checkout-button
+        button#proceed-to-payment Proceed To Booking
+          
 
-    #item-container 
-        .item 
-            .left-item 
-                label.checkmark-container
-                    input(type='checkbox' checked='checked')
-                    span.checkmark 
-                .image-container 
-                    img(src='images/cart/1.jpg' alt='Image for product name') 
-                    .overlay 
                 
-                .item-details 
-                    h1 Express Wash 
-                    p Carwash, Blow Dry, Gloss Finish 
-                    input(type='text' value='Plate Number' disabled)
-            .right-item 
-                h1 €20
-                p Remove 
 
-                
-
-block scripts 
+block scripts
+    if user && user.role === 'user'
+        script(src="https://js.stripe.com/v3/")
+        script(src='/js/carts.js')
+    

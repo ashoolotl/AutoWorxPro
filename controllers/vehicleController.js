@@ -23,3 +23,14 @@ exports.createVehicle = catchAsync(async (req, res, next) => {
         },
     });
 });
+
+exports.getVehicleByOwner = catchAsync(async (req, res, next) => {
+    const vehicle = await Vehicle.find({ owner: req.params.ownerId });
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            vehicle,
+        },
+    });
+});

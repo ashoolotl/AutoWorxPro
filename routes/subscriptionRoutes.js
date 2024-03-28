@@ -5,21 +5,20 @@ const router = express.Router();
 
 router.use(authController.protect);
 router.use(authController.restrictTo('admin'));
-router
-    .route('/')
-    .get(subscriptionController.getAllSubscription)
-    .post(
-        subscriptionController.validateSubscriptionData,
-        subscriptionController.uploadSubscriptionPhoto,
-        subscriptionController.resizeSubscriptionPhoto,
-        subscriptionController.createSubscription
-    );
+router.route('/').get(subscriptionController.getAllSubscription).post(
+    // subscriptionController.validateSubscriptionData,
+    subscriptionController.uploadSubscriptionPhoto,
+    subscriptionController.resizeSubscriptionPhoto,
+    subscriptionController.createSubscription
+);
 //.post(serviceController.createService);
 
 router
     .route('/:subscriptionId')
     .patch(
-        subscriptionController.validateSubscriptionData,
+        subscriptionController.uploadSubscriptionPhoto,
+        subscriptionController.resizeSubscriptionPhoto,
+        // subscriptionController.validateSubscriptionData,
         subscriptionController.editSubscription
     )
     .delete(subscriptionController.deleteSubscription);
