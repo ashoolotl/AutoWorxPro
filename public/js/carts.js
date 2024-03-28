@@ -19,8 +19,7 @@ const getCheckoutSession = async (id) => {
             method: 'GET',
             url: `/api/v1/bookings/checkout-session/${id}`,
         });
-        console.log(res);
-        //window.location.href = res.data.session.url;
+        window.location.href = res.data.session.url;
     } catch (err) {
         alert(err.response.data.message);
     }
