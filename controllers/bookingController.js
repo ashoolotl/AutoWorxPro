@@ -62,6 +62,7 @@ const createBookingCheckout = async (session) => {
     // other wise this would not run :)
 };
 exports.webhookCheckout = catchAsync(async (req, res, next) => {
+    console.log('INSIDE WEBHOOK CHECKOUT');
     const sig = request.headers['stripe-signature'];
 
     let event;
