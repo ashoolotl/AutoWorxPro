@@ -18,8 +18,8 @@ block content
         hr
         each vehicle in vehicles 
             .car
-                -const capitalizedClassification = vehicle.classification.charAt(0).toUpperCase() + vehicle.classification.slice(1).toLowerCase()
-                img(src=`/images/vehicleClassification/${capitalizedClassification}.jpeg`)
+               
+                img(src=`/images/vehicleClassification/${vehicle.vehicleClassification}.jpeg`)
                 .car-status
                     .car-info
                         p.car-text Status:
