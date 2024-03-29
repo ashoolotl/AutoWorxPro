@@ -12,6 +12,7 @@ const cartSchema = new mongoose.Schema({
     product: {
         type: String,
         required: [true, 'The cart must have a product'],
+        uppercase: true,
     },
     plateNumber: {
         type: String,
