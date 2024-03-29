@@ -38,6 +38,8 @@
         </div>
       </div>
 
+    <div id="overlay"></div>
+
     <header>
         <!--add photo here-->
     </header>
@@ -167,8 +169,11 @@
 
     <!-- Dropdown form for selecting status -->
     <div id="status-form" class="status-form">
+        <span class="closePopup" onclick="closeForm(this)">&times;</span>
         <form id="status-change-form">
-            <label for="status-select">Select Status:</label>
+            <h2>
+            <label for="status-select">Select Status</label>
+            </h2>
             <select id="status-select">
                 <option value="rejected">Rejected</option>
                 <option value="on-going">On-going</option>

@@ -29,6 +29,15 @@ function changeStatus() {
     // Hide the form after status change
     const form = document.getElementById('status-form');
     if (form) {
+        hideOverlay();
+        form.style.display = 'none';
+    }
+}
+
+function closeForm() {
+    const form = document.getElementById('status-form');
+    if (form) {
+        hideOverlay();
         form.style.display = 'none';
     }
 }
@@ -49,6 +58,7 @@ function showForm(statusElement) {
 
     // Show the form
     const form = document.getElementById('status-form');
+    showOverlay();
     form.style.display = 'block';
 
 }
@@ -75,11 +85,13 @@ var openPopup = null; // Variable to store the currently open popup
 function showMoreInfo(button) {
     // Close the previously opened popup if exists
     if (openPopup !== null) {
+        hideOverlay();
         openPopup.style.display = 'none';
     }
 
     // Find the closest popup relative to the clicked button
     var popup = button.parentNode.querySelector('.popupContainer');
+    showOverlay();
     popup.style.display = 'block';
 
     // Update the currently open popup
@@ -89,6 +101,7 @@ function showMoreInfo(button) {
 function closeMoreInfoPopup(closeButton) {
     // Find the closest popup relative to the clicked close button
     var popup = closeButton.parentNode.parentNode;
+    hideOverlay();
     popup.style.display = 'none';
 
     // Reset the currently open popup
@@ -163,4 +176,10 @@ function getOrderDate(carElement) {
     return orderDate;
 }
 
-
+function showOverlay() {
+    document.getElementById("overlay").style.display = "block";
+}
+  
+function hideOverlay() {
+    document.getElementById("overlay").style.display = "none";
+}

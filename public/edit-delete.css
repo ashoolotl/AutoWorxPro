@@ -6,12 +6,15 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
+    justify-content: center;
 }
 
 #successEditPopup p,
 #deletePopup p,
 #successDeletePopup p {
     color: whitesmoke;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .confirm-edit-btn,
@@ -45,6 +48,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-top: auto;
 }
 
 .edit-buttons {
@@ -66,7 +70,7 @@
 
 .edit-form label {
     font-weight: bold;
-    color: #ED1C24;
+    color: whitesmoke;
 }
 
 .edit-form input[type="text"],
@@ -90,4 +94,11 @@
 
 .confirm-edit-btn:disabled:hover {
     background-color: transparent;
+}
+
+.popupContent {
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+    align-items: center;
 }

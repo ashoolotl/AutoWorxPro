@@ -40,6 +40,8 @@
     </div>
   </div>
 
+  <div id="overlay"></div>
+
   <header>
     Featured Services
   </header>
@@ -132,14 +134,15 @@
     <!-- Date and Time Popup -->
     <div id="dateTimePopup" class="popupContainer">
       <span class="closePopup" onclick="closeDateTimePopup()">&times;</span>
+      <div class="popupContent">
       <h2>Select Date and Time</h2>
       <!-- Content -->
       <div class="content">
         <input type="date" id="bookingDate">
         <input type="time" id="bookingTime">
       </div>
-      <hr>
       <button class="dateTimeSubmit" onclick="submitDateTime()">Submit</button>
+    </div>
     </div>
 
 
@@ -189,14 +192,15 @@
     <!-- Date and Time Popup -->
     <div id="addDateTimePopup" class="popupContainer">
       <span class="closePopup" onclick="closeAddDateTimePopup()">&times;</span>
+      <div class="popupContent">
       <h2>Select Date and Time</h2>
       <!-- Content -->
       <div class="content">
         <input type="date" id="bookingDate">
         <input type="time" id="bookingTime">
       </div>
-      <hr>
       <button class="dateTimeSubmit" onclick="addToCart()">Add to cart</button>
+    </div>
     </div>
 
 

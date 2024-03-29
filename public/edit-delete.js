@@ -19,18 +19,22 @@ function showDeleteConfirmPopup() {
 }
 
 function closeEditPopup() {
+    hideOverlay();
     document.getElementById("editPopup").style.display = "none";
 }
 
 function closeEditConfirmPopup() {
+    hideOverlay();
     document.getElementById("successEditPopup").style.display = "none";
 }
 
 function closeDeletePopup() {
+    hideOverlay();
     document.getElementById("deletePopup").style.display = "none";
 }
 
 function closeDeleteConfirmPopup() {
+    hideOverlay();
     document.getElementById("successDeletePopup").style.display = "none";
 }
 
@@ -38,6 +42,15 @@ function closePopups() {
     closeEditPopup();
     closeDeletePopup();
     closeDeleteConfirmPopup();
+    showOverlay();
+}
+
+function showOverlay() {
+    document.getElementById("overlay").style.display = "block";
+}
+  
+function hideOverlay() {
+    document.getElementById("overlay").style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", function () {
