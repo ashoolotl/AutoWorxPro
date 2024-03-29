@@ -58,7 +58,7 @@ const createBookingCheckout = async (session) => {
             plateNumber: cart.plateNumber,
         });
     }
-
+    console.log('FINISH CREATING');
     // other wise this would not run :)
 };
 exports.webhookCheckout = catchAsync(async (req, res, next) => {
@@ -78,6 +78,11 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
     }
 
     if (event.type === 'checkout.session.completed') {
+        console.log('CREATING BOOKING');
+        createBookingCheckout(event.data.object);
+    }
+    if (event.type === 'checkout.session.complete') {
+        console.log('CREATING BOOKING part 2');
         createBookingCheckout(event.data.object);
     }
 
