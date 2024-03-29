@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === 'development') {
 // });
 // app.use('/api', limiter);
 app.post(
-    '/webhook-checkout',
+    '/api/v1/webhook-checkout',
     express.raw({ type: 'application/json' }),
     bookingController.webhookCheckout
 );
