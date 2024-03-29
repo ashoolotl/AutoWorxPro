@@ -4,18 +4,18 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 
 //connect to database
-const database = process.env.DATABASE.replace(
-    '<PASSWORD>',
-    process.env.DATABASE_PASSWORD
-);
-mongoose
-    .connect(database, {
-        //useNewUrlParser: true,
-    })
-    .then((con) => {
-        //console.log(con.connection)
-        console.log('DB CONNECTION SUCCESS');
-    });
+// const database = process.env.DATABASE.replace(
+//     '<PASSWORD>',
+//     process.env.DATABASE_PASSWORD
+// );
+// mongoose
+//     .connect(database, {
+//         //useNewUrlParser: true,
+//     })
+//     .then((con) => {
+//         //console.log(con.connection)
+//         console.log('DB CONNECTION SUCCESS');
+//     });
 
 const app = require('./app');
 
@@ -30,12 +30,12 @@ const connectDB = async () => {
         console.log(error);
     }
 };
-app.listen(PORT, () => {
-    console.log(`listening for requests ${PORT}`);
-});
-
-// connectDB().then(() => {
-//     app.listen(PORT, () => {
-//         console.log(`listening for requests ${PORT}`);
-//     });
+// app.listen(PORT, () => {
+//     console.log(`listening for requests ${PORT}`);
 // });
+
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`listening for requests ${PORT}`);
+    });
+});
