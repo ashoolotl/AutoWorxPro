@@ -48,6 +48,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 });
 const createBookingCheckout = async (session) => {
     // if successful booking create a checkout and clear the items in cart by the user
+    console.log('inside create booking checkout');
     const owner = session.client_reference_id;
 
     const carts = await Cart.find({ owner: owner });
@@ -60,9 +61,7 @@ const createBookingCheckout = async (session) => {
             classification: cart.classification,
             plateNumber: cart.plateNumber,
         });
-
-        await generateTokenForUser(newBooking._id);
-        console.log('created 1');
+        generateTokenForUser(newBooking._id);
     }
 };
 
@@ -78,6 +77,7 @@ const generateTokenForUser = async (newBookingId) => {
         (subscription) => subscription.name === booking.product
     );
     if (serviceExists) {
+        console.log('CHECKING IF IT GOES HERE');
         await ServiceAvailed.create({
             tokensAmount: booking.tokensAmount,
             owner: booking.owner,
