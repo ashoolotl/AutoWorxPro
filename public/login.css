@@ -2,7 +2,7 @@
 
 body {
     font-family: Montserrat;
-    background-image: url("/images/signup/login-bg.jpg");
+    background-image: url("images/signup/login-bg.jpg");
     background-size: cover;
     background-attachment: fixed;
     font-size: 16px;
