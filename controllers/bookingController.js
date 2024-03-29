@@ -64,9 +64,7 @@ const createBookingCheckout = async (session) => {
 exports.webhookCheckout = catchAsync(async (req, res, next) => {
     console.log('INSIDE WEBHOOK CHECKOUT');
     const sig = request.headers['stripe-signature'];
-
     let event;
-
     try {
         event = stripe.webhooks.constructEvent(
             request.body,
@@ -77,6 +75,8 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
         response.status(400).send(`Webhook Error: ${err.message}`);
         return;
     }
+    console.log('NO ERRORS');
+    console.log(event);
 
     if (event.type === 'checkout.session.completed') {
         console.log('CREATING BOOKING');
