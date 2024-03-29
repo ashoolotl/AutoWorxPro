@@ -25,7 +25,8 @@ block content
                         input(type='checkbox' checked='checked')
                         span.checkmark 
                     .image-container 
-                        img(src=`/images/services/${item.product}.jpeg` alt=`Image for ${item.product}`) 
+                        - var modifiedProductNameForImage = item.product.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())
+                        img(src=`/images/services/${modifiedProductNameForImage}}.jpeg` alt=`Image for ${modifiedProductNameForImage}`) 
                         .overlay 
                     
                     .item-details 

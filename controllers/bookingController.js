@@ -58,7 +58,8 @@ const createBookingCheckout = async (session) => {
             plateNumber: cart.plateNumber,
         });
     }
-    console.log('FINISH CREATING');
+    await Cart.deleteMany({ owner: owner });
+
     // other wise this would not run :)
 };
 exports.webhookCheckout = catchAsync(async (req, res, next) => {
