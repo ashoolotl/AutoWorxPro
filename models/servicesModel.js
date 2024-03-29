@@ -27,7 +27,7 @@ const serviceSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: 'default.jpeg',
+        default: 'DEFAULT.jpeg',
     },
     prices: {
         type: [

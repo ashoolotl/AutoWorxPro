@@ -28,7 +28,8 @@ exports.resizeServicePhoto = (req, res, next) => {
     if (!req.file) {
         return next();
     }
-    req.file.filename = `${req.body.name}.jpeg`;
+
+    req.file.filename = `${req.body.name.toUpperCase()}.jpeg`;
     sharp(req.file.buffer)
         .resize(3200, 1800)
         .toFormat('jpeg')
@@ -102,11 +103,10 @@ exports.getAllServices = catchAsync(async (req, res, next) => {
 
 exports.createService = catchAsync(async (req, res, next) => {
     // validate that the vehicle classification is only
-    let fileName = 'default.jpeg';
+    let fileName = 'DEFAULT.jpeg';
     if (req.file) {
         fileName = req.file.filename;
     }
-
     // if (req.body.photo) {
     //     fileName = req.body.photo;
     // }

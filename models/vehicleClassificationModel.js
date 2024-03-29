@@ -9,7 +9,7 @@ const vehicleClassificationSchema = new mongoose.Schema({
 
     photo: {
         type: String,
-        default: 'default.png',
+        default: 'DEFAULT.jpeg',
     },
 });
 

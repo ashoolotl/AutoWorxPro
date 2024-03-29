@@ -1,8 +1,11 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Cart = require('../models/cartModel');
+const Service = require('../models/servicesModel');
+const ServiceAvailed = require('../models/serviceAvailedModel');
+const Subscription = require('../models/subscriptionModel');
+const Booking = require('../models/bookingModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
-const Booking = require('../models/bookingModel');
 const User = require('../models/userModel');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
@@ -50,17 +53,46 @@ const createBookingCheckout = async (session) => {
     const carts = await Cart.find({ owner: owner });
 
     for (cart of carts) {
-        await Booking.create({
+        const newBooking = await Booking.create({
             tokensAmount: 1,
             owner: owner,
             product: cart.product,
             classification: cart.classification,
             plateNumber: cart.plateNumber,
         });
-    }
-    await Cart.deleteMany({ owner: owner });
 
-    // other wise this would not run :)
+        await generateTokenForUser(newBooking._id);
+    }
+};
+
+const generateTokenForUser = async (newBookingId) => {
+    const subscriptions = await Subscription.find();
+    const services = await Service.find();
+    const booking = await Booking.findById(newBookingId);
+
+    const serviceExists = services.some(
+        (service) => service.name === booking.product
+    );
+    const subscriptionExists = subscriptions.some(
+        (subscription) => subscription.name === booking.product
+    );
+    if (serviceExists) {
+        await ServiceAvailed.create({
+            tokensAmount: booking.tokensAmount,
+            owner: booking.owner,
+            plateNumber: booking.plateNumber,
+            product: booking.product,
+            bookingId: booking._id,
+        });
+    }
+    if (subscriptionExists) {
+        // generate token
+    }
+};
+
+const deleteItemsInCart = async (session) => {
+    const owner = session.client_reference_id;
+    await Cart.deleteMany({ owner: owner });
 };
 exports.webhookCheckout = catchAsync(async (req, res, next) => {
     console.log('INSIDE WEBHOOK CHECKOUT');
@@ -79,7 +111,12 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
     }
     if (event.type === 'checkout.session.completed') {
         console.log('CREATING BOOKING');
+        // create a booking for the admin
         createBookingCheckout(event.data.object);
+        // generate the tokens
+        //   generateTokenForUser(event.data.object);
+        // clear the cart of user
+        deleteItemsInCart(event.data.object);
     }
     console.log('FINISHED');
 

@@ -28,7 +28,7 @@ exports.resizeVehicleClassificationPhoto = (req, res, next) => {
     if (!req.file) {
         return next();
     }
-    req.file.filename = `${req.body.name}.jpeg`;
+    req.file.filename = `${req.body.name.toUpperCase()}.jpeg`;
     sharp(req.file.buffer)
         .resize(500, 500)
         .toFormat('jpeg')
@@ -39,7 +39,7 @@ exports.resizeVehicleClassificationPhoto = (req, res, next) => {
 };
 
 exports.createClassification = catchAsync(async (req, res, next) => {
-    let fileName = 'default.png';
+    let fileName = 'DEFAULT.jpeg';
     if (req.file) {
         fileName = req.file.filename;
     }
@@ -146,7 +146,7 @@ exports.updateServiceWithVehicleClass = catchAsync(async (req, res, next) => {
     return next();
 });
 exports.updateClassification = catchAsync(async (req, res, next) => {
-    let fileName = 'default.png';
+    let fileName = 'DEFAULT.jpeg';
     if (req.file) {
         fileName = req.file.filename;
         const classification = await VehicleClassification.findByIdAndUpdate(

@@ -61,7 +61,7 @@ const subscriptionSchema = new mongoose.Schema({
     },
     photo: {
         type: String,
-        default: 'default.jpeg',
+        default: 'DEFAULT.jpeg',
     },
     description: {
         type: String,

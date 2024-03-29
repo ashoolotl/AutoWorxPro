@@ -27,7 +27,7 @@ exports.resizeSubscriptionPhoto = (req, res, next) => {
     if (!req.file) {
         return next();
     }
-    req.file.filename = `${req.body.name}.jpeg`;
+    req.file.filename = `${req.body.name.toUpperCase()}.jpeg`;
     sharp(req.file.buffer)
         .resize(3200, 1800)
         .toFormat('jpeg')
@@ -105,7 +105,7 @@ exports.createSubscription = catchAsync(async (req, res, next) => {
     console.log(req.body);
     console.log('SERVICE');
     console.log(req.body.prices.services);
-    let fileName = 'default.jpeg';
+    let fileName = 'DEFAULT.jpeg';
     if (req.file) {
         fileName = req.file.filename;
     }
