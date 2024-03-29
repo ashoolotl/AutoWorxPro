@@ -62,6 +62,7 @@ const createBookingCheckout = async (session) => {
         });
 
         await generateTokenForUser(newBooking._id);
+        console.log('created 1');
     }
 };
 
@@ -85,6 +86,7 @@ const generateTokenForUser = async (newBookingId) => {
             bookingId: booking._id,
         });
     }
+
     if (subscriptionExists) {
         // generate token
     }
