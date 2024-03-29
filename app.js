@@ -37,12 +37,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // LIMIT REQUEST FROM API
-const limiter = rateLimit({
-    max: 200,
-    windowMs: 60 * 60 * 1000,
-    message: 'Too many request from this IP, please try again in an hour',
-});
-app.use('/api', limiter);
+// const limiter = rateLimit({
+//     max: 200,
+//     windowMs: 60 * 60 * 1000,
+//     message: 'Too many request from this IP, please try again in an hour',
+// });
+// app.use('/api', limiter);
 app.post(
     '/webhook-checkout',
     express.raw({ type: 'application/json' }),
