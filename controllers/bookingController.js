@@ -71,21 +71,15 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
             sig,
             process.env.STRIPE_WEBHOOK_SECRET
         );
+        if (event.type === 'checkout.session.completed') {
+            console.log('CREATING BOOKING');
+            createBookingCheckout(event.data.object);
+        }
     } catch (err) {
         response.status(400).send(`Webhook Error: ${err.message}`);
         return;
     }
-    console.log('NO ERRORS');
-    console.log(event);
-
-    if (event.type === 'checkout.session.completed') {
-        console.log('CREATING BOOKING');
-        createBookingCheckout(event.data.object);
-    }
-    if (event.type === 'checkout.session.complete') {
-        console.log('CREATING BOOKING part 2');
-        createBookingCheckout(event.data.object);
-    }
+    console.log('FINISHED');
 
     res.status(200).json({
         received: true,
