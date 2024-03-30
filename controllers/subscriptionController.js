@@ -133,7 +133,7 @@ exports.createSubscription = catchAsync(async (req, res, next) => {
         const product = await stripe.products.create({
             name: `${req.body.name}-${item.vehicleClassification}`,
             description: subscription.description,
-            images: [`/images/subscriptions/${req.body.name}`],
+            images: [`/images/subscriptions/${req.body.name}.jpeg`],
         });
         const price = await stripe.prices.create({
             product: product.id,
