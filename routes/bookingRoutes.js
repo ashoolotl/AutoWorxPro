@@ -14,5 +14,15 @@ router.get(
     authController.restrictTo('admin'),
     bookingController.getAllBookings
 );
+router.patch(
+    '/:bookingId',
+    authController.protect,
+    bookingController.updateBookingStatus
+);
+// this is for the subscription
+router.post(
+    '/checkout-subscription/:userId',
+    bookingController.createCheckoutSessionSubscription
+);
 
 module.exports = router;

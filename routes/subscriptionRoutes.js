@@ -4,9 +4,10 @@ const authController = require('../controllers/authController');
 const router = express.Router();
 
 router.use(authController.protect);
-router.use(authController.restrictTo('admin'));
+
 router.route('/').get(subscriptionController.getAllSubscription).post(
     // subscriptionController.validateSubscriptionData,
+    authController.restrictTo('admin'),
     subscriptionController.uploadSubscriptionPhoto,
     subscriptionController.resizeSubscriptionPhoto,
     subscriptionController.createSubscription

@@ -3,6 +3,7 @@ const VehicleClassification = require('../models/vehicleClassificationModel');
 const Service = require('../models/servicesModel');
 const Subscription = require('../models/subscriptionModel');
 const Cart = require('../models/cartModel');
+const ServiceAvailed = require('../models/serviceAvailedModel');
 exports.getLoginForm = (req, res, next) => {
     res.status(200).render('login', {
         title: 'Log into your account',
@@ -17,13 +18,14 @@ exports.getDashboard = async (req, res, next) => {
     const user = req.user;
     const vehicleClassifications = await VehicleClassification.find();
     const vehicles = await Vehicle.find({ owner: user._id });
-
+    const serviceAvailed = await ServiceAvailed.find({ owner: user._id });
     console.log(user);
     res.status(200).render('dashboard', {
         title: 'Dashboard',
         user,
         vehicleClassifications,
         vehicles,
+        serviceAvailed,
     });
 };
 
@@ -62,16 +64,23 @@ exports.getSubscriptions = async (req, res, next) => {
     const services = await Service.find();
     const subscriptions = await Subscription.find();
     const vehicleClassifications = await VehicleClassification.find();
+
+    let vehiclesOwned = undefined;
     if (res.locals.user === 'nouser') {
         console.log('no user');
     }
     let user = res.locals.user;
+    if (user.role == 'user') {
+        vehiclesOwned = await Vehicle.find({ owner: user._id });
+        console.log(vehiclesOwned);
+    }
     res.status(200).render('subscriptions', {
         title: 'Subscriptions',
         subscriptions,
         services,
         vehicleClassifications,
         user,
+        vehiclesOwned,
     });
 };
 

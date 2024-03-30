@@ -20,6 +20,8 @@ const cartRouter = require('./routes/cartRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const bookingController = require('./controllers/bookingController');
 
+const serviceAvailedRouter = require('./routes/serviceAvailedRoutes');
+
 const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -72,7 +74,7 @@ app.use('/api/v1/subscriptions', subscriptionRouter);
 app.use('/api/v1/vehicles', vehicleRouter);
 app.use('/api/v1/carts', cartRouter);
 app.use('/api/v1/bookings', bookingRouter);
-
+app.use('/api/v1/servicesAvailed', serviceAvailedRouter);
 // Handle error if tried to access invalid path
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server`), 404);

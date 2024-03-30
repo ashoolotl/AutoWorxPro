@@ -61,8 +61,53 @@ block content
                     p Your car has been added successfully 
                     button(type='submit' id='closeBtn') Done 
 
+
+    //- services
+
+    #active-services.active-subscriptions
+        h2 Active Services 
+        .subscriptions
+            each service of serviceAvailed 
+                
+                img(src=`/images/services/${service.product}.jpeg`, alt=`Image for ${service.product}`, style="width: 592px; height: 316px; border-radius: 20px;", onclick=`showPopupService('${service.id}')`)
+    //- popup for service
+    
+    #servicePopup.tokenContainer
+        span.closePopup(onclick=`closePopupService()`) &times;
+        
+        h2#servicePopupRemainingTokens Remaining Tokens 
+        
+        h2#servicePopupPlateNumber vehicle XXXX1234
+        hr
+        .popupContent
+            span.bookingPopupPlateNumber
+                    strong Price: 1 Token 
+            .contentWrapper.Tokens
+                
+                .image-select
+                    input(type="radio", checked=true)
+                    img#servicePopupImg.tokenPopupImage(src=`/images/services/HYPER WASH.jpeg`, alt=`service1`)
+                    input#serviceBookingId(type='hidden')
+        hr
+        button.booking(onclick="showDateTimePopupService()") Proceed to Booking
+ 
+    //- popup for service date time
+    #dateTimePopupService.tokenContainer
+        span.closePopup(onclick="closeDateTimePopupService()") &times;
+        h2 Select Date and Time
+            .content
+                - const now = new Date(Date.now() + (3600000 * 8)); // Adjusting for UTC+8 (Philippine Time)
+                input(type="date", id="bookingDate", min=`${now.toISOString().split('T')[0]}`, value=`${now.toISOString().split('T')[0]}`)
+                input(type="time", id="bookingTime", value="09:00", onchange="validateTime()")
+        hr
+        button.dateTimeSubmit(onclick="submitDateTimeServiceBooking()") Submit
+
+        
+
+        
 block scripts 
     script(src='/js/registerVehicle.js')
+    script(src='/js/availService.js')
 
 
 

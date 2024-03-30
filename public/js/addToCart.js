@@ -212,6 +212,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const vehiclesOwned = await getAllVehicleByOwner(
                 this.dataset.owner
             );
+
             for (className of vehiclesOwned.data.vehicle) {
                 ownedVehiclesClassificationsName.push(className.classification);
                 ownedVehiclesData.push(className);
@@ -227,8 +228,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             );
             console.log(matchingVehicles);
-
-            if (matchingVehicles.length == 0) {
+            if (vehiclesOwned.data.vehicle.length == 0) {
+                alert(
+                    'Please add a vehicle first before availing this service'
+                );
+            } else if (matchingVehicles.length == 0) {
                 alert('This service is not applicable to your vehicle');
             } else {
                 // create the poup and only show the ownedVehiclesClassifications
@@ -252,11 +256,6 @@ document
     .addEventListener('submit', function (event) {
         // Prevent the default form submission
         event.preventDefault();
-        var selectedVehicle = document.querySelector(
-            'input[type="radio"][name="vehicle"]:checked'
-        );
-
-        // to get the plate number
 
         // to get the plate number
         var selectedVehicle = document.querySelector(

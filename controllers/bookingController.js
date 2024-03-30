@@ -136,3 +136,60 @@ exports.getAllBookings = catchAsync(async (req, res, next) => {
         },
     });
 });
+exports.updateBookingStatus = catchAsync(async (req, res, next) => {
+    console.log('INSIDE UPDATING BOOKING');
+    console.log(req.body);
+    const updatedBooking = await Booking.findByIdAndUpdate(
+        req.params.bookingId,
+        {
+            scheduledDate: req.body.scheduledDate,
+        },
+        {
+            new: true,
+            runValidators: true,
+        }
+    );
+    console.log(updatedBooking);
+    res.status(200).json({
+        status: 'success',
+        data: {
+            booking: updatedBooking,
+        },
+    });
+});
+exports.createCheckoutSessionSubscription = async (req, res, next) => {
+    // pass in here the data
+    // which is the subscription_id selected
+    // req.params.userId
+    console.log('Inside create checkout session subscription');
+    const subscriptionToAvail = req.body;
+    console.log(subscriptionToAvail);
+    // first of create a customer
+    const user = await User.findById(subscriptionToAvail.owner);
+
+    const fullName = `${user.firstName} ${user.lastName}`;
+
+    // try to create the customer
+    const customer = await stripe.customers.create({
+        email: user.email,
+        name: fullName,
+    });
+
+    console.log(customer);
+    // try to create the subscription
+
+    const priceId = req.body.price;
+
+    const subscription = await stripe.subscriptions.create({
+        customer: customer.id,
+        items: [
+            {
+                price: priceId,
+            },
+        ],
+        payment_behavior: 'default_incomplete',
+        expand: ['latest_invoice.payment_intent'],
+    });
+    console.log(subscription);
+    // create the user first
+};

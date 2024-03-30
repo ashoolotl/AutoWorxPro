@@ -1,3 +1,4 @@
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const multer = require('multer');
 const sharp = require('sharp');
 const Subscription = require('../models/subscriptionModel');
@@ -101,10 +102,6 @@ exports.getAllSubscription = catchAsync(async (req, res, next) => {
 });
 
 exports.createSubscription = catchAsync(async (req, res, next) => {
-    console.log('DEBUG DEBUG CREATIOn');
-    console.log(req.body);
-    console.log('SERVICE');
-    console.log(req.body.prices.services);
     let fileName = 'DEFAULT.jpeg';
     if (req.file) {
         fileName = req.file.filename;
@@ -114,8 +111,36 @@ exports.createSubscription = catchAsync(async (req, res, next) => {
         photo: fileName,
         prices: req.body.prices,
     });
-    console.log('CREATED IS');
-    console.log(subscription);
+
+    // create here the stripe product
+    const productsToCreate = [];
+    subscription.prices.forEach((price) => {
+        price.vehicleClassifications.forEach((vehicleClassification) => {
+            // Access each vehicleClassification object here
+            const classification = vehicleClassification.vehicleClassification;
+            const price = vehicleClassification.price;
+            const classificationId = vehicleClassification._id;
+
+            // Perform any operations you need with the vehicleClassification data
+            productsToCreate.push({
+                vehicleClassification: classification,
+                price: price,
+            });
+        });
+    });
+
+    for (item of productsToCreate) {
+        const product = await stripe.products.create({
+            name: `${req.body.name}-${item.vehicleClassification}`,
+            description: subscription.description,
+            images: [`/images/subscriptions/${req.body.name}`],
+        });
+        const price = await stripe.prices.create({
+            product: product.id,
+            unit_amount: item.price * 100,
+            currency: 'eur',
+        });
+    }
 
     res.status(200).json({
         status: 'success',

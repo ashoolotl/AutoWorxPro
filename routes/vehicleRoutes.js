@@ -11,5 +11,7 @@ router
     .post(vehicleController.createVehicle);
 
 router.route('/:ownerId').get(vehicleController.getVehicleByOwner);
+router.route('/vehicle/:plateNumber').get(vehicleController.getVehicleById);
+router.route('/:vehicleId').patch(vehicleController.updateVehicleStatus);
 
 module.exports = router;

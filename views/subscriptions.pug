@@ -3,7 +3,7 @@ extends base
 block stylesheets 
     link(rel='stylesheet', href='/partials/navbar.css')
     link(rel='stylesheet', href='/featured.css')
-    link(rel='stylesheet', href='/booking-appointment.css')
+    link(rel='stylesheet', href='/book-appointment.css')
     link(rel='stylesheet', href='/cart.css')
 
 block content
@@ -109,10 +109,26 @@ block content
                             button#subscriptionDeleteBtn.delete-btn(type='button', data-id=subscription._id) Delete
                     else if user && user.role === 'user' 
                         .buttons-container 
-                            button#subscriptionAddToCart.edit-btn(type='button') Add to Cart 
+                            button#subscriptionGoToPayment.edit-btn(type='button', onclick=`showSubscriptionPopup('${subscription._id}', '${user._id}', '${subscription.name}','${subscription.description}')`) Purchase
                     else if user && user === 'nouser'
                         .buttons-container 
-                            button#subscriptionAddToCartNoUser.edit-btn(type='button') Add to Cart 
+                            button#subscriptionAddToCartNoUser.edit-btn(type='button') Purchase 
+
+    #bookingPopup.popupContainer
+
+        form#availSubscriptionForm
+            span.closePopup(onclick="closePopupSubscriptionSelectVehicle()") &times;
+            h2 Registered Vehicles
+            hr#generateVehicleSubscriptions
+            
+            
+            
+                
 
 block scripts 
-    script(src='/js/addSubscription.js')
+    if user && user.role === 'admin'
+        script(src='/js/addSubscription.js')
+    else if user && user.role ==='user'
+        script(src="https://js.stripe.com/v3/")
+        script(src='/js/availSubscription.js')
+    
