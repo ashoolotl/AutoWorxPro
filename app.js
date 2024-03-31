@@ -50,6 +50,11 @@ app.post(
     express.raw({ type: 'application/json' }),
     bookingController.webhookCheckout
 );
+app.post(
+    '/webhook-subscription',
+    express.raw({ type: 'application/json' }),
+    bookingController.webhookIsStillSubscribed
+);
 // Body Parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());

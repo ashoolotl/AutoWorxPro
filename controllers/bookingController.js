@@ -121,6 +121,7 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
         res.status(400).send(`Webhook Error: ${err.message}`);
         return;
     }
+
     if (event.type === 'checkout.session.completed') {
         console.log('CREATING BOOKING');
         console.log(event.data.object);
@@ -130,24 +131,33 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
             console.log('generate tokens');
             await createBookingCheckout(event.data.object);
         }
-        // create a booking for the admin
-        // uncomment later createBookingCheckout(event.data.object);
-        // generate the tokens
-        //
-        // clear the cart of user
-        // uncomment later
     }
-    if (event.type === 'invoice.paid') {
-        console.log(
-            'PAID PLEASE GENERATE THE TOKEN FOR THE USER FOR SUBSCRIPTION'
-        );
-        console.log(event.data.object);
-    }
+
     console.log('FINISHED');
 
     res.status(200).json({
         received: true,
     });
+});
+
+exports.webhookIsStillSubscribed = catchAsync(async (req, res, next) => {
+    const sig = req.headers['stripe-signature'];
+    let event;
+    try {
+        event = stripe.webhooks.constructEvent(
+            req.body,
+            sig,
+            process.env.STRIPE_WEBHOOK_INVOICE_PAID_SECRET
+        );
+    } catch (err) {
+        res.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+    }
+    if (event.type === 'invoice.paid') {
+        // invoice paid generate these tokens to the user
+        console.log('INside invoice paid endpoint');
+        console.log(event.data.object);
+    }
 });
 
 exports.getAllBookings = catchAsync(async (req, res, next) => {
