@@ -5,7 +5,7 @@ const createPayment = async (data, id) => {
             url: `/api/v1/bookings/checkout-subscription/${id}`,
             data,
         });
-        console.log(res.data);
+        window.location.href = res.data.session.url;
     } catch (err) {
         alert(err);
     }

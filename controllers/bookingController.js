@@ -113,12 +113,13 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
     }
     if (event.type === 'checkout.session.completed') {
         console.log('CREATING BOOKING');
+        console.log(event.data.object);
         // create a booking for the admin
-        createBookingCheckout(event.data.object);
+        // uncomment later createBookingCheckout(event.data.object);
         // generate the tokens
         //   generateTokenForUser(event.data.object);
         // clear the cart of user
-        deleteItemsInCart(event.data.object);
+        // uncomment later  deleteItemsInCart(event.data.object);
     }
     console.log('FINISHED');
 
@@ -175,17 +176,8 @@ exports.createCheckoutSessionSubscription = async (req, res, next) => {
         name: fullName,
     });
     // conver the productName to SUBSCRIPTION 1 to Subscription 1
-    let productNameToAvail = subscriptionToAvail.product;
-    console.log(productNameToAvail);
-    productNameToAvail = productNameToAvail
-        .toLowerCase()
-        .split(' ')
-        .map((word) => {
-            return word.charAt(0).toUpperCase() + word.slice(1);
-        })
-        .join(' ');
 
-    const productName = `${productNameToAvail}-${subscriptionToAvail.classification}`;
+    const productName = `${subscriptionToAvail.product}-${subscriptionToAvail.classification}`;
 
     const priceId = req.body.price;
 
@@ -220,14 +212,18 @@ exports.createCheckoutSessionSubscription = async (req, res, next) => {
                 quantity: 1,
             },
         ],
+        customer_email: user.email,
+        client_reference_id: req.params.userId,
         // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
         // the actual Session ID is returned in the query parameter when your customer
         // is redirected to the success page.
         success_url: `${req.protocol}://${req.get('host')}/dashboard`,
         cancel_url: `${req.protocol}://${req.get('host')}/subscriptions`,
     });
-
-    console.log(session);
+    res.status(200).json({
+        status: 'success',
+        session,
+    });
     // console.log(products);
     // console.log(products.data.length);
 
