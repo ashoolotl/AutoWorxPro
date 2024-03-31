@@ -174,22 +174,62 @@ exports.createCheckoutSessionSubscription = async (req, res, next) => {
         email: user.email,
         name: fullName,
     });
+    // conver the productName to SUBSCRIPTION 1 to Subscription 1
+    let productNameToAvail = subscriptionToAvail.product;
+    console.log(productNameToAvail);
+    productNameToAvail = productNameToAvail
+        .toLowerCase()
+        .split(' ')
+        .map((word) => {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(' ');
 
-    console.log(customer);
-    // try to create the subscription
+    const productName = `${productNameToAvail}-${subscriptionToAvail.classification}`;
 
     const priceId = req.body.price;
 
-    const subscription = await stripe.subscriptions.create({
-        customer: customer.id,
-        items: [
+    const products = await stripe.products.list({ limit: 100 });
+
+    let selectedProduct;
+
+    // Iterate through the list of products
+    for (const product of products.data) {
+        if (product.name == productName) {
+            selectedProduct = product;
+            break; // Exit the loop once a match is found
+        }
+    }
+    const selectedProductId = selectedProduct.id;
+
+    const stripePrices = await stripe.prices.list({ limit: 100 });
+
+    let selectedPrice;
+    for (price of stripePrices.data) {
+        if (price.product == selectedProductId) {
+            selectedPrice = price;
+            break;
+        }
+    }
+    const session = await stripe.checkout.sessions.create({
+        mode: 'subscription',
+        line_items: [
             {
-                price: priceId,
+                price: selectedPrice.id,
+                // For metered billing, do not pass quantity
+                quantity: 1,
             },
         ],
-        payment_behavior: 'default_incomplete',
-        expand: ['latest_invoice.payment_intent'],
+        // {CHECKOUT_SESSION_ID} is a string literal; do not change it!
+        // the actual Session ID is returned in the query parameter when your customer
+        // is redirected to the success page.
+        success_url: `${req.protocol}://${req.get('host')}/dashboard`,
+        cancel_url: `${req.protocol}://${req.get('host')}/subscriptions`,
     });
-    console.log(subscription);
+
+    console.log(session);
+    // console.log(products);
+    // console.log(products.data.length);
+
     // create the user first
 };

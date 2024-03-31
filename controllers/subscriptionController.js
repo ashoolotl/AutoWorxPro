@@ -106,6 +106,7 @@ exports.createSubscription = catchAsync(async (req, res, next) => {
     if (req.file) {
         fileName = req.file.filename;
     }
+
     const subscription = await Subscription.create({
         name: req.body.name,
         photo: fileName,
@@ -131,13 +132,16 @@ exports.createSubscription = catchAsync(async (req, res, next) => {
 
     for (item of productsToCreate) {
         const product = await stripe.products.create({
-            name: `${req.body.name}-${item.vehicleClassification}`,
+            name: `${subscription.name}-${item.vehicleClassification}`,
             description: subscription.description,
         });
         const price = await stripe.prices.create({
             product: product.id,
             unit_amount: item.price * 100,
             currency: 'eur',
+            recurring: {
+                interval: 'month',
+            },
         });
     }
 
