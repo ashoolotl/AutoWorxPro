@@ -92,13 +92,13 @@ const createBookingCheckoutSubscription = async (session) => {
     console.log('DISPLAYING SUBSCRIPTION FOUND');
     console.log(subscription);
     const subscriptionDetails = [];
-    subscription.prices.forEach((price) => {
-        const services = price.services;
-        services.forEach((service) => {
-            subscriptionDetails.push({
-                service: service.service,
-                tokensAmount: service.tokensAmount,
-            });
+    const services = subscription.prices[0].services; // Assuming there's only one price object
+
+    // Loop through services and push service and tokensAmount into subscriptionDetails
+    services.forEach((service) => {
+        subscriptionDetails.push({
+            service: service.service,
+            tokensAmount: service.tokensAmount,
         });
     });
 
