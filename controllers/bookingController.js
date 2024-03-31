@@ -113,7 +113,7 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
             console.log('GENERATE TOKEN FOR USER');
         } else if (event.data.object.mode == 'payment') {
             console.log('generate tokens');
-            createBookingCheckout(event.data.object);
+            await createBookingCheckout(event.data.object);
         }
         // create a booking for the admin
         // uncomment later createBookingCheckout(event.data.object);
