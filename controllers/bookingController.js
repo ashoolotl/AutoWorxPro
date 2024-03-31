@@ -64,6 +64,7 @@ const createBookingCheckout = async (session) => {
         });
         generateTokenForUser(newBooking._id);
     }
+    deleteItemsInCart(session);
 };
 
 const generateTokenForUser = async (newBookingId) => {
@@ -113,7 +114,6 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
         } else if (event.data.object.mode == 'payment') {
             console.log('generate tokens');
             createBookingCheckout(event.data.object);
-            deleteItemsInCart(event.data.object);
         }
         // create a booking for the admin
         // uncomment later createBookingCheckout(event.data.object);
