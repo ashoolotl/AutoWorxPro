@@ -193,6 +193,7 @@ exports.webhookIsStillSubscribed = catchAsync(async (req, res, next) => {
         // invoice paid generate these tokens to the user
         console.log('INside invoice paid endpoint');
         console.log('GENERATE HERE THE TOKEN FOR SUBSCRIPTION');
+        console.log(event.data.object);
 
         // generate the tokens here
         // this contains event.data.object.subscription
