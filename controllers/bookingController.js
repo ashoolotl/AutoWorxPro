@@ -137,6 +137,12 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
         // clear the cart of user
         // uncomment later
     }
+    if (event.type === 'invoice.paid') {
+        console.log(
+            'PAID PLEASE GENERATE THE TOKEN FOR THE USER FOR SUBSCRIPTION'
+        );
+        console.log(event.data.object);
+    }
     console.log('FINISHED');
 
     res.status(200).json({
