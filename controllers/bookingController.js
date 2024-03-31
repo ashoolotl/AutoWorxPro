@@ -161,12 +161,16 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
         console.log('CHECKOUT IS SUCCESSFUL');
         console.log(event.data.object);
         if (event.data.object.mode == 'subscription') {
-            // for subscriptions
+            // for subscriptions generate also te tokens for user
             await createBookingCheckoutSubscription(event.data.object);
         } else if (event.data.object.mode == 'payment') {
             // for one time payment
             await createBookingCheckout(event.data.object);
         }
+    } else if (event.type === 'invoice.paid') {
+        console.log('INSIDE INVOICE PAID');
+        console.log('DO SOMETHING HERE');
+        console.log('GENERATE TOKENS HERE');
     }
 
     console.log('FINISHED');
@@ -174,28 +178,6 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
     res.status(200).json({
         received: true,
     });
-});
-
-exports.webhookIsStillSubscribed = catchAsync(async (req, res, next) => {
-    const sig = req.headers['stripe-signature'];
-    let event;
-    try {
-        event = stripe.webhooks.constructEvent(
-            req.body,
-            sig,
-            process.env.STRIPE_WEBHOOK_INVOICE_PAID_SECRET
-        );
-    } catch (err) {
-        res.status(400).send(`Webhook Error: ${err.message}`);
-        return;
-    }
-    if (event.type === 'invoice.paid') {
-        // invoice paid generate these tokens to the user
-        console.log('INside invoice paid endpoint');
-        console.log(event.data.object);
-        // this contains event.data.object.subscription
-        // now update this to the vehicle
-    }
 });
 
 exports.getAllBookings = catchAsync(async (req, res, next) => {
