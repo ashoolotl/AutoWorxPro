@@ -89,6 +89,8 @@ const createBookingCheckoutSubscription = async (session) => {
     console.log(stripeReferenceNumber);
 
     const subscription = await Subscription.find({ name: subscriptionName });
+    console.log('DISPLAYING SUBSCRIPTION FOUND');
+    console.log(subscription);
     const subscriptionDetails = [];
     subscription.prices.forEach((price) => {
         const services = price.services;
@@ -99,8 +101,7 @@ const createBookingCheckoutSubscription = async (session) => {
             });
         });
     });
-    console.log('DISPLAYING SUBSCRIPTION FOUND');
-    console.log(subscription);
+
     console.log('DISPLAYING Subscription Details');
     console.log(subscriptionDetails);
 
