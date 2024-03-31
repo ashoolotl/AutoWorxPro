@@ -7,6 +7,7 @@ const Booking = require('../models/bookingModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/userModel');
+const BookingSubscription = require('../models/bookingSubscriptionModel');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     //req.params.userId
@@ -67,17 +68,52 @@ const createBookingCheckout = async (session) => {
     deleteItemsInCart(session);
 };
 const createBookingCheckoutSubscription = async (session) => {
+    console.log('inside create booking checkout for subscription');
+    console.log(session);
     const owner = session.client_reference_id;
     // create booking and generate token
 
-    // first we need to get the id from session.subscription
-    // use stripe retrieve to display the subscription
-
-    const subscriptionPurchased = await stripe.subscriptions.retrieve(
-        `${session.subscriptionPurchased}`
-    );
     // access here the meta data
+    const metadata = session.metadata;
 
+    const subscriptionName = metadata.product;
+    const plateNumber = metadata.plateNumber;
+    const classification = metadata.classification;
+    const stripeReferenceNumber = session.subscription;
+    console.log('==========META DATA DETAILS===============');
+
+    console.log(metadata);
+    console.log(subscriptionName);
+    console.log(plateNumber);
+    console.log(classification);
+    console.log(stripeReferenceNumber);
+
+    const subscription = await Subscription.find({ name: subscriptionName });
+    const subscriptionDetails = [];
+    subscription.prices.forEach((price) => {
+        const services = price.services;
+        services.forEach((service) => {
+            subscriptionDetails.push({
+                service: service.service,
+                tokensAmount: service.tokensAmount,
+            });
+        });
+    });
+    console.log('DISPLAYING SUBSCRIPTION FOUND');
+    console.log(subscription);
+    console.log('DISPLAYING Subscription Details');
+    console.log(subscriptionDetails);
+
+    const newBookingSubscription = await BookingSubscription.create({
+        subscriptionDetails,
+        owner,
+        product: subscriptionName,
+        plateNumber,
+        classification,
+        stripeReferenceNumber,
+    });
+
+    console.log(newBookingSubscription);
     // if we got the price
 
     // we can now get the subscription we are missing here the plateNumber
@@ -123,12 +159,13 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
     }
 
     if (event.type === 'checkout.session.completed') {
-        console.log('CREATING BOOKING');
+        console.log('CHECKOUT IS SUCCESSFUL');
         console.log(event.data.object);
         if (event.data.object.mode == 'subscription') {
-            console.log('GENERATE TOKEN FOR USER');
+            // for subscriptions
+            await createBookingCheckoutSubscription(event.data.object);
         } else if (event.data.object.mode == 'payment') {
-            console.log('generate tokens');
+            // for one time payment
             await createBookingCheckout(event.data.object);
         }
     }
@@ -157,6 +194,8 @@ exports.webhookIsStillSubscribed = catchAsync(async (req, res, next) => {
         // invoice paid generate these tokens to the user
         console.log('INside invoice paid endpoint');
         console.log(event.data.object);
+        // this contains event.data.object.subscription
+        // now update this to the vehicle
     }
 });
 
