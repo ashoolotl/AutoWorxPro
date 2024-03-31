@@ -8,6 +8,7 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/userModel');
 const BookingSubscription = require('../models/bookingSubscriptionModel');
+const SubscriptionAvailed = require('../models/subscriptionAvailedModel');
 
 exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     //req.params.userId
@@ -111,11 +112,38 @@ const createBookingCheckoutSubscription = async (session) => {
         classification,
         stripeReferenceNumber,
     });
+    // generateTokenForCustomer
 
     console.log(newBookingSubscription);
     // if we got the price
-
+    generateTokenForUserSubscribed(newBookingSubscription._id);
     // we can now get the subscription we are missing here the plateNumber
+};
+const generateTokenForUserSubscribed = async (newSubscriptionId) => {
+    const bookingSubscription = await BookingSubscription.findById(
+        newSubscriptionId
+    );
+    const subscription = await Subscription.find({
+        name: bookingSubscription.product,
+    });
+    if (subscription) {
+        const subscriptionDetails = [];
+        subscription[0].prices.forEach((price) => {
+            price.services.forEach((service) => {
+                subscriptionDetails.push({
+                    service: service.service,
+                    tokensAmount: service.tokensAmount,
+                });
+            });
+        });
+        await SubscriptionAvailed.create({
+            subscriptionDetails,
+            owner: bookingSubscription.owner,
+            product: bookingSubscription.product,
+            plateNumber: bookingSubscription.plateNumber,
+            bookingId: bookingSubscription._id,
+        });
+    }
 };
 const generateTokenForUser = async (newBookingId) => {
     const services = await Service.find();
@@ -162,11 +190,11 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
         console.log(event.data.object);
         if (event.data.object.mode == 'subscription') {
             // for subscriptions generate also te tokens for user
-            console.log('pasok ditooo sa subscription');
+
             await createBookingCheckoutSubscription(event.data.object);
         } else if (event.data.object.mode == 'payment') {
             // for one time payment
-            console.log('pasok sa payment');
+
             await createBookingCheckout(event.data.object);
         }
     }
