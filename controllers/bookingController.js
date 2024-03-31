@@ -90,13 +90,16 @@ const createBookingCheckoutSubscription = async (session) => {
 
     const subscription = await Subscription.find({ name: subscriptionName });
     console.log('DISPLAYING SUBSCRIPTION FOUND');
-    console.log(subscription.prices);
-    const subscriptionPrice = subscription.prices;
-
-    console.log('DISPLAYING SUBSCRIPTION PRICE');
-    console.log(subscriptionPrice);
-
-    console.log(details);
+    console.log(subscription);
+    const subscriptionDetails = [];
+    subscription[0].prices.forEach((price) => {
+        price.services.forEach((service) => {
+            subscriptionDetails.push({
+                service: service.service,
+                tokensAmount: service.tokensAmount,
+            });
+        });
+    });
     console.log('DISPLAYING Subscription Details');
     console.log(subscriptionDetails);
 
