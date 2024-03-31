@@ -66,7 +66,21 @@ const createBookingCheckout = async (session) => {
     }
     deleteItemsInCart(session);
 };
+const createBookingCheckoutSubscription = async (session) => {
+    const owner = session.client_reference_id;
+    // create booking and generate token
 
+    // first we need to get the id from session.subscription
+    // use stripe retrieve to display the subscription
+
+    const subscriptionPurchased = await stripe.subscriptions.retrieve(
+        `${session.subscriptionPurchased}`
+    );
+
+    // if we got the price
+
+    // we can now get the subscription we are missing here the plateNumber
+};
 const generateTokenForUser = async (newBookingId) => {
     const services = await Service.find();
     const booking = await Booking.findById(newBookingId);
@@ -220,6 +234,13 @@ exports.createCheckoutSessionSubscription = async (req, res, next) => {
         // is redirected to the success page.
         success_url: `${req.protocol}://${req.get('host')}/dashboard`,
         cancel_url: `${req.protocol}://${req.get('host')}/subscriptions`,
+        metadata: {
+            classification: subscriptionToAvail.classification,
+            owner: subscriptionToAvail.owner,
+            plateNumber: subscriptionToAvail.plateNumber,
+            price: subscriptionToAvail.price,
+            product: subscriptionToAvail.product,
+        },
     });
     res.status(200).json({
         status: 'success',

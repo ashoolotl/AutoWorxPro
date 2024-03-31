@@ -234,6 +234,7 @@ document
             description: productDescription,
         };
 
+        //console.log(subscriptionData);
         createPayment(subscriptionData, owner);
     });
 function closePopupSubscriptionSelectVehicle() {
