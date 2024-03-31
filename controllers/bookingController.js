@@ -76,6 +76,7 @@ const createBookingCheckoutSubscription = async (session) => {
     const subscriptionPurchased = await stripe.subscriptions.retrieve(
         `${session.subscriptionPurchased}`
     );
+    // access here the meta data
 
     // if we got the price
 
