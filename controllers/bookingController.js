@@ -114,12 +114,19 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
     if (event.type === 'checkout.session.completed') {
         console.log('CREATING BOOKING');
         console.log(event.data.object);
+        if (event.data.object.mode == 'subscription') {
+            console.log('GENERATE TOKEN FOR USER');
+        } else if (event.data.object.mode == 'payment') {
+            console.log('generate tokens');
+            generateTokenForUser(event.data.object);
+            deleteItemsInCart(event.data.object);
+        }
         // create a booking for the admin
         // uncomment later createBookingCheckout(event.data.object);
         // generate the tokens
-        //   generateTokenForUser(event.data.object);
+        //
         // clear the cart of user
-        // uncomment later  deleteItemsInCart(event.data.object);
+        // uncomment later
     }
     console.log('FINISHED');
 
