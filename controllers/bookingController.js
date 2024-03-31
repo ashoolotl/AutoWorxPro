@@ -162,9 +162,11 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
         console.log(event.data.object);
         if (event.data.object.mode == 'subscription') {
             // for subscriptions generate also te tokens for user
+            console.log('pasok ditooo sa subscription');
             await createBookingCheckoutSubscription(event.data.object);
         } else if (event.data.object.mode == 'payment') {
             // for one time payment
+            console.log('pasok sa payment');
             await createBookingCheckout(event.data.object);
         }
     }
