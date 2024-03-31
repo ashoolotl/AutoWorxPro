@@ -24,6 +24,10 @@ const bookingSchema = new mongoose.Schema({
     scheduledDate: {
         type: Date,
     },
+    stripeReferenceNumber: {
+        type: String,
+        require: [true, 'There must be a stripe reference number'],
+    },
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

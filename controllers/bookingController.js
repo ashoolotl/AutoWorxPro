@@ -60,22 +60,20 @@ const createBookingCheckout = async (session) => {
             product: cart.product,
             classification: cart.classification,
             plateNumber: cart.plateNumber,
+            stripeReferenceNumber: session.payment_intent,
         });
         generateTokenForUser(newBooking._id);
     }
 };
 
 const generateTokenForUser = async (newBookingId) => {
-    const subscriptions = await Subscription.find();
     const services = await Service.find();
     const booking = await Booking.findById(newBookingId);
 
     const serviceExists = services.some(
         (service) => service.name === booking.product
     );
-    const subscriptionExists = subscriptions.some(
-        (subscription) => subscription.name === booking.product
-    );
+
     if (serviceExists) {
         console.log('CHECKING IF IT GOES HERE');
         await ServiceAvailed.create({
@@ -85,10 +83,6 @@ const generateTokenForUser = async (newBookingId) => {
             product: booking.product,
             bookingId: booking._id,
         });
-    }
-
-    if (subscriptionExists) {
-        // generate token
     }
 };
 
@@ -118,7 +112,7 @@ exports.webhookCheckout = catchAsync(async (req, res, next) => {
             console.log('GENERATE TOKEN FOR USER');
         } else if (event.data.object.mode == 'payment') {
             console.log('generate tokens');
-            generateTokenForUser(event.data.object);
+            createBookingCheckout(event.data.object);
             deleteItemsInCart(event.data.object);
         }
         // create a booking for the admin
