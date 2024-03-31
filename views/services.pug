@@ -100,7 +100,7 @@ block content
                     else if user && user.role ==='user'
                         .buttons-container 
                             button#serviceAddToCart.edit-btn(type='button', data-id=service._id, data-owner=user._id) Add To Cart 
-                    else if user && user === 'nouser'
+                    else
                         .buttons-container 
                             button#serviceAddToCartNoUser.edit-btn(type='button') Add to Cart
 

@@ -4,6 +4,8 @@ const Service = require('../models/servicesModel');
 const Subscription = require('../models/subscriptionModel');
 const Cart = require('../models/cartModel');
 const ServiceAvailed = require('../models/serviceAvailedModel');
+const Booking = require('../models/bookingModel');
+const BookingSubscription = require('../models/bookingSubscriptionModel');
 exports.getLoginForm = (req, res, next) => {
     res.status(200).render('login', {
         title: 'Log into your account',
@@ -16,17 +18,29 @@ exports.getHomepage = (req, res, next) => {
 
 exports.getDashboard = async (req, res, next) => {
     const user = req.user;
-    const vehicleClassifications = await VehicleClassification.find();
-    const vehicles = await Vehicle.find({ owner: user._id });
-    const serviceAvailed = await ServiceAvailed.find({ owner: user._id });
-    console.log(user);
-    res.status(200).render('dashboard', {
-        title: 'Dashboard',
-        user,
-        vehicleClassifications,
-        vehicles,
-        serviceAvailed,
-    });
+
+    if (user.role === 'user') {
+        const vehicleClassifications = await VehicleClassification.find();
+        const vehicles = await Vehicle.find({ owner: user._id });
+        const serviceAvailed = await ServiceAvailed.find({ owner: user._id });
+        res.status(200).render('dashboard', {
+            title: 'Dashboard',
+            user,
+            vehicleClassifications,
+            vehicles,
+            serviceAvailed,
+        });
+    }
+    if (user.role === 'admin') {
+        const serviceBookings = await Booking.find();
+        const subscriptionBookings = await BookingSubscription.find();
+        res.status(200).render('adminDashboard', {
+            title: 'Admin Dashboard',
+            user,
+            serviceBookings,
+            subscriptionBookings,
+        });
+    }
 };
 
 exports.getVehicleClassifications = async (req, res, next) => {
@@ -47,7 +61,7 @@ exports.getServices = async (req, res, next) => {
     let user = res.locals.user;
     console.log(user);
     let vehicles = undefined;
-    if (user.role === 'user') {
+    if (user && user.role === 'user') {
         vehicles = await Vehicle.find({ owner: user._id });
     }
 
@@ -70,7 +84,7 @@ exports.getSubscriptions = async (req, res, next) => {
         console.log('no user');
     }
     let user = res.locals.user;
-    if (user.role == 'user') {
+    if (user && user.role == 'user') {
         vehiclesOwned = await Vehicle.find({ owner: user._id });
         console.log(vehiclesOwned);
     }

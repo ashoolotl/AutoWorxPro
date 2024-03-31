@@ -107,6 +107,7 @@ async function submitDateTimeServiceBooking() {
     const dateTimeString = dateInput + 'T' + timeInput + ':00';
     const bookingData = {
         scheduledDate: dateTimeString,
+        status: 'Waiting for vehicle',
     };
 
     updateBooking(bookingData, service.data.serviceAvailed.bookingId);

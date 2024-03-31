@@ -1,0 +1,40 @@
+extends base
+
+block stylesheets
+    link(rel='stylesheet', href='/partials/navbar.css')
+    link(rel='stylesheet', href='/user-profile-admin-booking.css')
+    link(rel='stylesheet', href='/update-status.css')
+    
+block content
+    header
+    .profile-container
+        #profile-picture
+            img(src="./images/filler-icon.jpg", alt="Profile Picture")
+        h1 Hi, 
+            span=user.firstName 
+        p What would you like to get started on today?
+
+
+        
+    .registered-cars 
+        h2 Bookings
+        hr
+        //- Display first the services one time and then after that the subscriptions
+        each serviceBooking of serviceBookings 
+            .car 
+                img(src=`/images/vehicleClassification/${serviceBooking.classification}.jpeg`,alt=`Image for ${serviceBooking.classification}.jpeg`)
+                .car-status
+                    .car-info 
+                        
+                        p.car-text
+                            Strong=`Order Date: `
+                            if serviceBooking.scheduledDate
+                                
+                                | #{new Date(serviceBooking.scheduledDate).toString().split(' GMT')[0]}
+                            else 
+                                | Not Available
+                        p.car-text
+                            Strong=`Plate Number: `
+                            |#{serviceBooking.plateNumber}
+                        p.car-text 
+                            

@@ -103,14 +103,14 @@ block content
                     h2=subscription.name
                     h3=subscription.description
 
-                    if user.role=== 'admin'
+                    if user && user.role=== 'admin'
                         .buttons-container 
                             button#subscriptionEditBtn.edit-btn(type='button', data-id=subscription._id) Edit 
                             button#subscriptionDeleteBtn.delete-btn(type='button', data-id=subscription._id) Delete
                     else if user && user.role === 'user' 
                         .buttons-container 
                             button#subscriptionGoToPayment.edit-btn(type='button', onclick=`showSubscriptionPopup('${subscription._id}', '${user._id}', '${subscription.name}','${subscription.description}')`) Purchase
-                    else if user && user === 'nouser'
+                    else
                         .buttons-container 
                             button#subscriptionAddToCartNoUser.edit-btn(type='button') Purchase 
 

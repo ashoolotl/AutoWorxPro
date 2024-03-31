@@ -28,6 +28,9 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         require: [true, 'There must be a stripe reference number'],
     },
+    status: {
+        type: String,
+    },
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

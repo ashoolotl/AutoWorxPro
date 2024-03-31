@@ -7,6 +7,7 @@ router.use(authController.isLoggedIn);
 router.get('/login', viewsController.getLoginForm);
 router.get('/', viewsController.getHomepage);
 router.get('/dashboard', authController.protect, viewsController.getDashboard);
+
 router.get(
     '/vehicle-classifications',
     authController.protect,

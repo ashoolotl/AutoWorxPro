@@ -250,6 +250,7 @@ exports.updateBookingStatus = catchAsync(async (req, res, next) => {
         req.params.bookingId,
         {
             scheduledDate: req.body.scheduledDate,
+            status: req.body.status,
         },
         {
             new: true,
