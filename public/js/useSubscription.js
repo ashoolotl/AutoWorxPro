@@ -10,8 +10,15 @@ const getAvailedSubscription = async (id) => {
     }
 };
 let allService = [];
+let subscriptionBookingIdToUpdate = null;
+let plateNumberToUpdate = null;
 async function showPopupSubscription(subscriptionId) {
     const availedSubscription = await getAvailedSubscription(subscriptionId);
+    subscriptionBookingIdToUpdate =
+        availedSubscription.data.subscriptionUserAvailed.bookingId;
+    plateNumberToUpdate =
+        availedSubscription.data.subscriptionUserAvailed.plateNumber;
+
     console.log(availedSubscription);
 
     document.getElementById(
@@ -113,8 +120,6 @@ function generateSubscriptionPopup(services) {
         '.popupContent[data-service-id="0"]'
     );
 
-    console.log(lastPopupContent);
-
     // Create the button
     const bookingButton = document.createElement('button');
     bookingButton.classList.add('booking');
@@ -122,6 +127,17 @@ function generateSubscriptionPopup(services) {
     bookingButton.onclick = showDateTimePopupSubscription; // Assuming showDateTimePopup is your function name
     // Insert the button after the last popupContent div
     lastPopupContent.insertAdjacentElement('afterend', bookingButton);
+
+    // Create the Cancel Subscription button
+    const cancelButton = document.createElement('button');
+    cancelButton.classList.add('booking');
+    cancelButton.textContent = 'Cancel Subscription';
+    cancelButton.onclick = cancelSubscription(); // Assuming cancelSubscription is your function name
+    cancelButton.style.backgroundColor = '#d9534f'; // Example background color
+    cancelButton.style.color = '#fff'; // Example text color
+    // Insert the Cancel Subscription button after the booking button
+    bookingButton.insertAdjacentElement('afterend', cancelButton);
+
     // Query all radio buttons with the name "subscriptionRadio"
     const radioButtons = document.querySelectorAll(
         'input[type="radio"][name="subscriptionSelected"]'
@@ -140,4 +156,106 @@ function generateSubscriptionPopup(services) {
     });
 }
 
-function showDateTimePopupSubscription() {}
+function showDateTimePopupSubscription() {
+    document.getElementById('subscriptionPopup').style.display = 'none';
+    document.getElementById('dateTimePopupSubscription').style.display =
+        'block';
+}
+
+function closeDateTimePopupSubscription() {
+    document.getElementById('dateTimePopupSubscription').style.display = 'none';
+}
+
+function cancelSubscription() {}
+
+function validateTime() {
+    var bookingTime = document.getElementById('bookingTimeSubscription').value;
+    if (bookingTime < '09:00' || bookingTime > '17:00') {
+        alert('Please select a time between 9:00 AM and 5:00 PM.');
+        document.getElementById('bookingTimeSubscription').value = '09:00';
+    }
+}
+async function submitDateTimeSubscriptionBooking() {
+    alert('booking received');
+    document.getElementById('dateTimePopupSubscription').style.display = 'none';
+    const dateInput = document.getElementById('bookingDateSubscription').value;
+    const timeInput = document.getElementById('bookingTimeSubscription').value;
+    const dateTimeString = dateInput + 'T' + timeInput + ':00.000+00:00';
+
+    // update the bookingSubscriptions collection with the bookingId
+
+    // update the user vehicle status
+    var date = new Date(dateInput + 'T' + timeInput + ':00');
+    var options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+    };
+    var formattedDate = date.toLocaleDateString('en-US', options);
+
+    const vehicleData = {
+        status: `Appointment on ${formattedDate}`,
+    };
+
+    console.log(allService);
+
+    // the chosen service add here
+
+    const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="subscriptionSelected"]'
+    );
+    let selectedproduct;
+
+    // Iterate through radioButtons to find the selected one
+    radioButtons.forEach((radioButton) => {
+        if (radioButton.checked) {
+            selectedproduct = radioButton.value;
+        }
+    });
+
+    const newBookingSubscription = {
+        scheduledDate: dateTimeString,
+        status: 'Waiting for vehicle',
+        chosenService: allService[selectedproduct].service,
+    };
+    alert(allService[selectedproduct].service);
+    await updateSubscriptionsBooking(
+        newBookingSubscription,
+        subscriptionBookingIdToUpdate
+    );
+    //await updateUserVehicleStatus(vehicleData, plateNumberToUpdate);
+}
+
+const updateUserVehicleStatus = async (data, id) => {
+    try {
+        const res = await axios({
+            method: 'PATCH',
+            url: `/api/v1/vehicles/unit/${id}`,
+            data,
+        });
+        if (res.data.status === 'success') {
+            window.location.reload();
+        }
+    } catch (err) {
+        alert(err.response.data.message);
+    }
+};
+
+const updateSubscriptionsBooking = async (data, id) => {
+    try {
+        const res = await axios({
+            method: 'PATCH',
+            url: `/api/v1/bookings-subscription/${id}`,
+            data,
+        });
+        if (res.data.status === 'success') {
+            window.location.reload();
+        }
+    } catch (err) {
+        alert(err.response.data.message);
+    }
+};

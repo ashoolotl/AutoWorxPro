@@ -5,4 +5,8 @@ const router = express.Router();
 router.use(authController.protect);
 
 router.route('/').get(bookingSubscriptionController.getAllBookingSubscription);
+
+router
+    .route('/:subscriptionBookingId')
+    .patch(bookingSubscriptionController.updateBookingSubscriptionById);
 module.exports = router;

@@ -45,6 +45,9 @@ const bookingSubscriptionSchema = new mongoose.Schema({
     status: {
         type: String,
     },
+    chosenService: {
+        type: String,
+    },
 });
 
 const BookingSubscription = mongoose.model(

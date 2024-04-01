@@ -86,6 +86,7 @@ app.use('/api/v1/bookings', bookingRouter);
 app.use('/api/v1/servicesAvailed', serviceAvailedRouter);
 app.use('/api/v1/bookings-subscription', bookingSubscriptionRouter);
 app.use('/api/v1/subscriptionsAvailed', subscriptionAvailedRouter);
+
 // Handle error if tried to access invalid path
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server`), 404);

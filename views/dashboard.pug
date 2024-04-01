@@ -109,7 +109,7 @@ block content
         .subscriptions
             each subscription of subscriptionsAvailed  
                 
-                img(src=`/images/subscriptions/${subscription.product}.jpeg`, alt=`Image for ${subscription.product}`, style="width: 592px; height: 316px; border-radius: 20px;", onclick=`showPopupSubscription('${subscription.id}')`)
+                img(src=`/images/subscriptions/${subscription.product}.jpeg`, alt=`Image for ${subscription.product}`, style="width: 592px; height: 316px; border-radius: 20px;", onclick=`showPopupSubscription('${subscription._id}')`)
     //- popup for selecting subscription
 
     #subscriptionPopup.tokenContainer
@@ -117,9 +117,19 @@ block content
         h2#subscriptionPopupPlateNumber Subscription For Vehicle XXXX1234
         #generatedCodeHere
 
+    //- popup for date time
+
+    #dateTimePopupSubscription.tokenContainer
+        span.closePopup(onclick="closeDateTimePopupSubscription()") &times;
+        h2 Select Date and Time
+            .content
+                - const nowSubscription = new Date(Date.now() + (3600000 * 8)); // Adjusting for UTC+8 (Philippine Time)
+                input(type="date", id="bookingDateSubscription", min=`${nowSubscription.toISOString().split('T')[0]}`, value=`${nowSubscription.toISOString().split('T')[0]}`)
+                input(type="time", id="bookingTimeSubscription", value="09:00", onchange="validateTime()")
+        hr
+        button.dateTimeSubmit(onclick="submitDateTimeSubscriptionBooking()") Submit
 
 
-        button()
 
 
         

@@ -276,6 +276,7 @@ exports.updateBookingStatus = catchAsync(async (req, res, next) => {
         },
     });
 });
+
 exports.createCheckoutSessionSubscription = async (req, res, next) => {
     // pass in here the data
     // which is the subscription_id selected
