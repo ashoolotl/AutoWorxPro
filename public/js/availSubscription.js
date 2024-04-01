@@ -234,8 +234,15 @@ document
             description: productDescription,
         };
 
+        var confirmResult = confirm(
+            'The subscription tokens that you will receive after purchasing this can only be used with the vehicle plate number you selected that is linked to your account. Do you still want to proceed?'
+        );
+        if (confirmResult) {
+            createPayment(subscriptionData, owner);
+        } else {
+            console.log('');
+        }
         //console.log(subscriptionData);
-        createPayment(subscriptionData, owner);
     });
 function closePopupSubscriptionSelectVehicle() {
     document.getElementById('bookingPopup').style.display = 'none';

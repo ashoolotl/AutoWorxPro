@@ -39,8 +39,15 @@ document
             plateNumber: document.getElementById('plateNumber').value,
             owner: document.getElementById('userId').value,
         };
-
-        addVehicle(vehicleData);
+        var confirmResult = confirm(
+            'Do you agree that the vehicle details are correct and owned by you. Do you still  want to proceed to add this to your vehicle?'
+        );
+        if (confirmResult) {
+            addVehicle(vehicleData);
+        } else {
+            console.log('');
+        }
+        //
         // document.getElementById('successPopup').style.display = 'block';
     }); // when submitted, hide form popup then show success popup
 

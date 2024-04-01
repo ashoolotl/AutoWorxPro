@@ -62,3 +62,27 @@ document.querySelector('form').addEventListener('submit', (e) => {
         numberOfCarsOwned
     );
 });
+function onlyAlphabets(evt) {
+    var charCode = evt.which ? evt.which : event.keyCode;
+    if (
+        (charCode < 65 || charCode > 90) &&
+        (charCode < 97 || charCode > 122) &&
+        charCode != 32
+    ) {
+        evt.preventDefault();
+        return false;
+    }
+    return true;
+}
+function checkPasswordMatch(evt) {
+    var password = document.getElementById('password').value;
+    console.log(password);
+    var confirmPassword = document.getElementById('passwordConfirm').value;
+    console.log(confirmPassword);
+    var mismatchDiv = document.getElementById('passwordMismatch');
+    if (password != confirmPassword) {
+        mismatchDiv.style.display = 'block';
+    } else {
+        mismatchDiv.style.display = 'none';
+    }
+}

@@ -290,8 +290,14 @@ document
             classification: classification,
             description: serviceDescription,
         };
-
-        addItemToCart(cartData);
+        var confirmResult = confirm(
+            'The service token that you will receive after purchasing this can only be used with the vehicle plate number you selected that is linked to your account. Do you still want to proceed?'
+        );
+        if (confirmResult) {
+            addItemToCart(cartData);
+        } else {
+            console.log('');
+        }
     });
 document
     .getElementById('closePopupBooking')

@@ -102,7 +102,7 @@ block content
                             button#serviceAddToCart.edit-btn(type='button', data-id=service._id, data-owner=user._id) Add To Cart 
                     else
                         .buttons-container 
-                            button#serviceAddToCartNoUser.edit-btn(type='button') Add to Cart
+                            button#serviceAddToCartNoUser.edit-btn(type='button', onclick='showErrorNotLoggedIn()') Add to Cart
 
 
     //- booking popup
@@ -132,3 +132,6 @@ block scripts
         script(src='/js/addService.js')
     else if user && user.role ==='user'
         script(src='/js/addToCart.js')
+    else
+        script(src='/js/errorNotLoggedIn.js')
+    

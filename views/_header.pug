@@ -6,7 +6,6 @@
         a(href="/") Home
         a(href="/subscriptions") Subscriptions
         a(href="/services") Services
-        a(href="#") Contact Us
     .navbar-right
 
         if user
@@ -38,21 +37,15 @@
             if user==='nouser'
                 .username
                     a(href="/login" class="user-link")
-                        img(src="./images/usernamebg.png", alt="User Profile Image")
-                        span Register
-                    a(href="#" class="cart-icon")
-                        img(src="./images/cart.png")
-                    a(href="#" class="search-icon")
-                        img(src="./images/search.png")
+                        img(src="./images/usernamebg.png", alt="User Profile Image" )
+                        span Register/LogIn
+                   
         else
             .username
                     a(href="/login" class="user-link")
                         img(src="./images/usernamebg.png", alt="User Profile Image")
-                        span Register
-                    a(href="#" class="cart-icon")
-                        img(src="./images/cart.png")
-                    a(href="#" class="search-icon")
-                        img(src="./images/search.png")
+                        span Register/Log In
+                   
 
 
 

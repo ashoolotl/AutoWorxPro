@@ -112,7 +112,7 @@ block content
                             button#subscriptionGoToPayment.edit-btn(type='button', onclick=`showSubscriptionPopup('${subscription._id}', '${user._id}', '${subscription.name}','${subscription.description}')`) Purchase
                     else
                         .buttons-container 
-                            button#subscriptionAddToCartNoUser.edit-btn(type='button') Purchase 
+                            button#subscriptionAddToCartNoUser.edit-btn(type='button', onclick='showErrorNotLoggedIn()') Purchase 
 
     #bookingPopup.popupContainer
 
@@ -131,4 +131,6 @@ block scripts
     else if user && user.role ==='user'
         script(src="https://js.stripe.com/v3/")
         script(src='/js/availSubscription.js')
+    else
+        script(src='/js/errorNotLoggedIn.js')
     
