@@ -6,6 +6,7 @@ const Cart = require('../models/cartModel');
 const ServiceAvailed = require('../models/serviceAvailedModel');
 const Booking = require('../models/bookingModel');
 const BookingSubscription = require('../models/bookingSubscriptionModel');
+const SubscriptionAvailed = require('../models/subscriptionAvailedModel');
 exports.getLoginForm = (req, res, next) => {
     res.status(200).render('login', {
         title: 'Log into your account',
@@ -23,12 +24,16 @@ exports.getDashboard = async (req, res, next) => {
         const vehicleClassifications = await VehicleClassification.find();
         const vehicles = await Vehicle.find({ owner: user._id });
         const serviceAvailed = await ServiceAvailed.find({ owner: user._id });
+        const subscriptionsAvailed = await SubscriptionAvailed.find({
+            owner: user._id,
+        });
         res.status(200).render('dashboard', {
             title: 'Dashboard',
             user,
             vehicleClassifications,
             vehicles,
             serviceAvailed,
+            subscriptionsAvailed,
         });
     }
     if (user.role === 'admin') {
@@ -37,7 +42,10 @@ exports.getDashboard = async (req, res, next) => {
             scheduledDate: { $exists: true },
         });
         console.log(serviceBookings);
-        const subscriptionBookings = await BookingSubscription.find();
+        const subscriptionBookings = await BookingSubscription.find({
+            status: { $ne: 'none' },
+            scheduledDate: { $exists: true },
+        });
         res.status(200).render('adminDashboard', {
             title: 'Admin Dashboard',
             user,

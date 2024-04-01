@@ -102,8 +102,28 @@ block content
         hr
         button.dateTimeSubmit(onclick="submitDateTimeServiceBooking()") Submit
 
-
+    //-Subscriptions
     
+    #active-subscriptions.active-subscriptions
+        h2 Active Subscriptions 
+        .subscriptions
+            each subscription of subscriptionsAvailed  
+                
+                img(src=`/images/subscriptions/${subscription.product}.jpeg`, alt=`Image for ${subscription.product}`, style="width: 592px; height: 316px; border-radius: 20px;", onclick=`showPopupSubscription('${subscription.id}')`)
+    //- popup for selecting subscription
+
+    #subscriptionPopup.tokenContainer
+        span.closePopup(onclick=`closePopupSubscription()`) &times;
+        h2#subscriptionPopupPlateNumber Subscription For Vehicle XXXX1234
+        #generatedCodeHere
+
+
+
+        button()
+
+
+        
+  
 
         
 
@@ -111,6 +131,7 @@ block content
 block scripts 
     script(src='/js/registerVehicle.js')
     script(src='/js/availService.js')
+    script(src='/js/useSubscription.js')
 
 
 

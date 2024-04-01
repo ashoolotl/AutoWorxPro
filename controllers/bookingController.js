@@ -165,6 +165,8 @@ const generateTokenForUser = async (newBookingId) => {
     }
 };
 
+const generateTokenMonthly = async () => {};
+
 const deleteItemsInCart = async (session) => {
     const owner = session.client_reference_id;
     await Cart.deleteMany({ owner: owner });
