@@ -13,9 +13,10 @@ router
 
 router
     .route('/:userId')
-    .get(
+    .get(authController.protect, availedServiceController.getAvailedServiceById)
+    .delete(
         authController.protect,
-        availedServiceController.getAvailedServiceById
+        authController.restrictTo('admin'),
+        availedServiceController.deleteAvailedService
     );
-
 module.exports = router;

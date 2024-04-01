@@ -27,14 +27,70 @@ block content
                     .car-info 
                         
                         p.car-text
-                            Strong=`Order Date: `
+                            
                             if serviceBooking.scheduledDate
-                                
-                                | #{new Date(serviceBooking.scheduledDate).toString().split(' GMT')[0]}
+                                - const dateString = `${serviceBooking.scheduledDate.toISOString()}`;
+                                - const formattedDate = dateString.slice(0, 10) + ' ' + dateString.slice(11, 16);
+                                Strong=`Booking Date: `
+                                span=`${formattedDate}`
                             else 
-                                | Not Available
+                                Strong=`Booking Date: `
+                                span='Not Available'
+
                         p.car-text
                             Strong=`Plate Number: `
                             |#{serviceBooking.plateNumber}
-                        p.car-text 
-                            
+                        p.car-text
+                            Strong=`Status: `
+                            span(id=`displayBookingStatus${serviceBooking._id}`,class='status current' onclick=(`showUpdateServicePopup('${serviceBooking._id}','${serviceBooking.plateNumber}')`))=serviceBooking.status
+                        
+                        button.more-info-btn(onclick=`showMoreInformation('${serviceBooking._id}', '${serviceBooking.owner}', '${serviceBooking.stripeReferenceNumber}', '${serviceBooking.product}')`)  More Information
+                        
+
+    #showMoreInfoPopup.popupContainer
+        .popupContent
+            span.closePopup(onclick=`closeMoreInfoPopup()`) &times;
+            .info-item
+                label(for="wash-type")=`Wash Type: `
+                span#wash-type Hyper Wash
+            .info-item
+                label(for="first-name")=`Owner First Name: `
+                span#first-name John
+            .info-item
+                label(for="last-name")=`Owner Last Name: `
+                span#last-name Doe
+            .info-item
+                label(for="user-email")=`Owner Email: `
+                span#user-email Doe@gmail.com
+            .info-item
+                label(for="booking-reference-number")=`Payment Reference Number: `
+                span#booking-reference-number pi_12312352
+
+
+    #status-form.status-form
+        form#status-change-form
+            span.closePopup(onclick=`closeStatusForm()`) &times;
+            input(type='hidden', id='statusFormHiddenId')
+            input(type='hidden', id='statusFormHiddenOwnerId')
+            label(for="status-select") Select Status:
+            select#status-select(onchange="checkStatusChange()")
+                option(value="Waiting for vehicle" selected) Waiting for vehicle
+                option(value="Vehicle received") Vehicle received
+                option(value="Vehicle in queue" ) Vehicle in queue
+                option(value="Work in progress" ) Work in progress 
+                option(value="Drying" ) Drying 
+                option(value="Turnovered" ) Turnovered 
+            button(type='submit', id='changeButton' disabled) Change
+                
+                     
+
+
+block scripts 
+    script(src='/js/adminDashboard.js')
+    
+
+
+
+
+
+

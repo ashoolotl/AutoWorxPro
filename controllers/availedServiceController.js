@@ -22,3 +22,13 @@ exports.getAvailedServiceById = catchAsync(async (req, res, next) => {
         },
     });
 });
+exports.deleteAvailedService = catchAsync(async (req, res, next) => {
+    const deletedDoc = await ServiceAvailed.findOneAndDelete({
+        bookingId: req.params.userId,
+    });
+
+    res.status(200).json({
+        status: 'success',
+        data: null,
+    });
+});

@@ -32,7 +32,11 @@ exports.getDashboard = async (req, res, next) => {
         });
     }
     if (user.role === 'admin') {
-        const serviceBookings = await Booking.find();
+        const serviceBookings = await Booking.find({
+            status: { $ne: 'Completed' },
+            scheduledDate: { $exists: true },
+        });
+        console.log(serviceBookings);
         const subscriptionBookings = await BookingSubscription.find();
         res.status(200).render('adminDashboard', {
             title: 'Admin Dashboard',

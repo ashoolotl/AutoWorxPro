@@ -56,6 +56,30 @@ exports.updateVehicleStatus = catchAsync(async (req, res, next) => {
     });
 });
 
+exports.updateVehicleStatusByPlateNumber = catchAsync(
+    async (req, res, next) => {
+        console.log('updating vehicle');
+        const vehicle = await Vehicle.findOneAndUpdate(
+            { plateNumber: req.params.plateNumber },
+            {
+                status: req.body.status,
+            },
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+        console.log(vehicle);
+        res.status(200).json({
+            status: 'success',
+            data: {
+                booking: vehicle,
+            },
+        });
+    }
+);
+
 exports.getVehicleById = catchAsync(async (req, res, next) => {
     const vehicle = await Vehicle.find({
         plateNumber: req.params.plateNumber,

@@ -24,5 +24,10 @@ router.post(
     '/checkout-subscription/:userId',
     bookingController.createCheckoutSessionSubscription
 );
-
+router.get(
+    '/:ownerId',
+    authController.protect,
+    authController.restrictTo('admin'),
+    bookingController.getBookingByOwner
+);
 module.exports = router;

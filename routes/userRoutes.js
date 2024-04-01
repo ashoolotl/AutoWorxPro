@@ -22,4 +22,11 @@ router.patch('/updateMyPassword', authController.updatePassword);
 router
     .route('/')
     .get(authController.restrictTo('admin'), userController.getAllUser);
+router
+    .route('/:userId')
+    .get(
+        authController.protect,
+        authController.restrictTo('admin'),
+        userController.getUserById
+    );
 module.exports = router;

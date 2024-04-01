@@ -243,6 +243,15 @@ exports.getAllBookings = catchAsync(async (req, res, next) => {
         },
     });
 });
+exports.getBookingByOwner = catchAsync(async (req, res, next) => {
+    const bookings = await Booking.findById({ owner: req.params.ownerId });
+    res.status(200).json({
+        status: 'success',
+        data: {
+            booking: bookings,
+        },
+    });
+});
 exports.updateBookingStatus = catchAsync(async (req, res, next) => {
     console.log('INSIDE UPDATING BOOKING');
     console.log(req.body);
