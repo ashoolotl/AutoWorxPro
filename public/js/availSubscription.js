@@ -112,10 +112,26 @@ async function showSubscriptionPopup(
 }
 function generateSubscriptionPopup(vehiclesData) {
     // Get the reference to the hr#generateVehicles element
+
+    const hrElement = document.getElementById('generateVehicleSubscriptions');
+
+    // Get the parent element of the <hr> element
+    const parentElement1 = hrElement.parentNode;
+
+    // Get the next sibling of the <hr> element
+    let nextSibling = hrElement.nextSibling;
+
+    // Remove all siblings after the <hr> element
+    while (nextSibling) {
+        const siblingToRemove = nextSibling;
+        nextSibling = siblingToRemove.nextSibling; // Update nextSibling before removing it
+        parentElement1.removeChild(siblingToRemove); // Remove the sibling element
+    }
     // Get the parent element where the generated content will be appended
     const parentElement = document.getElementById(
         'generateVehicleSubscriptions'
     ).parentNode;
+
     var counter = 0;
     // Iterate over each vehicle data and create corresponding HTML elements
     vehiclesData.forEach((vehicle) => {

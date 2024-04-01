@@ -137,7 +137,7 @@ function generateAvailableServices(
         // Create the span element for price
         var priceSpan = document.createElement('span');
         priceSpan.classList.add('bookingPopupPrice');
-        priceSpan.innerHTML = `<strong>Price: </strong>${vehicle.price}`;
+        priceSpan.innerHTML = `<strong>Price: </strong> €${vehicle.price}`;
 
         // Append plate number and price spans to info item div
         infoItemDiv.appendChild(plateNumberSpan);
