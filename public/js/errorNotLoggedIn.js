@@ -1,3 +1,3 @@
 function showErrorNotLoggedIn() {
-    window.location.href('/login');
+    window.location.href = '/login';
 }
