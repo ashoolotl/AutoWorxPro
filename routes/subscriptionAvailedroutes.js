@@ -17,4 +17,7 @@ router
         authController.protect,
         availedSubscriptionController.getAvailedSubscriptionById
     );
+router
+    .route('/token/:bookingId')
+    .patch(availedSubscriptionController.updateUserTokenSubscription);
 module.exports = router;

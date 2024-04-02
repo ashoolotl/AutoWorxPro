@@ -222,12 +222,12 @@ async function submitDateTimeSubscriptionBooking() {
         status: 'Waiting for vehicle',
         chosenService: allService[selectedproduct].service,
     };
-    alert(allService[selectedproduct].service);
+    //alert(allService[selectedproduct].service);
     await updateSubscriptionsBooking(
         newBookingSubscription,
         subscriptionBookingIdToUpdate
     );
-    //await updateUserVehicleStatus(vehicleData, plateNumberToUpdate);
+    await updateUserVehicleStatus(vehicleData, plateNumberToUpdate);
 }
 
 const updateUserVehicleStatus = async (data, id) => {

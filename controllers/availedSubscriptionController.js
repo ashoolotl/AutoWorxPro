@@ -24,3 +24,22 @@ exports.getAvailedSubscriptionById = catchAsync(async (req, res, next) => {
         },
     });
 });
+
+exports.updateUserTokenSubscription = catchAsync(async (req, res, next) => {
+    const updatedTokens = await SubscriptionAvailed.findOneAndUpdate(
+        { bookingId: req.params.bookingId },
+        {
+            subscriptionDetails: req.body.subscriptionDetails,
+        },
+        {
+            new: true,
+            runValidators: true,
+        }
+    );
+    res.status(200).json({
+        status: 'success',
+        data: {
+            updatedTokens,
+        },
+    });
+});

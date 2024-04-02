@@ -29,10 +29,12 @@
                         img(src="/images/usernamebg.png", alt="User Profile Image")
                         span=`Hello, ${user.firstName}`
                         
-                    .dropdown-content 
-                        a(href='/vehicle-classifications') Add Vehicle Classifications
-                        a(href='/services') Add Services 
-                        a(href='/subscriptions') Add Subscriptions 
+                    .dropdown-content
+                        a(href='/adminDashboard') Manage Vehicle Classifications
+                        a(href='/vehicle-classifications') Manage Vehicle Classifications
+                        a(href='/services') Manage Services 
+                        a(href='/subscriptions') Manage Subscriptions 
+
                         a(onclick='logout()') Log Out 
             if user==='nouser'
                 .username

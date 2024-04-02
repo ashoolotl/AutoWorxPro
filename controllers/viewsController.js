@@ -16,7 +16,23 @@ exports.getLoginForm = (req, res, next) => {
 exports.getHomepage = (req, res, next) => {
     res.status(200).render('homepage');
 };
+exports.getAdminDashboard = async (req, res, next) => {
+    const serviceBookings = await Booking.find({
+        status: { $ne: 'Completed' },
+        scheduledDate: { $exists: true },
+    });
+    console.log(serviceBookings);
+    const subscriptionBookings = await BookingSubscription.find({
+        status: { $ne: 'none' },
+        scheduledDate: { $exists: true },
+    });
+    res.status(200).render('adminDashboard', {
+        title: 'Admin Dashboard',
 
+        serviceBookings,
+        subscriptionBookings,
+    });
+};
 exports.getDashboard = async (req, res, next) => {
     const user = req.user;
 

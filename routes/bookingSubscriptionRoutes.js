@@ -8,5 +8,10 @@ router.route('/').get(bookingSubscriptionController.getAllBookingSubscription);
 
 router
     .route('/:subscriptionBookingId')
-    .patch(bookingSubscriptionController.updateBookingSubscriptionById);
+    .get(bookingSubscriptionController.getSubscriptionBookingById)
+    .patch(bookingSubscriptionController.deductTokensById);
+
+router
+    .route('/token/:subscriptionBookingId')
+    .patch(bookingSubscriptionController.updateSubscriptionTokens);
 module.exports = router;
