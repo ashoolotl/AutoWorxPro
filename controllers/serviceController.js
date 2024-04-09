@@ -34,7 +34,7 @@ exports.resizeServicePhoto = (req, res, next) => {
         .resize(3200, 1800)
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
-        .toFile(`public/images/services/${req.file.filename}`);
+        .toFile(`public/images/services/DEFAULT.jpeg`);
 
     next();
 };
