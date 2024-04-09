@@ -104,9 +104,6 @@ exports.getAllServices = catchAsync(async (req, res, next) => {
 exports.createService = catchAsync(async (req, res, next) => {
     // validate that the vehicle classification is only
     let fileName = 'DEFAULT.jpeg';
-    if (req.file) {
-        fileName = req.file.filename;
-    }
     // if (req.body.photo) {
     //     fileName = req.body.photo;
     // }
